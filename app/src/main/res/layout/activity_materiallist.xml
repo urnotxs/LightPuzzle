@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/splash_aty_rl_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.xs.lightpuzzle.WelcomeActivity">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/welcome_iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/welcome_space"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_nav_header_logo" />
+
+    <android.support.v4.widget.Space
+        android:id="@+id/welcome_space"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_above="@+id/welcome_txt_intro" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/welcome_txt_intro"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/material_list"
+        android:textColor="@color/colorPrimaryDark" />
+
+</RelativeLayout>

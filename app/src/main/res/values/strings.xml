@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LightPuzzle</string>
+    <string name="app_introduction">Welcome !!!</string>
+
+    <string name="material_list">模板列表</string>
+
+</resources>
