@@ -6,5 +6,10 @@ package com.xs.lightpuzzle.data;
 
 public interface DataConstant {
 
-    String DB_NAME = "pizza_material";
+    String DB_NAME = "puzzle_material";
+
+    interface ASSETS_DATA {
+        String TEMPLATE = "data/template.json";
+        String FONT = "data/font.json";
+    }
 }

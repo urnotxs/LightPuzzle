@@ -34,6 +34,9 @@ dependencies {
     // animator
     implementation 'com.github.florent37:viewanimator:1.0.5'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.2'
+
     // GreenDao
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'org.greenrobot:greendao-generator:3.2.2'
