@@ -24,18 +24,18 @@
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="43f6a3c2-5e5e-41a7-b951-993952fd7e9a">
-        <schema name="main" object-types="column, constraint, index, table, dataset trigger, view" />
+      <connection connection-id="24b6c8f6-619c-4ea2-8291-2a479f63b32b">
+        <schema name="main" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="43f6a3c2-5e5e-41a7-b951-993952fd7e9a">
-      <console name="Connection" type="STANDARD"><![CDATA[select * from FONT]]></console>
+    <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b">
+      <console name="Connection" type="STANDARD"><![CDATA[select * from TEMPLATE_SET ;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="43f6a3c2-5e5e-41a7-b951-993952fd7e9a" />
+    <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -60,7 +60,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="43f6a3c2-5e5e-41a7-b951-993952fd7e9a" active="true">
+      <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b" active="true">
         <database>
           <name value="Connection" />
           <description value="" />
@@ -75,7 +75,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="C:\Users\admin\Documents\AndroidStudio\DeviceExplorer\xiaomi-redmi_note_3-f884e8c7\data\data\com.xs.lightpuzzle\databases\puzzle_material" schema="main" />
+            <file path="C:\Users\admin\Documents\AndroidStudio\DeviceExplorer\zuk-zuk_z2131-a40d7a6a\data\data\com.xs.lightpuzzle\databases\puzzle_material" schema="main" />
           </files>
           <os-authentication value="false" />
           <empty-password value="false" />

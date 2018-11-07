@@ -4,9 +4,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.xs.lightpuzzle.data.dao.FontDao;
+import com.xs.lightpuzzle.data.dao.FontQuery;
+import com.xs.lightpuzzle.data.dao.TemplateSetDao;
+import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.dao.impl.FontDaoImpl;
+import com.xs.lightpuzzle.data.dao.impl.TemplateSetDaoImpl;
 import com.xs.lightpuzzle.data.entity.DaoMaster;
 import com.xs.lightpuzzle.data.entity.DaoSession;
+import com.xs.lightpuzzle.data.entity.Font;
+import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.data.net.RestApi;
 import com.xs.lightpuzzle.data.net.impl.AssetsRestApi;
 import com.xs.lightpuzzle.data.serializer.Serializer;
@@ -14,6 +20,7 @@ import com.xs.lightpuzzle.data.service.SyncService;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -26,14 +33,14 @@ import java.util.concurrent.TimeUnit;
 
 public class DataManager {
 
-    public static void handleApplicationContext(Context context){
-        if (context == null){
+    public static void handleApplicationContext(Context context) {
+        if (context == null) {
             throw new IllegalArgumentException("Context can't null");
         }
 
         Context applicationContext = context.getApplicationContext();
 
-        if (INSTANCE == null){
+        if (INSTANCE == null) {
             synchronized (DataManager.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new DataManager(applicationContext);
@@ -47,7 +54,7 @@ public class DataManager {
 
     private static DataManager INSTANCE;
 
-    public static DataManager getDefault(){
+    public static DataManager getDefault() {
         return INSTANCE;
     }
 
@@ -59,15 +66,16 @@ public class DataManager {
     private final Database mDatabase;
     private final DaoSession mDaoSession;
     private final FontDao mFontDao;
+    private final TemplateSetDao mTemplateSetDao;
 
     private final Serializer mSerializer;
     private final RestApi mRestApi;
 
-    private DataManager(Context context){
+    private DataManager(Context context) {
         mContext = context;
 
         mThreadPoolExcutor = new ThreadPoolExecutor(3,
-                5,10, TimeUnit.SECONDS,
+                5, 10, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(), new JobThreadFactory());
 
         mSerializer = new Serializer();
@@ -79,6 +87,7 @@ public class DataManager {
         mDaoSession = new DaoMaster(mDatabase).newSession();
 
         mFontDao = new FontDaoImpl(mDaoSession.getFontDao());
+        mTemplateSetDao = new TemplateSetDaoImpl(mDaoSession.getTemplateSetDao());
 
         mRestApi = new AssetsRestApi(context, mSerializer);
 
@@ -86,6 +95,16 @@ public class DataManager {
 
     public void syncData() {
         syncFonts();
+        syncTemplates();
+    }
+
+    private void syncTemplates() {
+        mThreadPoolExcutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mTemplateSetDao.save(mRestApi.getTemplates());
+            }
+        });
     }
 
     private void syncFonts() {
@@ -96,6 +115,44 @@ public class DataManager {
             }
         });
     }
+
+    // --- 字体
+    public boolean saveFont(Font font) {
+        return mFontDao.save(font);
+    }
+
+    public Font getFont(String id) {
+        return mFontDao.query(id);
+    }
+
+    public List<Font> getFonts(FontQuery query) {
+        return mFontDao.query(query);
+    }
+    // ---
+
+    // --- 模板
+    public boolean saveTemplateSet(TemplateSet templateSet) {
+        return mTemplateSetDao.save(templateSet);
+    }
+
+    public List<TemplateSet> getAllTemplateSet() {
+        return mTemplateSetDao.loadAll();
+    }
+
+    public TemplateSet getTemplateSet(int category, String id) {
+        return mTemplateSetDao.query(category, id);
+    }
+
+    public List<TemplateSet> getTemplateSets(TemplateSetQuery query) {
+        return mTemplateSetDao.query(query);
+    }
+
+    // ---
+    // --- Getter
+    public Serializer getSerializer() {
+        return mSerializer;
+    }
+    // ---
 
     private static class JobThreadFactory implements ThreadFactory {
 

@@ -1,7 +1,9 @@
 package com.xs.lightpuzzle.data.mapper;
 
+import com.xs.lightpuzzle.data.PuzzleFileExtension;
 import com.xs.lightpuzzle.data.entity.Font;
 import com.xs.lightpuzzle.data.entity.adapter.FontAdapter;
+import com.xs.lightpuzzle.data.util.MaterialDirPathHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,12 +31,11 @@ public class FontAdapterMapper {
             font.setUrl(url);
             font.setOrder(adapter.getOrder());
 
-            // TODO: 2018/11/5
             font.setFileName(adapter.getFileName());
-//            font.setThumbFileName(PizzaMaterialFileExtension.mapFile(adapter.getThumbFileName()));
+            font.setThumbFileName(PuzzleFileExtension.mapFile(adapter.getThumbFileName()));
 
-//            String dirPath = MaterialDirPathHelper.font(id);
-//            font.setDirPath(dirPath);
+            String dirPath = MaterialDirPathHelper.font(id);
+            font.setDirPath(dirPath);
 
             return font;
         }

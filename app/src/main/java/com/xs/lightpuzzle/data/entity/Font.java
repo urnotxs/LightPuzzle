@@ -7,6 +7,8 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.File;
+
 /**
  * Created by xs on 2018/11/2.
  */
@@ -158,6 +160,10 @@ public class Font {
 
     public void setDirPath(String dirPath) {
         this.dirPath = dirPath;
+    }
+
+    public String getFilePath() {
+        return getDirPath() + File.separator + getFileName();
     }
 
     public boolean isDownloaded() {

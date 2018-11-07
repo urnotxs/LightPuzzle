@@ -6,8 +6,11 @@ import android.text.TextUtils;
 import com.google.gson.reflect.TypeToken;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.entity.Font;
+import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.data.entity.adapter.FontAdapter;
+import com.xs.lightpuzzle.data.entity.adapter.TemplateSetAdapter;
 import com.xs.lightpuzzle.data.mapper.FontAdapterMapper;
+import com.xs.lightpuzzle.data.mapper.TemplateSetAdapterMapper;
 import com.xs.lightpuzzle.data.net.RestApi;
 import com.xs.lightpuzzle.data.serializer.Serializer;
 import com.xs.lightpuzzle.yszx.AssetManagerHelper;
@@ -41,6 +44,29 @@ public class AssetsRestApi implements RestApi {
 
                 if (adapters != null && !adapters.isEmpty()){
                     return FontAdapterMapper.transform(adapters);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<TemplateSet> getTemplates() {
+        String gsonString = AssetManagerHelper.convertInputString(
+                mContext, DataConstant.ASSETS_DATA.TEMPLATE);
+
+        if (!TextUtils.isEmpty(gsonString)){
+            try {
+                List<TemplateSetAdapter> adapters = mSerializer
+                        .deserialize(gsonString,
+                                new TypeToken<List<TemplateSetAdapter>>(){
+                                    // no-op by default
+                                }.getType());
+
+                if (adapters != null && !adapters.isEmpty()){
+                    return TemplateSetAdapterMapper.transform(adapters);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
