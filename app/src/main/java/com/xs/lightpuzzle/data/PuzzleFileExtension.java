@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import com.blankj.utilcode.util.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,24 @@ public final class PuzzleFileExtension {
         sMapper.add(new Pair<>("png", PREFIX + "png"));
         sMapper.add(new Pair<>("jpg", PREFIX + "jpg"));
         sMapper.add(new Pair<>("jpeg", PREFIX + "jpeg"));
+    }
+
+    public static void mapDir(String dirPath) {
+
+        List<File> files = FileUtils.listFilesInDir(dirPath,true);
+        if (files == null) {
+            return;
+        }
+        for (File file : files) {
+            if (!file.isFile()) {
+                continue;
+            }
+            String filePath = file.getPath();
+            String mapped = mapFile(filePath);
+            if (!filePath.equals(mapped)) {
+                FileUtils.rename(filePath, FileUtils.getFileName(mapped));
+            }
+        }
     }
 
     public static String mapFile(String filePath) {

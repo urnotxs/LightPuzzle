@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Secondary" parent="AppTheme">
+        <item name="colorPrimary">@color/secondary_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/secondary_colorPrimaryDark</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -20,6 +25,15 @@
 
     <style name="AppTheme.NoActionBar.FullScreen.Splash">
         <item name="android:windowBackground">@drawable/bg_toolbar</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.TabLayoutOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorAccent">@color/colorWhite</item>
     </style>
 
 </resources>

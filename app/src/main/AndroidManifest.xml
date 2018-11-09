@@ -25,6 +25,14 @@
             android:name=".materials.MaterialListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:label="@string/downloaded_list_aty_name"
+            android:name=".materials.DownloadedListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".materials.MaterialListActivity" />
+        </activity>
+
         <service
             android:enabled="true"
             android:exported="false"

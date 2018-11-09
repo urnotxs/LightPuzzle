@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/material_item_rl_root"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/material_item_apiv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/material_item_aptv_debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/material_item_apiv"
+        android:layout_alignTop="@id/material_item_apiv"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/material_item_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <FrameLayout
+        android:id="@+id/material_item_fl_label_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/material_item_apiv"
+        android:layout_alignTop="@id/material_item_apiv"
+        android:background="@drawable/ic_triangle_white_36dp"
+        android:backgroundTint="@color/colorPrimary">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/material_item_apiv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:src="@drawable/ic_arrow_downward_white_24dp" />
+
+    </FrameLayout>
+
+    <com.like.LikeButton
+        android:id="@+id/material_item_apiv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/material_item_apiv"
+        android:layout_alignRight="@id/material_item_apiv"
+        app:anim_scale_factor="1.5"
+        app:circle_end_color="@color/colorAccent"
+        app:circle_start_color="@color/colorPrimaryDark"
+        app:dots_primary_color="@color/colorAccent"
+        app:dots_secondary_color="@color/colorPrimaryDark"
+        app:icon_size="24dp"
+        app:icon_type="heart"
+        app:is_enabled="true"
+        app:like_drawable="@drawable/ic_favorite_e43131_24dp"
+        app:liked="false"
+        app:unlike_drawable="@drawable/ic_favorite_border_747474_24dp" />
+
+</RelativeLayout>

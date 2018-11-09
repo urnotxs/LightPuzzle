@@ -24,18 +24,25 @@
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="24b6c8f6-619c-4ea2-8291-2a479f63b32b">
-        <schema name="main" object-types="table, view" />
+      <connection connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897">
+        <schema name="main" object-types="column, constraint, index, table, dataset trigger, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b">
-      <console name="Connection" type="STANDARD"><![CDATA[select * from TEMPLATE_SET ;]]></console>
+    <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897">
+      <console name="Connection" type="STANDARD" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b" />
+    <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.TEMPLATE_SET" active-filter-id="d671b37c-dfa3-4c25-b97e-2bfb0386930b">
+      <filter id="d671b37c-dfa3-4c25-b97e-2bfb0386930b" name="256" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="CATEGORY" operator="=" value="256" active="true" />
+      </filter>
+    </filter-list>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -60,7 +67,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="24b6c8f6-619c-4ea2-8291-2a479f63b32b" active="true">
+      <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" active="true">
         <database>
           <name value="Connection" />
           <description value="" />

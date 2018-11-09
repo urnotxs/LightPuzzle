@@ -45,6 +45,12 @@ public interface DataConstant {
         int LONG_COLLAGE_SUB = 0x00000a00;
     }
 
+    interface TEMPLATE_ADDITIONAL_CATEGORY {
+
+        int LIKE = 0x01000100;
+        int HISTORY = 0x01000200;
+    }
+
     interface TEMPLATE_CATEGORY_NAME {
 
         String SIMPLE = "simple"; // 简约

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/downloaded_material_item_root_space"
+             android:paddingLeft="@dimen/downloaded_material_item_root_space">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/downloaded_material_item_space"
+        android:paddingLeft="@dimen/downloaded_material_item_space">
+
+        <include layout="@layout/item_material" />
+
+    </FrameLayout>
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/material_item_apib_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_remove_circle_white_24dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:tint="#f00"
+        android:visibility="gone" />
+
+</FrameLayout>

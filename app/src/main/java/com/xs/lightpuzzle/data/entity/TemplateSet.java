@@ -23,6 +23,9 @@ import java.util.Set;
 @Entity
 public class TemplateSet {
 
+    /**
+     * 长图子模板链接
+     * */
     public static class Node {
         private final int category;
         private final String id;
@@ -240,22 +243,6 @@ public class TemplateSet {
     public void setThumbFileNameMap(Map<Integer, String> thumbFileNameMap) {
         this.thumbFileNameMap = thumbFileNameMap;
     }
-//
-//    public Set<String> getAttachedFontIdSet() {
-//        return attachedFontIdSet;
-//    }
-//
-//    public void setAttachedFontIdSet(Set<String> attachedFontIdSet) {
-//        this.attachedFontIdSet = attachedFontIdSet;
-//    }
-//
-//    public Map<Integer, Node> getAttachedNodeMap() {
-//        return attachedNodeMap;
-//    }
-//
-//    public void setAttachedNodeMap(Map<Integer, Node> attachedNodeMap) {
-//        this.attachedNodeMap = attachedNodeMap;
-//    }
 
     public float getUiRatio() {
         return uiRatio;
@@ -363,6 +350,22 @@ public class TemplateSet {
     }
     // --- other method
 
+    public Set<String> getAttachedFontIdSet() {
+        return this.attachedFontIdSet;
+    }
+
+    public void setAttachedFontIdSet(Set<String> attachedFontIdSet) {
+        this.attachedFontIdSet = attachedFontIdSet;
+    }
+
+    public Map<Integer, Node> getAttachedNodeMap() {
+        return this.attachedNodeMap;
+    }
+
+    public void setAttachedNodeMap(Map<Integer, Node> attachedNodeMap) {
+        this.attachedNodeMap = attachedNodeMap;
+    }
+
     // --- Override
     @Override
     public boolean equals(Object obj) {
@@ -385,20 +388,4 @@ public class TemplateSet {
         return result;
     }
     // --- Override
-
-    public Set<String> getAttachedFontIdSet() {
-        return this.attachedFontIdSet;
-    }
-
-    public void setAttachedFontIdSet(Set<String> attachedFontIdSet) {
-        this.attachedFontIdSet = attachedFontIdSet;
-    }
-
-    public Map<Integer, Node> getAttachedNodeMap() {
-        return this.attachedNodeMap;
-    }
-
-    public void setAttachedNodeMap(Map<Integer, Node> attachedNodeMap) {
-        this.attachedNodeMap = attachedNodeMap;
-    }
 }

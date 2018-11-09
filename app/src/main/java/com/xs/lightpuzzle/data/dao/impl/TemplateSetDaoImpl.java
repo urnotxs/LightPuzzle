@@ -6,6 +6,8 @@ import com.xs.lightpuzzle.data.dao.TemplateSetDao;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.data.util.TemplateCategoryHelper;
+import com.xs.lightpuzzle.data.entity.TemplateSetDao.Properties;
+import com.xs.lightpuzzle.yszx.FlagHelper;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -173,6 +175,87 @@ public class TemplateSetDaoImpl implements TemplateSetDao {
 
     @Override
     public List<TemplateSet> query(TemplateSetQuery query) {
+
+        if (query != null) {
+            QueryBuilder<TemplateSet> queryBuilder = mDao.queryBuilder();
+
+            Integer category = query.getCategory();
+            if (category != null) {
+                queryBuilder.where(Properties.Category.eq(category));
+            }
+
+            Integer photoNum = query.getPhotoNum();
+            if (photoNum != null) {
+                queryBuilder.where(queryBuilder.and(
+                        Properties.MinPhotoNum.le(photoNum),
+                        Properties.MaxPhotoNum.ge(photoNum)));
+            }
+
+            Integer flag = query.getFlag();
+            if (flag != null) {
+                queryBuilder.where(Properties.Flag.like(generateFlagLike(flag)));
+
+                if (TemplateSet.FLAG.DOWNLOADED == flag){
+                    queryBuilder.orderDesc(Properties.DownloadedOrder);
+                } else if (TemplateSet.FLAG.HISTORY == flag) {
+                    queryBuilder.orderDesc(Properties.HistoryOrder);
+                } else if (TemplateSet.FLAG.LIKE == flag) {
+                    queryBuilder.orderDesc(Properties.LikeOrder);
+                }
+            }else{
+                queryBuilder.orderAsc(Properties.Order);
+            }
+
+            Integer count = query.getCount();
+            if (count != null && count > 0) {
+                queryBuilder.limit(count);
+            }
+
+            try {
+                return queryBuilder.list();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return null;
+    }
+
+
+    // HELPER
+
+    private String generateFlagLike(Integer flag) {
+        boolean offAll = true;
+        StringBuilder stringBuilder =
+                new StringBuilder("________________________________");
+
+        if (FlagHelper.isOn(TemplateSet.FLAG.DOWNLOADED, flag)) {
+            generateFlagWildcardChar(stringBuilder, 32);
+            offAll = false;
+        }
+
+        if (FlagHelper.isOn(TemplateSet.FLAG.UNUSED, flag)) {
+            generateFlagWildcardChar(stringBuilder, 31);
+            offAll = false;
+        }
+
+        if (FlagHelper.isOn(TemplateSet.FLAG.HISTORY, flag)) {
+            generateFlagWildcardChar(stringBuilder, 30);
+            offAll = false;
+        }
+
+        if (FlagHelper.isOn(TemplateSet.FLAG.LIKE, flag)) {
+            generateFlagWildcardChar(stringBuilder, 29);
+            offAll = false;
+        }
+
+        if (offAll) {
+            return "%";
+        } else {
+            return stringBuilder.toString();
+        }
+    }
+
+    private void generateFlagWildcardChar(StringBuilder wc, int position) {
+        wc.replace(position - 1, position, 1 + "");
     }
 }

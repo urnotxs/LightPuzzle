@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#59C9A5</color>
+    <color name="colorPrimaryDark">#1C7C89</color>
+    <color name="colorAccent">#59C9A5</color>
+
+    <color name="secondary_colorPrimary">#55C8A4</color>
+    <color name="secondary_colorPrimaryDark">#20AA86</color>
 
     <color name="colorWhite">#FFFFFF</color>
 
@@ -10,4 +13,6 @@
     <color name="toolbar_bg_gradient_center_color">#46AEBB</color>
     <color name="toolbar_bg_gradient_end_color">#38BCB0</color>
 
+    <color name="material_list_frag_bg_color">@color/minnie_aty_bg_color</color>
+    <color name="minnie_aty_bg_color">#D8D8D8</color>
 </resources>

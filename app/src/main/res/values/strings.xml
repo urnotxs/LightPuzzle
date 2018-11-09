@@ -2,6 +2,32 @@
     <string name="app_name">LightPuzzle</string>
     <string name="app_introduction">Welcome !!!</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="material_list">模板列表</string>
+
+    <!-- MaterialListActivity -->
+    <string name="material_list_aty_nav_home">Home</string>
+    <string name="material_list_aty_nav_donate">Donate</string>
+    <string name="material_list_aty_nav_settings">Settings</string>
+
+    <string name="template_category_simple">Simple</string>
+    <string name="template_category_memo">Memo</string>
+    <string name="template_category_seamless">Seamless</string>
+    <string name="template_category_wallpaper">Wallpaper</string>
+    <string name="template_category_collage">Collage</string>
+    <string name="template_category_cover">Cover</string>
+    <string name="template_category_postcard">Postcard</string>
+    <string name="template_category_business_card">Card</string>
+    <string name="template_category_long_collage">Long Collage</string>
+    <!-- Additional -->
+    <string name="template_category_favorite">Favorite</string>
+    <string name="template_category_history">History</string>
+
+    <string name="downloaded_list_aty_name">Downloaded</string>
+    <string name="downloaded_list_aty_delete">delete</string>
+    <string name="downloaded_list_aty_management">Management</string>
+
 
 </resources>
