@@ -30,4 +30,14 @@
     <string name="downloaded_list_aty_management">Management</string>
 
 
+    <!-- PhotoPickerActivity -->
+    <string name="photo_picker_aty_photo">照片</string>
+    <string name="photo_picker_aty_album">相册</string>
+    <!-- [Important]: As root album's Id -->
+    <string name="photo_picker_aty_all_images">所有图片</string>
+    <string name="photo_picker_aty_puzzle_count_tips">最多%1$d张能拼哦</string>
+    <string name="photo_picker_aty_next_step">下一步</string>
+    <string name="photo_picker_aty_over_max_count_tips">当前已选择了%1$d张图片</string>
+    <string name="photo_picker_aty_please_choose_photo">请选择图片</string>
+
 </resources>

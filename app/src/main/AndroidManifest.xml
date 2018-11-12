@@ -24,6 +24,9 @@
         <activity
             android:name=".materials.MaterialListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".photopicker.PhotoPickerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:label="@string/downloaded_list_aty_name"

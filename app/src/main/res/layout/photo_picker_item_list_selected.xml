@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="6dp"
+                android:paddingRight="6dp"
+                android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/selected_item_iv"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="6dp"
+        android:scaleType="centerCrop" />
+
+    <ImageButton
+        android:id="@+id/selected_item_ib_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        android:src="@drawable/photo_picker_aty_ic_remove" />
+
+</RelativeLayout>

@@ -27,6 +27,7 @@ import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
+import com.xs.lightpuzzle.photopicker.PhotoPicker;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -123,7 +124,8 @@ public class MaterialListActivity extends BaseMaterialListActivity
             default:
                 final int maxPhotoNum = templateSet.getMaxPhotoNum();
                 // 跳至拼图
-
+//                PhotoPicker.radio(this);
+                PhotoPicker.multi(this, 8, null);
                 break;
         }
     }

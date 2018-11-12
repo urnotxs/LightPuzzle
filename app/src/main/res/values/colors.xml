@@ -15,4 +15,20 @@
 
     <color name="material_list_frag_bg_color">@color/minnie_aty_bg_color</color>
     <color name="minnie_aty_bg_color">#D8D8D8</color>
+
+
+    <!-- PhotoPickerActivity -->
+    <color name="photo_picker_aty_bg">#FF635555</color>
+    <color name="photo_picker_aty_title_bar_bg">#FF6F615E</color>
+    <color name="photo_picker_aty_select_bg">#FF6F595C</color>
+    <color name="photo_picker_aty_text_selected_count">#FFF4808D</color>
+    <color name="photo_picker_aty_text_current_title">#FFF68394</color>
+    <color name="photo_picker_aty_title_indicator">#FFF37E8E</color>
+
+    <!-- AlbumListFragment -->
+    <color name="photo_picker_album_item_bg">#FF625656</color>
+
+    <!-- PhotoPagerFragment -->
+    <color name="photo_picker_photo_pager_frg_bg">#FF383836</color>
+
 </resources>
