@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/minnie_aty_ll_text_root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/minnie_aty_text_space"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/minnie_aty_text_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Input -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/minnie_aty_text_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/transparent_50"
+                android:maxLines="5"
+                android:minLines="3"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/minnie_aty_text_apib_done"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:src="@drawable/ic_done_white_24dp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorWhite" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/minnie_aty_text_apib_menu"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:src="@drawable/ic_menu_white_24dp" />
+
+        </LinearLayout>
+
+        <!-- Menu -->
+
+        <LinearLayout
+            android:id="@+id/minnie_aty_text_ll_menu_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_toolbar"
+            android:orientation="vertical">
+
+            <!--Title -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/minnie_aty_text_aptv_typeface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_text_fields_white_24dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="Font"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/minnie_aty_text_aptv_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_color_lens_white_24dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="color"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/minnie_aty_text_aptv_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_format_size_white_24dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="size"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+
+            <!-- Item -->
+
+            <FrameLayout
+                android:id="@+id/minnie_aty_text_fl_menu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ScrollView
+                    android:id="@+id/minnie_aty_text_sv_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:visibility="invisible">
+
+                    <LinearLayout
+                        android:id="@+id/minnie_aty_text_fl_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </ScrollView>
+
+                <FrameLayout
+                    android:id="@+id/minnie_aty_text_fl_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/minnie_aty_text_vp_color"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/minnie_aty_text_color_height" />
+
+                        </FrameLayout>
+
+                    </ScrollView>
+
+                    <com.rd.PageIndicatorView
+                        android:id="@+id/minnie_aty_text_piv_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:padding="1dp"
+                        app:piv_animationType="fill"
+                        app:piv_count="2"
+                        app:piv_interactiveAnimation="true"
+                        app:piv_padding="12dp"
+                        app:piv_radius="3dp"
+                        app:piv_selectedColor="@color/gray_50"
+                        app:piv_unselectedColor="@color/gray_300"
+                        app:piv_viewPager="@id/minnie_aty_text_vp_color" />
+
+                </FrameLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/minnie_aty_text_rl_typeface"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/minnie_aty_divider" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -91,7 +91,7 @@ public class TemplateSetAdapterMapper {
         for (Map.Entry<Integer, TemplateAdapter> entry : templateAdapterMap.entrySet()) {
             TemplateAdapter adapter = entry.getValue();
             if (adapter != null) {
-                Template template = TemplateAdapterMapper.transformOrnament(adapter);
+                Template template = TemplateAdapterMapper.transform(adapter);
                 template.setDirPath(MaterialDirPathHelper
                         .template(category, id, entry.getKey()));
                 map.put(entry.getKey(), template);

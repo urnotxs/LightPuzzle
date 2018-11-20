@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/minnie_aty_ll_reorder"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/minnie_aty_reorder_apib_downward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@drawable/bg_circle_primary"
+        android:src="@drawable/ic_template_downward_selector"
+        android:textColor="#FFFFFF" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="5dp"
+        android:layout_height="5dp" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/minnie_aty_reorder_apib_replace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@drawable/bg_circle_primary"
+        android:src="@drawable/ic_template_replace_selector" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="5dp"
+        android:layout_height="5dp" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/minnie_aty_reorder_apib_upward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@drawable/bg_circle_primary"
+        android:src="@drawable/ic_template_upward_selector" />
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.xs.lightpuzzle.materials;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.photopicker.PhotoPicker;
+import com.xs.lightpuzzle.puzzle.PuzzleActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -118,14 +120,19 @@ public class MaterialListActivity extends BaseMaterialListActivity
 
         switch (mState) {
             case STATE.RESULT:
-                Intent intent = new Intent();
+                Intent data = new Intent();
+                data.putExtra(PuzzleActivity.EXTRA_TEMPLATE_ID, id);
+                data.putExtra(PuzzleActivity.EXTRA_TEMPLATE_CATEGORY, category);
+                setResult(Activity.RESULT_OK, data);
+                finish();
                 break;
             case STATE.NORMAL:
             default:
                 final int maxPhotoNum = templateSet.getMaxPhotoNum();
                 // 跳至拼图
 //                PhotoPicker.radio(this);
-                PhotoPicker.multi(this, 8, null);
+//                PhotoPicker.multi(this, 8, null);
+                PhotoPicker.puzzle(this, id, category, PuzzleActivity.class, maxPhotoNum);
                 break;
         }
     }

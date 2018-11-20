@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/minnie_aty_ll_background_root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/minnie_aty_background_space"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/minnie_aty_background_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_toolbar"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/minnie_aty_background_vp_color"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/minnie_aty_background_color_height" />
+
+        <com.rd.PageIndicatorView
+            android:id="@+id/minnie_aty_background_piv_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="1dp"
+            app:piv_animationType="fill"
+            app:piv_dynamicCount="true"
+            app:piv_interactiveAnimation="true"
+            app:piv_padding="12dp"
+            app:piv_radius="3dp"
+            app:piv_selectedColor="@color/gray_50"
+            app:piv_unselectedColor="@color/gray_300"
+            app:piv_viewPager="@id/minnie_aty_background_vp_color" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="4dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/minnie_aty_background_texture_height">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <com.xs.lightpuzzle.minnie.widget.MultiRowRadioGroup
+                    android:id="@+id/minnie_aty_background_mrrg_texture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+
+            </HorizontalScrollView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/minnie_aty_divider" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -57,10 +57,10 @@ public class PhotoPagerFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initView(View view) {
-        mViewPager = (ViewPager) view.findViewById(R.id.photo_pager_frg_vp);
-        mAddImageBtn = (ImageButton) view.findViewById(R.id.photo_pager_frg_ib_add);
-        mAddCheckBox = (CheckBox) view.findViewById(R.id.photo_pager_frg_cb_add);
-        mMaskAddBtn = (Button) view.findViewById(R.id.photo_pager_frg_btn_mask_add);
+        mViewPager = view.findViewById(R.id.photo_pager_frg_vp);
+        mAddImageBtn = view.findViewById(R.id.photo_pager_frg_ib_add);
+        mAddCheckBox = view.findViewById(R.id.photo_pager_frg_cb_add);
+        mMaskAddBtn = view.findViewById(R.id.photo_pager_frg_btn_mask_add);
 
         mMaskAddBtn.setOnClickListener(this);
         mAddImageBtn.setOnClickListener(this);

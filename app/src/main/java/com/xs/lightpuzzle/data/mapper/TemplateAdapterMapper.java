@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TemplateAdapterMapper {
 
-    public static Template transformOrnament(TemplateAdapter adapter){
+    public static Template transform(TemplateAdapter adapter){
         if (adapter == null){
             return null;
         }

@@ -57,7 +57,7 @@ public class AlbumListFragment extends BaseFragment {
     }
 
     public void initView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.album_list_frg_rv);
+        mRecyclerView = view.findViewById(R.id.album_list_frg_rv);
     }
 
     public void initData() {

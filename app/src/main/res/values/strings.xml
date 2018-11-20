@@ -40,4 +40,31 @@
     <string name="photo_picker_aty_over_max_count_tips">当前已选择了%1$d张图片</string>
     <string name="photo_picker_aty_please_choose_photo">请选择图片</string>
 
+
+    <string name="puzzletoolbar_filter">滤镜</string>
+    <string name="puzzletoolbar_clip">剪辑</string>
+    <string name="puzzletoolbar_beauty">美颜</string>
+    <string name="puzzletoolbar_replace">替换</string>
+    <string name="puzzletoolbar_rotate">旋转</string>
+    <string name="puzzletoolbar_sound">原声</string>
+    <string name="puzzletoolbar_zoomin">放大</string>
+    <string name="puzzletoolbar_zoomout">缩小</string>
+
+    <string name="longpage_layout">布局</string>
+    <string name="longpage_line_frame">边框</string>
+    <string name="longpage_template">模板</string>
+    <string name="longpage_adjust">调整</string>
+    <string name="longpage_background">背景</string>
+    <string name="longpage_add">添加</string>
+    <string name="longpage_text">文本</string>
+    <string name="longpage_sign">签名</string>
+    <string name="longpage_label">标签</string>
+    <string name="longpage_font">字体</string>
+    <string name="longpage_color">颜色</string>
+    <string name="longpage_size">字号</string>
+    <string name="longpage_title">Jane/简·拼</string>
+
+    <string name="clipvideopage_play_at_same_time">同时播放</string>
+    <string name="clipvideopage_play_at_order_time">顺序播放</string>
+
 </resources>

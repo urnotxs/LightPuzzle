@@ -7,10 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".LightPuzzleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".LightPuzzleApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash">
@@ -21,25 +21,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".materials.MaterialListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".photopicker.PhotoPickerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:label="@string/downloaded_list_aty_name"
-            android:name=".materials.DownloadedListActivity">
+            android:name=".puzzle.PuzzleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+
+        <activity
+            android:name=".minnie.PuzzleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+
+        <activity
+            android:name=".materials.DownloadedListActivity"
+            android:label="@string/downloaded_list_aty_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".materials.MaterialListActivity" />
         </activity>
 
         <service
+            android:name=".data.service.SyncService"
             android:enabled="true"
-            android:exported="false"
-            android:name=".data.service.SyncService" />
+            android:exported="false" />
     </application>
 
 </manifest>

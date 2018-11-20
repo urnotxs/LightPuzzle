@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/test_username"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="输入用户名"/>
+
+        <EditText
+            android:id="@+id/test_password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="输入用户名"/>
+
+        <Button
+            android:id="@+id/test_login"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="登陆"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -98,10 +98,20 @@ public class PhotoPickerActivity extends AppCompatActivity
      */
     private static final int DEFAULT_MAX_COUNT = 9;
 
+    private static final int STATE_PHOTO = 0;
+    private static final int STATE_ALBUM = 1;
+    private static final int STATE_SUB_PHOTO = 2;
+    private static final int STATE_PAGER = 3;
+
     /**
      * 选图场景: 默认为场景一中的单选场景
      */
     private int mScene = SCENE_1_RADIO;
+
+    /**
+     * 当前的处于Fragment栈顶部的Fragment
+     */
+    private int mState = STATE_PHOTO;
 
     /**
      * 可选图片的最大数目
@@ -124,6 +134,25 @@ public class PhotoPickerActivity extends AppCompatActivity
      * 被选中的图片
      */
     private ArrayList<Photo> mSelectedPhotos;
+
+    /**
+     * 相册列表, 注意: mAlbums.get(0)指向的相册包含了手机中所有图片
+     */
+    private List<Album> mAlbums;
+
+    /**
+     * 手机中所有的图片集合
+     */
+    private List<Photo> mAllPhotos;
+
+    /**
+     * 底部被选中的图片列表适配器
+     */
+    private SelectedPhotoAdapter mSelectedPhotoAdapter;
+
+    private PhotoPickerController mController;
+
+    private boolean mPreviewAll = true;
 
     // --- Permission
 
@@ -219,23 +248,6 @@ public class PhotoPickerActivity extends AppCompatActivity
     private void setupRadioSceneView() {
         mSelectedRootRelativeLayout.setVisibility(View.GONE);
     }
-
-    /**
-     * 相册列表, 注意: mAlbums.get(0)指向的相册包含了手机中所有图片
-     */
-    private List<Album> mAlbums;
-
-    /**
-     * 手机中所有的图片集合
-     */
-    private List<Photo> mAllPhotos;
-
-    /**
-     * 底部被选中的图片列表适配器
-     */
-    private SelectedPhotoAdapter mSelectedPhotoAdapter;
-
-    private PhotoPickerController mController;
 
     /**
      * 获取权限后，初始数据
@@ -416,18 +428,6 @@ public class PhotoPickerActivity extends AppCompatActivity
                 break;
         }
     }
-
-    /**
-     * 当前的处于Fragment栈顶部的Fragment
-     */
-    private int mState = STATE_PHOTO;
-
-    private boolean mPreviewAll = true;
-
-    private static final int STATE_PHOTO = 0;
-    private static final int STATE_ALBUM = 1;
-    private static final int STATE_SUB_PHOTO = 2;
-    private static final int STATE_PAGER = 3;
 
     @Override
     public void previewPhoto(int currItem, List<Photo> photos) {

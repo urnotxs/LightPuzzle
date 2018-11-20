@@ -16,6 +16,9 @@
     <color name="material_list_frag_bg_color">@color/minnie_aty_bg_color</color>
     <color name="minnie_aty_bg_color">#D8D8D8</color>
 
+    <!-- PuzzleActivity -->
+    <color name="puzzle_aty_bg_color">#D8D8D8</color>
+    <color name="puzzle_aty_divider">#CCCCCC</color>
 
     <!-- PhotoPickerActivity -->
     <color name="photo_picker_aty_bg">#FF635555</color>
@@ -30,5 +33,21 @@
 
     <!-- PhotoPagerFragment -->
     <color name="photo_picker_photo_pager_frg_bg">#FF383836</color>
+
+    <!-- Transparent -->
+    <color name="transparent_50">#80FFFFFF</color>
+
+    <color name="minnie_aty_divider">#CCCCCC</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
 
 </resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/puzzle_aty_rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/puzzle_aty_bg_color"
+    tools:context=".minnie.PuzzleActivity">
+
+    <FrameLayout
+        android:id="@+id/puzzle_aty_fl_platter_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="52dp"
+        android:layout_centerInParent="true">
+
+        <com.xs.lightpuzzle.minnie.widget.PlatterScrollView
+            android:id="@+id/puzzle_aty_psv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/puzzle_aty_fl_pizza_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/puzzle_aty_recorder_btn_remove"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_reorder_remove"
+                    android:src="@drawable/ic_remove_white_24dp"
+                    android:visibility="gone"/>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/puzzle_aty_recorder_btn_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_add_white_24dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </com.xs.lightpuzzle.minnie.widget.PlatterScrollView>
+
+        <include
+            layout="@layout/activity_minnie_reorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/puzzle_aty_top_rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_toolbar">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/puzzle_aty_top_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back_white_24dp"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_logo_36dp" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/puzzle_aty_top__btn_save"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_save_white_24dp" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/activity_minnie_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/minnie_aty_bottom_height"
+        android:layout_alignParentBottom="true" />
+
+    <include
+        layout="@layout/activity_minnie_background"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/activity_minnie_text"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/activity_minnie_photo"
+        android:visibility="invisible" />
+
+    <FrameLayout
+        android:id="@+id/minnie_aty_fl_ball_wave_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/minnie_aty_ll_bottom_root"
+        android:layout_below="@id/puzzle_aty_top_rl"
+        android:visibility="gone" />
+
+</RelativeLayout>
