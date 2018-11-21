@@ -7,5 +7,5 @@ package com.xs.lightpuzzle;
 public interface LightPuzzleConstant {
 
     int INVALID_PHOTO_NUM = 0;
-
+    int INVALID_COLOR = 1;
 }

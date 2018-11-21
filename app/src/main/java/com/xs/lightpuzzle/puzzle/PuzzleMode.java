@@ -1,5 +1,7 @@
 package com.xs.lightpuzzle.puzzle;
 
+import com.xs.lightpuzzle.data.DataConstant;
+
 public class PuzzleMode {
     //普通模板
     public static final int MODE_WAG = 0x4001;
@@ -15,19 +17,14 @@ public class PuzzleMode {
     public static final int MODE_LAYOUT_JOIN = 0x4007;
 
     public static int getMode(int theme) {
-//        switch (theme) {
-//            case CATEGORY.LONG_COLLAGE:
-//            case CATEGORY.UNIVERSAL_LONG_COLLAGE:
-//                return MODE_LONG;
-//            case CATEGORY.COLLAGE:
-//                return MODE_JOIN;
-//            case CATEGORY.VIDEO:
-//                return MODE_VIDEO;
-//            case CATEGORY.LAYOUT:
-//                return MODE_LAYOUT;
-//            default:
-//                return MODE_WAG;
-//        }
-        return 0;
+        switch (theme) {
+            case DataConstant.TEMPLATE_CATEGORY.LONG_COLLAGE_GROUP:
+            case DataConstant.TEMPLATE_CATEGORY.LONG_COLLAGE_SUB:
+                return MODE_LONG;
+            case DataConstant.TEMPLATE_CATEGORY.COLLAGE:
+                return MODE_JOIN;
+            default:
+                return MODE_WAG;
+        }
     }
 }

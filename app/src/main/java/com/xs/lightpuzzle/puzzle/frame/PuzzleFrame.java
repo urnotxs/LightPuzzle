@@ -1,6 +1,7 @@
-package com.xs.lightpuzzle.puzzle;
+package com.xs.lightpuzzle.puzzle.frame;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -11,8 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.puzzle.frame.PuzzleToolBar;
+import com.xs.lightpuzzle.puzzle.PuzzleMode;
+import com.xs.lightpuzzle.puzzle.PuzzlePresenter;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;
+import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
+import com.xs.lightpuzzle.puzzle.util.ShareData;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.CustomScrollView;
 import com.xs.lightpuzzle.puzzle.view.EffectiveImageButton;
@@ -35,11 +40,14 @@ public class PuzzleFrame extends FrameLayout {
     //长图替换子模板按钮
     private EffectiveImageButton mReplace, mUpwards, mDownwards;
 
-
+    private PuzzleToolBar mPuzzleToolBar;
+    private RelativeLayout mLabelBar;
+    private EffectiveImageButton mLabelBarEdit;
+    private EffectiveImageButton mLabelBarDel;
 
     private int mBtnH = Utils.getRealPixel3(92);
     private int mBtnTopMargin = Utils.getRealPixel3(29);
-
+    private int mPuzzleMode;
 
 
     public PuzzleFrame(@NonNull Context context) {
@@ -47,6 +55,162 @@ public class PuzzleFrame extends FrameLayout {
         mContext = context;
         initView();
     }
+
+    /**
+     * 初始设置PuzzlesInfo，PuzzlesInfo所需要的信息在使用该方法之前要先赋值
+     *
+     * @param puzzlesInfo
+     */
+    public void setPageData(PuzzlesInfo puzzlesInfo) {
+        if (puzzlesInfo != null) {
+            mPuzzleMode = puzzlesInfo.getPuzzleMode();
+            if (mPuzzleToolBar != null) {
+                mPuzzleToolBar.setModel(puzzlesInfo.getPuzzleMode(), 0);
+            }
+            if (mScrollView != null) {
+                mScrollView.scrollTo(0, 0);
+            }
+            invalidateView(puzzlesInfo.getPuzzlesRect().width(),
+                    puzzlesInfo.getPuzzlesRect().height(),
+                    puzzlesInfo.getTemplateInfos().size());
+        }
+    }
+
+    public void invalidateView() {
+        if (mPuzzlesDrawView != null) {
+            mPuzzlesDrawView.invalidateView();
+        }
+    }
+
+    public void invalidateView(int width, int height, int templateSize) {
+        onParentMeasure(width, height, templateSize);
+        if (mPuzzlesDrawView != null) {
+            mPuzzlesDrawView.invalidateView();
+        }
+    }
+
+    public void invalidateView(int width, int height, int templateSize, int differ) {
+        onParentMeasure(width, height, templateSize);
+        if (mPuzzlesDrawView != null) {
+            mPuzzlesDrawView.invalidateView();
+        }
+    }
+
+    public void invalidateViewToScroll(int width, int height, int templateSize, int bottom) {
+        onParentMeasure(width, height, templateSize);
+        if (mPuzzlesDrawView != null) {
+            mPuzzlesDrawView.invalidateView();
+        }
+        onParentScroll(bottom);
+    }
+
+    public void onParentScroll(final int scrolly) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mScrollView != null) {
+                    mScrollView.smoothScrollTo(0, scrolly + mLongTemplateEditBtnHeight);
+                }
+            }
+        }, 100);
+    }
+
+    public void onParentMeasure(int width, int height, int templateSize) {
+        measureDrawView(width, height, templateSize);
+        if (mPuzzleToolBar != null) {
+            mPuzzleToolBar.setPuzzleViewWH(width, height);
+        }
+    }
+    private int mPuzzlesViewHeight;
+    private int mLongTemplateEditBtnHeight;
+    private void measureDrawView(int drawViewWidth, int drawViewHeight, int templateSize) {
+
+        if (drawViewWidth == -1 || drawViewHeight == -1) {
+            return;
+        }
+
+        mPuzzlesViewHeight = drawViewHeight;
+        if (mPuzzlesDrawView != null) {
+            LinearLayout.LayoutParams lParams =
+                    (LinearLayout.LayoutParams) mPuzzlesDrawView.getLayoutParams();
+            if (lParams != null) {
+                lParams.width = drawViewWidth;
+                lParams.height = drawViewHeight;
+                mPuzzlesDrawView.setLayoutParams(lParams);
+            }
+        }
+
+        // TODO: 2018/11/14
+        if (mPuzzleFrame != null) {
+            FrameLayout.LayoutParams fParams =
+                    (FrameLayout.LayoutParams) mPuzzleFrame.getLayoutParams();
+            if (fParams != null) {
+                //如果是长图的模式, 那么puzzleFrame的高度等于puzzleView的高度, 模板删除按钮, 模板添加按钮的总和
+                if (mPuzzleMode == PuzzleMode.MODE_LONG) {
+                    fParams.width = Utils.getScreenW();
+                    int addTemplateHeight = (PuzzlesUtils.isOutOfMemory(
+                            drawViewHeight, templateSize) ?
+                            0 : PuzzlesUtils.getAddOrDelTempHeight());
+                    if (addTemplateHeight > 0) {
+                        mAddTemplate.setVisibility(VISIBLE);
+                    } else {
+                        mAddTemplate.setVisibility(GONE);
+                    }
+                    int delTemplateHeight = (templateSize > 1 ? PuzzlesUtils.getAddOrDelTempHeight() : 0);
+                    if (delTemplateHeight > 0) {
+                        mRemoveTemplate.setVisibility(VISIBLE);
+                    } else {
+                        mRemoveTemplate.setVisibility(GONE);
+                    }
+                    int leftRightPadding = (Utils.getScreenW() - drawViewWidth) / 2;
+                    mLongTemplateEditBtnHeight = addTemplateHeight + delTemplateHeight;
+                    fParams.height = drawViewHeight + mLongTemplateEditBtnHeight;
+                    //在scrollview里面第一层的view的marginTop 和marginBottom是无效的
+                    mPuzzleFrame.setPadding(leftRightPadding, PuzzlesUtils.getViewTop(), leftRightPadding,
+                            PuzzlesUtils.getViewTop() + PuzzlesUtils.getBottomViewHeight());
+                    mPuzzleFrame.setLayoutParams(fParams);
+                } else {
+                    int leftRightPadding = (Utils.getScreenW() - drawViewWidth) / 2;
+                    int topBottomPadding = (ShareData.m_screenRealHeight
+                            - drawViewHeight - PuzzlesUtils.getTopBarHeight()
+                            - PuzzlesUtils.getBottomViewHeight()) / 2;
+                    if (topBottomPadding < PuzzlesUtils.getViewTop()) {
+                        topBottomPadding = PuzzlesUtils.getViewTop();
+                    }
+                    mAddTemplate.setVisibility(GONE);
+                    mRemoveTemplate.setVisibility(GONE);
+                    fParams.width = Utils.getScreenW();
+                    mLongTemplateEditBtnHeight = 0;
+                    fParams.height = drawViewHeight + topBottomPadding * 2;
+                    mPuzzleFrame.setPadding(leftRightPadding, topBottomPadding, leftRightPadding, topBottomPadding + PuzzlesUtils.getBottomViewHeight());
+                    mPuzzleFrame.setLayoutParams(fParams);
+                }
+            }
+            if (mPuzzleMode == PuzzleMode.MODE_JOIN
+                    || mPuzzleMode == PuzzleMode.MODE_LAYOUT_JOIN
+                    || mPuzzleMode == PuzzleMode.MODE_LONG) {
+                if (mBtnBgVisListener != null) {
+                    mBtnBgVisListener.onBtnBgVis(false);
+                }
+                if ((ShareData.m_screenRealHeight - PuzzlesUtils.getTopBarHeight()
+                        - PuzzlesUtils.getBottomViewHeight() - PuzzlesUtils.getViewTop())
+                        < (drawViewHeight - mScrollView.getScrollY())) {
+
+                    if (mBtnBgVisListener != null) {
+                        mBtnBgVisListener.onBtnBgVis(true);
+                    }
+                }
+            } else {
+                if (mBtnBgVisListener != null) {
+                    mBtnBgVisListener.onBtnBgVis(false);
+                }
+                if (mOperateTemplateBar != null) {
+                    mOperateTemplateBar.setVisibility(INVISIBLE);
+                }
+            }
+        }
+    }
+
 
     public void setPuzzlePresenter(PuzzlePresenter puzzlePresenter) {
         mPuzzlePresenter = puzzlePresenter;
@@ -162,7 +326,7 @@ public class PuzzleFrame extends FrameLayout {
         initToolBar();
         initLabelBar();
     }
-    private PuzzleToolBar mPuzzleToolBar;
+
     private void initToolBar() {
         // 弹出的浮动工具栏
         mPuzzleToolBar = new PuzzleToolBar(mContext);
@@ -171,9 +335,7 @@ public class PuzzleFrame extends FrameLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         this.addView(mPuzzleToolBar, fParams);
     }
-    private RelativeLayout mLabelBar;
-    private EffectiveImageButton mLabelBarEdit;
-    private EffectiveImageButton mLabelBarDel;
+
     private void initLabelBar() {
         FrameLayout.LayoutParams fParams = new FrameLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT,
@@ -296,4 +458,19 @@ public class PuzzleFrame extends FrameLayout {
 //            }
         }
     };
+
+
+    private OnBtnBgVisListener mBtnBgVisListener;
+    public interface OnBtnBgVisListener {
+        void onBtnBgVis(boolean visible);
+    }
+    public void setOnBtnBgVisListener(OnBtnBgVisListener onBtnBgVisListener) {
+        mBtnBgVisListener = onBtnBgVisListener;
+    }
+
+    public void recycle() {
+        if (mPuzzlesDrawView != null) {
+            mPuzzlesDrawView.recycle();
+        }
+    }
 }

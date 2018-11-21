@@ -1,6 +1,7 @@
 package com.xs.lightpuzzle.puzzle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpView;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 
 /**
  * Created by xs on 2018/11/20.
@@ -8,7 +9,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 public interface PuzzleView extends MvpView{
 
-//    void setPageData(PuzzlesInfo puzzlesInfo);
+    void setPageData(PuzzlesInfo puzzlesInfo);
 
     //普通层级刷新
     void invalidateView();

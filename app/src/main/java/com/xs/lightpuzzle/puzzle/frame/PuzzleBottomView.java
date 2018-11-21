@@ -1,4 +1,4 @@
-package com.xs.lightpuzzle.puzzle;
+package com.xs.lightpuzzle.puzzle.frame;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.xs.lightpuzzle.R;
+import com.xs.lightpuzzle.puzzle.PuzzleMode;
 import com.xs.lightpuzzle.puzzle.util.AnimUtils;
 import com.xs.lightpuzzle.puzzle.util.ColorUtil;
 import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;

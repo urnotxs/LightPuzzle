@@ -1,6 +1,7 @@
 package com.xs.lightpuzzle.puzzle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Shader;
@@ -14,7 +15,18 @@ import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvp.layout.MvpFrameLayout;
 import com.xs.lightpuzzle.R;
+import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.photopicker.entity.Photo;
+import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
+import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
 import com.xs.lightpuzzle.puzzle.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
 
 /**
  * Created by xs on 2018/11/20.
@@ -35,14 +47,66 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
     private PuzzleBottomView mBottomView;
 
-    public PuzzlePage(Context context) {
+    private int mPuzzleMode = -1;
+    private String mTemplateId;
+    private int mTemplateCategory;
+    private ArrayList<Photo> mPhotos;
+
+    public PuzzlePage(Context context, Intent intent) {
         super(context);
         mContext = context;
+        setBackgroundResource(R.drawable.bg_toolbar);
         initView();
+        getIntentData(intent);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        initData(mTemplateId, mPhotos, mTemplateCategory);
+    }
+
+    private void initData(String templateId, ArrayList<Photo> photos, int templateCategory) {
+        if (mBottomView != null) {
+            mBottomView.setVisibility(INVISIBLE);
+        }
+        getPresenter().initData(mContext, templateId, photos, templateCategory);
+    }
+
+    @Override
+    public void setPageData(PuzzlesInfo puzzlesInfo) {
+        if (puzzlesInfo == null || getPresenter().isPageClose()) {
+            return;
+        }
+        mPuzzleFrame.setPuzzlePresenter(getPresenter());
+
+        mPuzzleMode = puzzlesInfo.getPuzzleMode();
+
+        List<TemplateInfo> templateInfoList = puzzlesInfo.getTemplateInfos();
+        if (templateInfoList != null && templateInfoList.size() > 0) {
+            if (mPuzzleFrame != null) {
+                mPuzzleFrame.recycle();
+                mPuzzleFrame.setPageData(puzzlesInfo);
+            }
+
+            if (mBottomView != null) {
+                mBottomView.setPuzzleMode(mPuzzleMode);
+                mBottomView.setVisibility(VISIBLE);
+            }
+        }
+    }
+
+    public PuzzleFrame.OnBtnBgVisListener mOnBtnBgVisListener = new PuzzleFrame.OnBtnBgVisListener() {
+        @Override
+        public void onBtnBgVis(boolean visible) {
+            if (mBottomView != null) {
+                mBottomView.setBtnBgVisible(visible);
+            }
+        }
+    };
+
+
     private void initView() {
-        setBackgroundResource(R.color.colorPrimary);
         initContainer();
         initTopBar();
         initPuzzleFrame();
@@ -58,12 +122,6 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     }
 
     private void initTopBar() {
-
-//        RelativeLayout layout = new RelativeLayout(mContext);
-//        layout.setBackgroundColor(Color.WHITE);
-//        RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.MATCH_PARENT, Utils.getRealPixel3(90));
-//        mMainContainer.addView(layout, rParams);
         mTopBar = new RelativeLayout(mContext);
         mTopBar.setId(R.id.puzzle_page_top_bar);
         BitmapDrawable bmpDraw = new BitmapDrawable(BitmapFactory
@@ -162,4 +220,14 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public void onClick(View v) {
 
     }
+
+
+    private void getIntentData(Intent intent) {
+        mPhotos = intent.getParcelableArrayListExtra(EXTRA_PHOTOS);
+        mTemplateId = intent.getStringExtra(PuzzleActivity.EXTRA_TEMPLATE_ID);
+        mTemplateCategory = intent.getIntExtra(
+                PuzzleActivity.EXTRA_TEMPLATE_CATEGORY,
+                DataConstant.TEMPLATE_CATEGORY.SIMPLE);
+    }
+
 }

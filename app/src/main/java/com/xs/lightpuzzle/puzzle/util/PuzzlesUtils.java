@@ -6,6 +6,9 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
+import com.xs.lightpuzzle.puzzle.PuzzleMode;
+import com.xs.lightpuzzle.puzzle.data.TemplateData;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -15,22 +18,22 @@ import java.util.List;
 
 public class PuzzlesUtils {
 
-//    public static Rect getRect(int puzzleMode, TemplateData templateData) {
-//        if (templateData == null || puzzleMode == -1 || templateData.getSizeRatio() == 0) {
-//            return null;
-//        }
-//        switch (puzzleMode) {
-//            case PuzzleMode.MODE_WAG:
-//            case PuzzleMode.MODE_LAYOUT:
-//            case PuzzleMode.MODE_VIDEO:
-//                return getPrivateRect(templateData.getSizeRatio());
-//            case PuzzleMode.MODE_LONG:
-//            case PuzzleMode.MODE_JOIN:
-//            case PuzzleMode.MODE_LAYOUT_JOIN:
-//                return getLongRect(templateData.getSizeRatio());
-//        }
-//        return null;
-//    }
+    public static Rect getRect(int puzzleMode, TemplateData templateData) {
+        if (templateData == null || puzzleMode == -1 || templateData.getSizeRatio() == 0) {
+            return null;
+        }
+        switch (puzzleMode) {
+            case PuzzleMode.MODE_WAG:
+            case PuzzleMode.MODE_LAYOUT:
+            case PuzzleMode.MODE_VIDEO:
+                return getPrivateRect(templateData.getSizeRatio());
+            case PuzzleMode.MODE_LONG:
+            case PuzzleMode.MODE_JOIN:
+            case PuzzleMode.MODE_LAYOUT_JOIN:
+                return getLongRect(templateData.getSizeRatio());
+        }
+        return null;
+    }
 
     public static Rect getPrivateRect(float ratio) {
         int width = 0;
