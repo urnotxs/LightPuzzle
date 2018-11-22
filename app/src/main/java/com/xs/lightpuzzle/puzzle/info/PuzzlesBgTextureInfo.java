@@ -2,14 +2,26 @@ package com.xs.lightpuzzle.puzzle.info;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
 import com.xs.lightpuzzle.LightPuzzleConstant;
+import com.xs.lightpuzzle.imagedecode.BitmapHelper;
+import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
+import com.xs.lightpuzzle.imagedecode.core.ImageSize;
+import com.xs.lightpuzzle.minnie.util.PuzzleUtils;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
+import com.xs.lightpuzzle.yszx.Scheme;
+
+import java.io.IOException;
+
+import cn.poco.filter.POCOCompositor;
 
 /**
  * Created by Lin on 2018/4/12.
@@ -107,22 +119,39 @@ public class PuzzlesBgTextureInfo implements DrawView {
             colorTextureBitmap = null;
             return;
         }
-//        DecodeImageOptions options = new DecodeImageOptions.Builder()
-//                .setImageScaleType(ImageScaleType.NONE)
-//                .build();
-//        Bitmap textureBitmap = JaneBitmapFactory.decodeAssets(context, DirConstant.TEXTURE_RESOURCE_PATH + File
-//                .separator + textureStr, null, options);
-//        if (BitmapHelper.isValid(textureBitmap)) {
-//            Bitmap colorBitmap = Bitmap.createBitmap(textureBitmap.getWidth(), textureBitmap.getHeight(),
-//                    Bitmap.Config.ARGB_8888);
-//            Canvas canvas = new Canvas(colorBitmap);
-//            canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-//            if (bgColor == 0) {
-//                bgColor = -1;
-//            }
-//            canvas.drawColor(bgColor);
-//            colorTextureBitmap = MakeMixAndEffect.DoubleExposeMix(colorBitmap, textureBitmap, 0, effect, alpha);
-//        }
+        String textureUri = "texture/" + textureStr;
+        int[] textureSize = new int[2];
+        try {
+            textureSize = PuzzleUtils.getBitmapSize(context,
+                    Scheme.ASSETS.wrap(textureUri));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        float scale = (float) rect.width() / (float) outPutRect.width();
+        int drawWidth = (int) (textureSize[0] * scale);
+        int drawHeight = (int) (textureSize[1] * scale);
+        Bitmap textureBitmap = null;
+        if (drawWidth > 0 && drawHeight > 0) {
+            textureBitmap = JaneBitmapFactory.decodeAssets(context,
+                    textureUri, new ImageSize(drawWidth, drawHeight));
+        }
+        if (BitmapHelper.isValid(textureBitmap)) {
+            Bitmap colorBitmap = Bitmap.createBitmap(
+                    textureBitmap.getWidth(), textureBitmap.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(colorBitmap);
+            canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            if (bgColor == 0) {
+                bgColor = -1;
+            }
+            canvas.drawColor(bgColor);
+            int composition = effect.equals("正常") ? 1 : 41;
+            int opacity = (int) (alpha * 250);
+            colorTextureBitmap = POCOCompositor
+                    .composite(colorBitmap, textureBitmap,
+                            POCOCompositor.A_B_INVERSE.NO,
+                            composition, opacity);
+        }
     }
 
     /**
@@ -159,31 +188,33 @@ public class PuzzlesBgTextureInfo implements DrawView {
         }
         canvas.save();
         canvas.translate(0, -mLastHeight);
-//        if (BitmapHelper.isValid(colorTextureBitmap)) {
-//            float scal = (float) finalRect.width() / (float) outPutRect.width();
-//            int drawWidth = (int) (colorTextureBitmap.getWidth() * scal);
-//            int drawHeight = (int) (colorTextureBitmap.getHeight() * scal);
-//            //横轴循环次数
-//            int count_x = (finalRect.width() + drawWidth - 1) / drawWidth;
-//            //纵轴循环次数
-//            int count_y = (finalRect.height() + drawHeight - 1) / drawHeight;
-//            Matrix m = new Matrix();
-//            for (int idy = 0; idy < count_y; idy++) {
-//                for (int idx = 0; idx < count_x; idx++) {
-//                    m.reset();
-//                    m.setScale(scal, scal);
-//                    m.postTranslate(idx * drawWidth, idy * drawHeight);
-//                    canvas.drawBitmap(colorTextureBitmap, m, null);
-//                }
-//            }
-//        } else {
-//
-//        }
-        Paint paint = new Paint();
-        paint.setColor(bgColor);
-        canvas.drawRect(finalRect, paint);
-        canvas.restore();
+
+        if (BitmapHelper.isValid(colorTextureBitmap)) {
+            drawTexture(canvas);
+        } else {
+            Paint paint = new Paint();
+            paint.setColor(bgColor);
+            canvas.drawRect(finalRect, paint);
+            canvas.restore();
+        }
     }
+
+    private boolean drawTexture(Canvas canvas) {
+        if (colorTextureBitmap == null) {
+            return false;
+        }
+        Paint paint = new Paint();
+        int saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG);
+        {
+            Shader shader = new BitmapShader(colorTextureBitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+            paint.setShader(shader);
+            canvas.drawRect(rect, paint);
+            paint.setXfermode(null);
+        }
+        canvas.restoreToCount(saved);
+        return true;
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

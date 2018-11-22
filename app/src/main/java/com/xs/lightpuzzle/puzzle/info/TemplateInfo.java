@@ -20,6 +20,8 @@ import com.xs.lightpuzzle.puzzle.data.lowdata.TextData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.VariableFgData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.WaterMarkData;
 import com.xs.lightpuzzle.puzzle.info.low.PuzzlesFgInfo;
+import com.xs.lightpuzzle.puzzle.info.low.PuzzlesMaskInfo;
+import com.xs.lightpuzzle.puzzle.info.low.PuzzlesVarFgInfo;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class TemplateInfo {
 //
     private PuzzlesFgInfo puzzlesFgInfo;
 //
-//    private PuzzlesMaskInfo puzzlesMaskInfo;
+    private PuzzlesMaskInfo puzzlesMaskInfo;
 //
 //    private PuzzlesQrCodeInfo puzzlesQrCodeInfo;
 //
@@ -54,7 +56,7 @@ public class TemplateInfo {
 //
 //    private PuzzlesWaterMarkInfo puzzlesWaterMarkInfo;
 //
-//    private PuzzlesVarFgInfo[] puzzlesVarFgInfos;
+    private PuzzlesVarFgInfo[] puzzlesVarFgInfos;
 //
 //    private PuzzlesTextInfo[] puzzlesTextInfos;
 //
@@ -159,12 +161,12 @@ public class TemplateInfo {
             puzzlesFgInfo.setOutPutRect(outPutRect);
             puzzlesFgInfo.init();
         }
-//
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.setRect(rect);
-//            puzzlesMaskInfo.setOutPutRect(outPutRect);
-//            puzzlesMaskInfo.init();
-//        }
+
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.setRect(rect);
+            puzzlesMaskInfo.setOutPutRect(outPutRect);
+            puzzlesMaskInfo.init();
+        }
 //
 //        if (puzzlesQrCodeInfo != null) {
 //            puzzlesQrCodeInfo.setRect(rect);
@@ -196,13 +198,13 @@ public class TemplateInfo {
 //        }
 //
 //
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length > 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                puzzlesVarFgInfo.setRect(rect);
-//                puzzlesVarFgInfo.setOutPutRect(outPutRect);
-//                puzzlesVarFgInfo.init();
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length > 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                puzzlesVarFgInfo.setRect(rect);
+                puzzlesVarFgInfo.setOutPutRect(outPutRect);
+                puzzlesVarFgInfo.init();
+            }
+        }
 //
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length > 0) {
 //            for (PuzzlesTextInfo puzzlesTextInfo : puzzlesTextInfos) {
@@ -230,9 +232,9 @@ public class TemplateInfo {
         if (puzzlesFgInfo != null) {
             puzzlesFgInfo.init();
         }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.init();
-//        }
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.init();
+        }
 //        if (puzzlesQrCodeInfo != null) {
 //            puzzlesQrCodeInfo.init();
 //        }
@@ -250,11 +252,11 @@ public class TemplateInfo {
 //        if (puzzlesWaterMarkInfo != null) {
 //            puzzlesWaterMarkInfo.init();
 //        }
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                puzzlesVarFgInfo.init();
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                puzzlesVarFgInfo.init();
+            }
+        }
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length != 0) {
 //            for (PuzzlesTextInfo puzzlesTextInfo : puzzlesTextInfos) {
 //                puzzlesTextInfo.init();
@@ -272,9 +274,9 @@ public class TemplateInfo {
         if (puzzlesFgInfo != null) {
             puzzlesFgInfo.setSave(true);
         }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.setSave(true);
-//        }
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.setSave(true);
+        }
 //        if (puzzlesQrCodeInfo != null) {
 //            puzzlesQrCodeInfo.setSave(true);
 //        }
@@ -289,11 +291,11 @@ public class TemplateInfo {
 //        if (puzzlesWaterMarkInfo != null) {
 //            puzzlesWaterMarkInfo.setSave(true);
 //        }
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                puzzlesVarFgInfo.setSave(true);
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                puzzlesVarFgInfo.setSave(true);
+            }
+        }
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length != 0) {
 //            for (PuzzlesTextInfo puzzlesTextInfo : puzzlesTextInfos) {
 //                puzzlesTextInfo.setSave(true);
@@ -323,12 +325,12 @@ public class TemplateInfo {
         if (puzzlesFgInfo != null) {
             puzzlesFgInfo.initBitmap(context);
         }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.initBitmap(context);
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.initBitmap(context);
 //            if (bgTextureInfo != null) {
 //                puzzlesMaskInfo.changeBgTexture(bgTextureInfo.getColorTextureBitmap(), bgTextureInfo.getBgColor());
 //            }
-//        }
+        }
 //        if (puzzlesQrCodeInfo != null) {
 //            puzzlesQrCodeInfo.initBitmap(context);
 //        }
@@ -363,14 +365,14 @@ public class TemplateInfo {
 //            }
 //            puzzlesWaterMarkInfo.initBitmap(context);
 //        }
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                if (bgTextureInfo != null) {
-//                    puzzlesVarFgInfo.setColor(bgTextureInfo.getWaterColor());
-//                }
-//                puzzlesVarFgInfo.initBitmap(context);
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                if (bgTextureInfo != null) {
+                    puzzlesVarFgInfo.setColor(bgTextureInfo.getWaterColor());
+                }
+                puzzlesVarFgInfo.initBitmap(context);
+            }
+        }
 //
 //
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length != 0) {
@@ -408,17 +410,17 @@ public class TemplateInfo {
 //        if (puzzlesHeadInfo != null) {
 //            puzzlesHeadInfo.draw(canvas);
 //        }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.draw(canvas);
-//        }
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.draw(canvas);
+        }
         if (puzzlesFgInfo != null) {
             puzzlesFgInfo.draw(canvas);
         }
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                puzzlesVarFgInfo.draw(canvas);
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                puzzlesVarFgInfo.draw(canvas);
+            }
+        }
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length != 0) {
 //            for (PuzzlesTextInfo puzzlesTextInfo : puzzlesTextInfos) {
 //                puzzlesTextInfo.draw(canvas);
@@ -571,13 +573,13 @@ public class TemplateInfo {
         if (TextUtils.isEmpty(maskPic)) {
             return;
         }
-//        if (puzzlesMaskInfo == null) {
-//            puzzlesMaskInfo = new PuzzlesMaskInfo();
-//        }
-//        puzzlesMaskInfo.setMaskPic(maskPic);
-//        puzzlesMaskInfo.setRect(rect);
-//        puzzlesMaskInfo.setOutPutRect(outPutRect);
-//        puzzlesMaskInfo.init();
+        if (puzzlesMaskInfo == null) {
+            puzzlesMaskInfo = new PuzzlesMaskInfo();
+        }
+        puzzlesMaskInfo.setMaskPic(maskPic);
+        puzzlesMaskInfo.setRect(rect);
+        puzzlesMaskInfo.setOutPutRect(outPutRect);
+        puzzlesMaskInfo.init();
     }
 
     private void initPuzzlesQrCodeInfo(QrCodeData qrCodeData) {
@@ -697,20 +699,20 @@ public class TemplateInfo {
             return;
         }
 
-//        puzzlesVarFgInfos = new PuzzlesVarFgInfo[variableFgDatas.size()];
-//
-//        for (int i = 0; i < variableFgDatas.size(); i++) {
-//            PuzzlesVarFgInfo puzzlesVarFgInfo = new PuzzlesVarFgInfo();
-//            puzzlesVarFgInfo.setVarFgPic(variableFgDatas.get(i).getVarFgPic());
-//            puzzlesVarFgInfo.setVarFgPoint(variableFgDatas.get(i).getVarFgPoint());
-//            puzzlesVarFgInfo.setRect(rect);
-//            puzzlesVarFgInfo.setOutPutRect(outPutRect);
-//            puzzlesVarFgInfo.init();
-//            if (puzzlesVarFgInfos[i] != null) {
-//                puzzlesVarFgInfo.setColor(puzzlesVarFgInfos[i].getColor());
-//            }
-//            puzzlesVarFgInfos[i] = puzzlesVarFgInfo;
-//        }
+        puzzlesVarFgInfos = new PuzzlesVarFgInfo[variableFgDatas.size()];
+
+        for (int i = 0; i < variableFgDatas.size(); i++) {
+            PuzzlesVarFgInfo puzzlesVarFgInfo = new PuzzlesVarFgInfo();
+            puzzlesVarFgInfo.setVarFgPic(variableFgDatas.get(i).getVarFgPic());
+            puzzlesVarFgInfo.setVarFgPoint(variableFgDatas.get(i).getVarFgPoint());
+            puzzlesVarFgInfo.setRect(rect);
+            puzzlesVarFgInfo.setOutPutRect(outPutRect);
+            puzzlesVarFgInfo.init();
+            if (puzzlesVarFgInfos[i] != null) {
+                puzzlesVarFgInfo.setColor(puzzlesVarFgInfos[i].getColor());
+            }
+            puzzlesVarFgInfos[i] = puzzlesVarFgInfo;
+        }
     }
 
     private void initPuzzlesTextInfos(List<TextData> textDatas) {
@@ -778,19 +780,19 @@ public class TemplateInfo {
 //        if (puzzlesWaterMarkInfo != null) {
 //            puzzlesWaterMarkInfo.changeWaterColor(fontColor);
 //        }
-//        if (puzzlesVarFgInfos != null) {
-//            for (PuzzlesVarFgInfo varFgInfo : puzzlesVarFgInfos) {
-//                varFgInfo.changeFgColor(fontColor);
-//            }
-//        }
+        if (puzzlesVarFgInfos != null) {
+            for (PuzzlesVarFgInfo varFgInfo : puzzlesVarFgInfos) {
+                varFgInfo.changeFgColor(fontColor);
+            }
+        }
 //        if (puzzlesTextInfos != null) {
 //            for (PuzzlesTextInfo textInfo : puzzlesTextInfos) {
 //                textInfo.changeFontColor(fontColor);
 //            }
 //        }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.changeBgTexture(colorTextureBitmap, bgColor);
-//        }
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.changeBgTexture(colorTextureBitmap, bgColor);
+        }
 //
 //        if (puzzlesCardInfo != null) {
 //            puzzlesCardInfo.changeFontColor(fontColor);
@@ -1442,17 +1444,17 @@ public class TemplateInfo {
 //        if (puzzlesHeadInfo != null) {
 //            puzzlesHeadInfo.recycle();
 //        }
-//        if (puzzlesMaskInfo != null) {
-//            puzzlesMaskInfo.recycle();
-//        }
+        if (puzzlesMaskInfo != null) {
+            puzzlesMaskInfo.recycle();
+        }
         if (puzzlesFgInfo != null) {
             puzzlesFgInfo.recycle();
         }
-//        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
-//            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
-//                puzzlesVarFgInfo.recycle();
-//            }
-//        }
+        if (puzzlesVarFgInfos != null && puzzlesVarFgInfos.length != 0) {
+            for (PuzzlesVarFgInfo puzzlesVarFgInfo : puzzlesVarFgInfos) {
+                puzzlesVarFgInfo.recycle();
+            }
+        }
 //        if (puzzlesTextInfos != null && puzzlesTextInfos.length != 0) {
 //            for (PuzzlesTextInfo puzzlesTextInfo : puzzlesTextInfos) {
 //                puzzlesTextInfo.recycle();

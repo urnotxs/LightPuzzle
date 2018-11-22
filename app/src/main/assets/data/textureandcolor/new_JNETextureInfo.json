@@ -1,0 +1,255 @@
+[
+    {
+        "textureHgihlightIcon": "choose_bg_none_hover.png",
+        "textureId": "20000",
+        "textureImageName": "none",
+        "lock": "none",
+        "textureIcon": "choose_bg_none.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli1_hover.png",
+        "textureId": "20001",
+        "textureImageName": "background_texture_1.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli1.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli2_hover.png",
+        "textureId": "20002",
+        "textureImageName": "background_texture_2.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli2.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli3_hover.png",
+        "textureId": "20003",
+        "textureImageName": "background_texture_3.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli3.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli4_hover.png",
+        "textureId": "20004",
+        "textureImageName": "background_texture_4.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli4.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli5_hover.png",
+        "textureId": "20005",
+        "textureImageName": "background_texture_5.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli5.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli6_hover.png",
+        "textureId": "20006",
+        "textureImageName": "background_texture_6.jpg",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli6.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli7_hover.png",
+        "textureId": "20007",
+        "textureImageName": "background_texture_7.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli7.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli8_hover.png",
+        "textureId": "20008",
+        "textureImageName": "background_texture_8.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli8.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli9_hover.png",
+        "textureId": "20009",
+        "textureImageName": "background_texture_9.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli9.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli10_hover.png",
+        "textureId": "20010",
+        "textureImageName": "background_texture_10.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli10.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli11_hover.png",
+        "textureId": "20011",
+        "textureImageName": "background_texture_11.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli11.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli12_hover.png",
+        "textureId": "20012",
+        "textureImageName": "background_texture_12.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli12.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli13_hover.png",
+        "textureId": "20013",
+        "textureImageName": "background_texture_13.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli13.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli14_hover.png",
+        "textureId": "20014",
+        "textureImageName": "background_texture_14.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli14.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli15_hover.png",
+        "textureId": "20015",
+        "textureImageName": "background_texture_15.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli15.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli16_hover.png",
+        "textureId": "20016",
+        "textureImageName": "background_texture_16.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli16.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli17_hover.png",
+        "textureId": "20017",
+        "textureImageName": "background_texture_17.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli17.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli18_hover.png",
+        "textureId": "20018",
+        "textureImageName": "background_texture_18.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli18.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli19_hover.png",
+        "textureId": "20019",
+        "textureImageName": "background_texture_19.png",
+        "lock": "none",
+        "textureIcon": "choose_bg_wenli19.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli20_hover.png",
+        "textureId": "20020",
+        "textureImageName": "background_texture_20.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli20.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli21_hover.png",
+        "textureId": "20021",
+        "textureImageName": "background_texture_21.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli21.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli22_hover.png",
+        "textureId": "20022",
+        "textureImageName": "background_texture_22.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli22.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli23_hover.png",
+        "textureId": "20023",
+        "textureImageName": "background_texture_23.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli23.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli24_hover.png",
+        "textureId": "20024",
+        "textureImageName": "background_texture_24.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli24.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli25_hover.png",
+        "textureId": "20025",
+        "textureImageName": "background_texture_25.jpg",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli25.png"
+    }
+,
+    {
+        "textureHgihlightIcon": "choose_bg_wenli26_hover.png",
+        "textureId": "20026",
+        "textureImageName": "background_texture_26.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli26.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli27_hover.png",
+        "textureId": "20027",
+        "textureImageName": "background_texture_27.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli27.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli28_hover.png",
+        "textureId": "20028",
+        "textureImageName": "background_texture_28.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli28.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli29_hover.png",
+        "textureId": "20029",
+        "textureImageName": "background_texture_29.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli29.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli30_hover.png",
+        "textureId": "20030",
+        "textureImageName": "background_texture_30.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli30.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli31_hover.png",
+        "textureId": "20031",
+        "textureImageName": "background_texture_31.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli31.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli32_hover.png",
+        "textureId": "20032",
+        "textureImageName": "background_texture_32.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli32.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli33_hover.png",
+        "textureId": "20033",
+        "textureImageName": "background_texture_33.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli33.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli34_hover.png",
+        "textureId": "20034",
+        "textureImageName": "background_texture_34.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli34.png"
+    },
+    {
+        "textureHgihlightIcon": "choose_bg_wenli35_hover.png",
+        "textureId": "20035",
+        "textureImageName": "background_texture_35.png",
+        "lock": "vip",
+        "textureIcon": "choose_bg_wenli35.png"
+    }
+]

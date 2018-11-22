@@ -1,0 +1,266 @@
+[
+  {
+    "colorRGBString": "000000",
+    "colorHgihlightIcon": "choose_text_color_hover_1.png",
+    "colorIcon": "choose_text_color1.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "353535",
+    "colorHgihlightIcon": "choose_text_color_hover_2.png",
+    "colorIcon": "choose_text_color2.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "5f4239",
+    "colorHgihlightIcon": "choose_text_color_hover_3.png",
+    "colorIcon": "choose_text_color3.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "82634f",
+    "colorHgihlightIcon": "choose_text_color_hover_3.png",
+    "colorIcon": "choose_text_color4.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "6c3b4c",
+    "colorHgihlightIcon": "choose_text_color_hover_5.png",
+    "colorIcon": "choose_text_color5.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "0f2446",
+    "colorHgihlightIcon": "choose_text_color_hover_6.png",
+    "colorIcon": "choose_text_color6.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "806c92",
+    "colorHgihlightIcon": "choose_text_color_hover_7.png",
+    "colorIcon": "choose_text_color7.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "c45e6b",
+    "colorHgihlightIcon": "choose_text_color_hover_8.png",
+    "colorIcon": "choose_text_color8.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "c26400",
+    "colorHgihlightIcon": "choose_text_color_hover_9.png",
+    "colorIcon": "choose_text_color9.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "9b6823",
+    "colorHgihlightIcon": "choose_text_color_hover_10.png",
+    "colorIcon": "choose_text_color10.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "3c6b8c",
+    "colorHgihlightIcon": "choose_text_color_hover_11.png",
+    "colorIcon": "choose_text_color11.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "717171",
+    "colorHgihlightIcon": "choose_text_color_hover_12.png",
+    "colorIcon": "choose_text_color12.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "93a6a9",
+    "colorHgihlightIcon": "choose_text_color_hover_13.png",
+    "colorIcon": "choose_text_color13.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "44abb4",
+    "colorHgihlightIcon": "choose_text_color_hover_14.png",
+    "colorIcon": "choose_text_color14.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "a89965",
+    "colorHgihlightIcon": "choose_text_color_hover_15.png",
+    "colorIcon": "choose_text_color15.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "a6806b",
+    "colorHgihlightIcon": "choose_text_color_hover_16.png",
+    "colorIcon": "choose_text_color16.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "b8a69a",
+    "colorHgihlightIcon": "choose_text_color_hover_17.png",
+    "colorIcon": "choose_text_color17.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "bdd8cf",
+    "colorHgihlightIcon": "choose_text_color_hover_18.png",
+    "colorIcon": "choose_text_color18.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "e0d8c2",
+    "colorHgihlightIcon": "choose_text_color_hover_19.png",
+    "colorIcon": "choose_text_color19.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "bcbcbc",
+    "colorHgihlightIcon": "choose_text_color_hover_20.png",
+    "colorIcon": "choose_text_color20.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "dcdcdc",
+    "colorHgihlightIcon": "choose_text_color_hover_21.png",
+    "colorIcon": "choose_text_color21.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "ffffff",
+    "colorHgihlightIcon": "choose_text_color_hover_22.png",
+    "colorIcon": "choose_text_color22.png",
+    "lock": "none"
+  },
+  {
+    "colorRGBString": "31343d",
+    "colorHgihlightIcon": "choose_text_color_hover_23.png",
+    "colorIcon": "choose_text_color23.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "4d5949",
+    "colorHgihlightIcon": "choose_text_color_hover_24.png",
+    "colorIcon": "choose_text_color24.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "5e5544",
+    "colorHgihlightIcon": "choose_text_color_hover_25.png",
+    "colorIcon": "choose_text_color25.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "816a41",
+    "colorHgihlightIcon": "choose_text_color_hover_26.png",
+    "colorIcon": "choose_text_color26.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "554045",
+    "colorHgihlightIcon": "choose_text_color_hover_27.png",
+    "colorIcon": "choose_text_color27.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "723040",
+    "colorHgihlightIcon": "choose_text_color_hover_28.png",
+    "colorIcon": "choose_text_color28.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "5b6479",
+    "colorHgihlightIcon": "choose_text_color_hover_29.png",
+    "colorIcon": "choose_text_color29.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "5a716a",
+    "colorHgihlightIcon": "choose_text_color_hover_30.png",
+    "colorIcon": "choose_text_color30.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "b89247",
+    "colorHgihlightIcon": "choose_text_color_hover_31.png",
+    "colorIcon": "choose_text_color31.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "944b28",
+    "colorHgihlightIcon": "choose_text_color_hover_32.png",
+    "colorIcon": "choose_text_color32.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "ad5d5e",
+    "colorHgihlightIcon": "choose_text_color_hover_33.png",
+    "colorIcon": "choose_text_color33.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "7e9cb7",
+    "colorHgihlightIcon": "choose_text_color_hover_34.png",
+    "colorIcon": "choose_text_color34.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "838488",
+    "colorHgihlightIcon": "choose_text_color_hover_35.png",
+    "colorIcon": "choose_text_color35.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "889785",
+    "colorHgihlightIcon": "choose_text_color_hover_36.png",
+    "colorIcon": "choose_text_color36.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "969176",
+    "colorHgihlightIcon": "choose_text_color_hover_37.png",
+    "colorIcon": "choose_text_color37.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "c46b7f",
+    "colorHgihlightIcon": "choose_text_color_hover_38.png",
+    "colorIcon": "choose_text_color38.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "7c6a88",
+    "colorHgihlightIcon": "choose_text_color_hover_39.png",
+    "colorIcon": "choose_text_color39.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "d0dbea",
+    "colorHgihlightIcon": "choose_text_color_hover_40.png",
+    "colorIcon": "choose_text_color40.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "e1e5de",
+    "colorHgihlightIcon": "choose_text_color_hover_41.png",
+    "colorIcon": "choose_text_color41.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "efe1d7",
+    "colorHgihlightIcon": "choose_text_color_hover_42.png",
+    "colorIcon": "choose_text_color42.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "e8d8d9",
+    "colorHgihlightIcon": "choose_text_color_hover_43.png",
+    "colorIcon": "choose_text_color43.png",
+    "lock": "vip"
+  },
+  {
+    "colorRGBString": "e9e5ed",
+    "colorHgihlightIcon": "choose_text_color_hover_44.png",
+    "colorIcon": "choose_text_color44.png",
+    "lock": "vip"
+  }
+]

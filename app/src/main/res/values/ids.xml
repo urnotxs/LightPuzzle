@@ -4,4 +4,12 @@
     <!-- PuzzlePage -->
     <item name="puzzle_page_top_bar" type="id"/>
 
+    <!-- EditBgTexturePage start-->
+    <item name="edit_bg_texture_page_view_page" type="id" />
+    <!-- EditBgTexturePage end-->
+
+    <!--SignaturePage start-->
+    <item name="signature_page_history" type="id" />
+    <item name="signature_page_back" type="id" />
+    <!--SignaturePage end-->
 </resources>

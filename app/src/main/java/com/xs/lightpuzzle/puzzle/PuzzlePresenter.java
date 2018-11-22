@@ -6,9 +6,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.TemplateManager;
+import com.xs.lightpuzzle.data.entity.BackgroundTexture;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
@@ -16,9 +18,13 @@ import com.xs.lightpuzzle.puzzle.adapter.PuzzleDataAdapter;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.TemplateData;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
+import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -50,10 +56,64 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
 
     }
 
+    public void invalidateView() {
+        ifViewAttached(new ViewAction<PuzzleView>() {
+            @Override
+            public void run(@NonNull PuzzleView view) {
+                view.invalidateView();
+            }
+        });
+    }
+
+    public void invalidateView(final int width, final int height, final int templateSize) {
+        ifViewAttached(new ViewAction<PuzzleView>() {
+            @Override
+            public void run(@NonNull PuzzleView view) {
+                view.invalidateView(width, height, templateSize);
+            }
+        });
+    }
+
+    public void invalidateViewToScroll(final int width, final int height, final int templateSize, final int bottom) {
+        ifViewAttached(new ViewAction<PuzzleView>() {
+            @Override
+            public void run(@NonNull PuzzleView view) {
+                view.invalidateViewToScroll(width, height, templateSize, bottom);
+            }
+        });
+    }
+
     public void draw(Canvas canvas) {
         if (mPuzzlesInfo != null) {
             mPuzzlesInfo.draw(canvas);
         }
+    }
+
+    // --- 背景
+    public void changeBgTexture(Context context, PuzzleBackgroundBean backgroundBean) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        PuzzlesBgTextureInfo puzzlesBgTextureInfo = mPuzzlesInfo.getBgTextureInfo();
+
+        BgTextureData bgTextureData = new BgTextureData();
+        bgTextureData.setEffect(backgroundBean.getBlendModel());
+        bgTextureData.setBgColor(PuzzlesUtils.strColor2Int(backgroundBean.getBgColor()));
+        bgTextureData.setTexture(backgroundBean.getTexture());
+        bgTextureData.setAlpha(backgroundBean.getAlpha());
+        bgTextureData.setWaterColor(PuzzlesUtils.strColor2Int(backgroundBean.getFontColor()));
+
+        if (context != null && puzzlesBgTextureInfo != null && bgTextureData != null) {
+            puzzlesBgTextureInfo.setBgColor(bgTextureData.getBgColor());
+            puzzlesBgTextureInfo.setTextureStr(bgTextureData.getTexture());
+            puzzlesBgTextureInfo.setAlpha(bgTextureData.getAlpha());
+            puzzlesBgTextureInfo.setEffect(bgTextureData.getEffect());
+            puzzlesBgTextureInfo.setWaterColor(bgTextureData.getWaterColor());
+            puzzlesBgTextureInfo.initBitmap(context);
+            mPuzzlesInfo.changeBgTexture(bgTextureData.getWaterColor(), bgTextureData.getBgColor());
+        }
+
+        invalidateView();
     }
 
     public void initData(final Context context, final String templateId,
@@ -169,7 +229,6 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         }
     }
 
-
     private int mapAdditionalTemplateCategory(int templateCategory) {
         int additional = templateCategory;
         if (templateCategory == DataConstant.TEMPLATE_CATEGORY.LONG_COLLAGE_GROUP) {
@@ -178,8 +237,33 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         return additional;
     }
 
+    private Gson mGson = new Gson();
+    private List<BackgroundTexture> mBackgroundTextures;
+//    private BackgroundTexture getBackgroundTexture(int order) {
+//        if (mBackgroundTextures == null){
+//            String data = AssetManagerHelper.convertInputString(mContext,
+//                    PuzzleConstant.ASSET_DATA_PATH.BACKGROUND_TEXTURE);
+//            if (TextUtils.isEmpty(data)) {
+//                throw new RuntimeException("open assets " +
+//                        PuzzleConstant.ASSET_DATA_PATH.BACKGROUND_TEXTURE + "file error");
+//            }
+//            mBackgroundTextures = mGson.fromJson(data, new TypeToken<List<BackgroundTexture>>(){
+//
+//            }.getType());
+//        }
+//        for (BackgroundTexture texture : mBackgroundTextures){
+//            if (texture.getOrder() == order){
+//                return texture;
+//            }
+//        }
+//        return null;
+//    }
+
     public boolean isPageClose() {
         return isPageClose;
     }
 
+    public PuzzlesInfo getPuzzlesInfo() {
+        return mPuzzlesInfo;
+    }
 }

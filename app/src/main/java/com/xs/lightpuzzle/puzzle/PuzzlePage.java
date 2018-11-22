@@ -1,5 +1,6 @@
 package com.xs.lightpuzzle.puzzle;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -9,11 +10,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvp.layout.MvpFrameLayout;
+import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
@@ -21,11 +24,21 @@ import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
+import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.util.Utils;
+import com.xs.lightpuzzle.puzzle.view.texturecolor.EditBgTextureLayout;
+import com.xs.lightpuzzle.puzzle.view.texturecolor.ViewCloseCallback;
+import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
 
 /**
@@ -34,6 +47,10 @@ import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
 
 public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         implements PuzzleView, View.OnClickListener {
+
+    private static final int REQ_CODE_CHANGE_PHOTO = 1;
+    public static final int REQ_CODE_TRANSFORM_TEMPLATE = 2;
+    private static final int REQ_CODE_REORDER_TO_REPLACE = 3;
 
     private Context mContext;
 
@@ -57,7 +74,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         mContext = context;
         setBackgroundResource(R.drawable.bg_toolbar);
         initView();
-        getIntentData(intent);
+        getIntentData(intent, false);
     }
 
     @Override
@@ -96,6 +113,80 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         }
     }
 
+    /**
+     * EventBus PuzzleBottomView的事件接收
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBottomMsgEventRequest(BottomMsgEvent bottomMsgEvent) {
+        if (bottomMsgEvent != null) {
+            switch (bottomMsgEvent.getMsgCode()) {
+                case PuzzlesBottomMsgCode.CHANGE_TEMPALTE:
+                    Navigator.navigateToMaterialListActivity(
+                            (Activity) mContext, mPhotos.size(),
+                            REQ_CODE_TRANSFORM_TEMPLATE);
+                    break;
+                case PuzzlesBottomMsgCode.CHANGE_BACKGROUND:
+                    showBgTextureLayout();
+                    break;
+                case PuzzlesBottomMsgCode.ADD_TEXT:
+                    break;
+                case PuzzlesBottomMsgCode.ADD_SIGNATURE:
+                    break;
+                case PuzzlesBottomMsgCode.ADD_LABEL:
+                    break;
+                case PuzzlesBottomMsgCode.ADD_MUSIC:
+                    break;
+                case PuzzlesBottomMsgCode.PREVIEW_VIDEO:
+
+                    break;
+                case PuzzlesBottomMsgCode.CHANGE_LAYOUT:
+                    break;
+                case PuzzlesBottomMsgCode.CHANGE_LINE_FRAME:
+                    break;
+                case PuzzlesBottomMsgCode.ADJUST_PIC_FOR_VIDEO:
+                    break;
+                case PuzzlesBottomMsgCode.ORDER_PLAY:
+                    break;
+            }
+        }
+    }
+
+    private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
+
+    private void showBgTextureLayout() {
+//        mPuzzleFrame.onClearSelected();
+
+        int bgColor = getPresenter().getPuzzlesInfo().getBgTextureInfo().getBgColor();
+        String texture = getPresenter().getPuzzlesInfo().getBgTextureInfo().getTextureStr();
+        if (mEditBgTextureLayout == null) {
+            mEditBgTextureLayout = new EditBgTextureLayout(getContext(),
+                    texture, bgColor, new ViewCloseCallback() {
+                @Override
+                public void close() {
+                    PuzzlePage.this.removeView(mEditBgTextureLayout);
+                    mEditBgTextureLayout = null;
+                }
+            });
+            FrameLayout.LayoutParams fParams = new FrameLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            mEditBgTextureLayout.setListener(mTextureOrColorListener);
+            this.addView(mEditBgTextureLayout, fParams);
+        }
+
+        mEditBgTextureLayout.setVisibility(VISIBLE);
+    }
+
+    private EditBgTextureLayout.TextureOrColorListener mTextureOrColorListener = new EditBgTextureLayout.TextureOrColorListener() {
+        @Override
+        public void onChange(PuzzleBackgroundBean backgroundBean) {
+            if (backgroundBean == null || getPresenter() == null) {
+                return;
+            }
+            getPresenter().changeBgTexture(getContext(), backgroundBean);
+        }
+    };
+
     public PuzzleFrame.OnBtnBgVisListener mOnBtnBgVisListener = new PuzzleFrame.OnBtnBgVisListener() {
         @Override
         public void onBtnBgVis(boolean visible) {
@@ -105,12 +196,13 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         }
     };
 
-
     private void initView() {
         initContainer();
         initTopBar();
         initPuzzleFrame();
         initPuzzleBottomView();
+
+        EventBus.getDefault().register(this);
     }
 
     private void initContainer() {
@@ -198,22 +290,22 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
     @Override
     public void invalidateView() {
-
+        mPuzzleFrame.invalidateView();
     }
 
     @Override
     public void invalidateView(int width, int height, int templateSize) {
-
+        mPuzzleFrame.invalidateView(width, height, templateSize);
     }
 
     @Override
     public void invalidateView(int width, int height, int templateSize, int differ) {
-
+        mPuzzleFrame.invalidateView(width, height, templateSize);
     }
 
     @Override
     public void invalidateViewToScroll(int width, int height, int templateSize, int bottom) {
-
+        mPuzzleFrame.invalidateViewToScroll(width, height, templateSize, bottom);
     }
 
     @Override
@@ -222,12 +314,23 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     }
 
 
-    private void getIntentData(Intent intent) {
-        mPhotos = intent.getParcelableArrayListExtra(EXTRA_PHOTOS);
+    private void getIntentData(Intent intent, boolean isBack) {
+        if (!isBack)
+            mPhotos = intent.getParcelableArrayListExtra(EXTRA_PHOTOS);
         mTemplateId = intent.getStringExtra(PuzzleActivity.EXTRA_TEMPLATE_ID);
         mTemplateCategory = intent.getIntExtra(
                 PuzzleActivity.EXTRA_TEMPLATE_CATEGORY,
                 DataConstant.TEMPLATE_CATEGORY.SIMPLE);
     }
 
+    public void onClose() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void handleTransformTemplateResult(int resultCode, Intent intent) {
+        if (resultCode == RESULT_OK) {
+            getIntentData(intent, true);
+            initData(mTemplateId, mPhotos, mTemplateCategory);
+        }
+    }
 }

@@ -1,1 +1,7 @@
 include ':app'
+
+include ':pocofilter'
+project (':pocofilter').projectDir = new File('../POCO-Filter/pocofilter/')
+
+include ':pocofilternative'
+project (':pocofilternative').projectDir = new File('../POCO-Filter/pocofilternative/')

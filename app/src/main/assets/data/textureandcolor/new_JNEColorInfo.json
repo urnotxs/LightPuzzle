@@ -1,0 +1,416 @@
+{
+  "colorTextureBlendModeArray": [
+    "正常",
+    "叠加",
+    "正常",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "正常",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加",
+    "叠加"
+  ],
+  "colorRGBStringArray": [
+    {
+      "colorIcon": "choose_bg_color_image1.png",
+      "colorHgihlightIcon": "choose_bg_color_image1_hover.png",
+      "colorRGBString": "ffffff",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image2.png",
+      "colorHgihlightIcon": "choose_bg_color_image2_hover.png",
+      "colorRGBString": "eaede4",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image3.png",
+      "colorHgihlightIcon": "choose_bg_color_image3_hover.png",
+      "colorRGBString": "fff9ea",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image4.png",
+      "colorHgihlightIcon": "choose_bg_color_image4_hover.png",
+      "colorRGBString": "feebe4",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image5.png",
+      "colorHgihlightIcon": "choose_bg_color_image5_hover.png",
+      "colorRGBString": "e5e6fa",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image6.png",
+      "colorHgihlightIcon": "choose_bg_color_image6_hover.png",
+      "colorRGBString": "dceffe",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image7.png",
+      "colorHgihlightIcon": "choose_bg_color_image7_hover.png",
+      "colorRGBString": "b4dfe1",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image8.png",
+      "colorHgihlightIcon": "choose_bg_color_image8_hover.png",
+      "colorRGBString": "d6ebe4",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image9.png",
+      "colorHgihlightIcon": "choose_bg_color_image9_hover.png",
+      "colorRGBString": "f3e4c3",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image10.png",
+      "colorHgihlightIcon": "choose_bg_color_image10_hover.png",
+      "colorRGBString": "f7d5d3",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image11.png",
+      "colorHgihlightIcon": "choose_bg_color_image11_hover.png",
+      "colorRGBString": "f9bac3",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image12.png",
+      "colorHgihlightIcon": "choose_bg_color_image12_hover.png",
+      "colorRGBString": "a0d0e6",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image13.png",
+      "colorHgihlightIcon": "choose_bg_color_image13_hover.png",
+      "colorRGBString": "d0c0d7",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image14.png",
+      "colorHgihlightIcon": "choose_bg_color_image14_hover.png",
+      "colorRGBString": "ecb4a3",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image15.png",
+      "colorHgihlightIcon": "choose_bg_color_image15_hover.png",
+      "colorRGBString": "ecb87f",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image16.png",
+      "colorHgihlightIcon": "choose_bg_color_image16_hover.png",
+      "colorRGBString": "edadc8",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image17.png",
+      "colorHgihlightIcon": "choose_bg_color_image17_hover.png",
+      "colorRGBString": "000000",
+      "lock": "none"
+    },
+    {
+      "colorIcon": "choose_bg_color_image18.png",
+      "colorHgihlightIcon": "choose_bg_color_image18_hover.png",
+      "colorRGBString": "c8d5db",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image19.png",
+      "colorHgihlightIcon": "choose_bg_color_image19_hover.png",
+      "colorRGBString": "ece3da",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image20.png",
+      "colorHgihlightIcon": "choose_bg_color_image20_hover.png",
+      "colorRGBString": "ceb5aa",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image21.png",
+      "colorHgihlightIcon": "choose_bg_color_image21_hover.png",
+      "colorRGBString": "ecedcb",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image22.png",
+      "colorHgihlightIcon": "choose_bg_color_image22_hover.png",
+      "colorRGBString": "d5d2c1",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image23.png",
+      "colorHgihlightIcon": "choose_bg_color_image23_hover.png",
+      "colorRGBString": "a89c8d",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image24png",
+      "colorHgihlightIcon": "choose_bg_color_image24_hover.png",
+      "colorRGBString": "7e7f93",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image25.png",
+      "colorHgihlightIcon": "choose_bg_color_image25_hover.png",
+      "colorRGBString": "947773",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image26.png",
+      "colorHgihlightIcon": "choose_bg_color_image26_hover.png",
+      "colorRGBString": "d1c3bc",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image27.png",
+      "colorHgihlightIcon": "choose_bg_color_image27_hover.png",
+      "colorRGBString": "c2b46f",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image28.png",
+      "colorHgihlightIcon": "choose_bg_color_image28_hover.png",
+      "colorRGBString": "c3c5b4",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image29.png",
+      "colorHgihlightIcon": "choose_bg_color_image29_hover.png",
+      "colorRGBString": "3f5a6b",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image30.png",
+      "colorHgihlightIcon": "choose_bg_color_image30_hover.png",
+      "colorRGBString": "3a2f2b",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image31.png",
+      "colorHgihlightIcon": "choose_bg_color_image31_hover.png",
+      "colorRGBString": "6f414b",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image32.png",
+      "colorHgihlightIcon": "choose_bg_color_image32_hover.png",
+      "colorRGBString": "98515a",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image33.png",
+      "colorHgihlightIcon": "choose_bg_color_image33_hover.png",
+      "colorRGBString": "89896f",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image34.png",
+      "colorHgihlightIcon": "choose_bg_color_image34_hover.png",
+      "colorRGBString": "5c6759",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image35.png",
+      "colorHgihlightIcon": "choose_bg_color_image35_hover.png",
+      "colorRGBString": "dae0ed",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image36.png",
+      "colorHgihlightIcon": "choose_bg_color_image36_hover.png",
+      "colorRGBString": "d0d4cf",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image37.png",
+      "colorHgihlightIcon": "choose_bg_color_image37_hover.png",
+      "colorRGBString": "dfd1b7",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image38.png",
+      "colorHgihlightIcon": "choose_bg_color_image38_hover.png",
+      "colorRGBString": "f7eada",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image39.png",
+      "colorHgihlightIcon": "choose_bg_color_image39_hover.png",
+      "colorRGBString": "e1ccd1",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image40.png",
+      "colorHgihlightIcon": "choose_bg_color_image40_hover.png",
+      "colorRGBString": "ddb8b8",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image41.png",
+      "colorHgihlightIcon": "choose_bg_color_image41_hover.png",
+      "colorRGBString": "afc0d0",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image42.png",
+      "colorHgihlightIcon": "choose_bg_color_image42_hover.png",
+      "colorRGBString": "b6c4b3",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image43.png",
+      "colorHgihlightIcon": "choose_bg_color_image43_hover.png",
+      "colorRGBString": "c5b8a8",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image44.png",
+      "colorHgihlightIcon": "choose_bg_color_image44_hover.png",
+      "colorRGBString": "d8b972",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image45.png",
+      "colorHgihlightIcon": "choose_bg_color_image45_hover.png",
+      "colorRGBString": "f5cdc2",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image46.png",
+      "colorHgihlightIcon": "choose_bg_color_image46_hover.png",
+      "colorRGBString": "4d6a92",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image47.png",
+      "colorHgihlightIcon": "choose_bg_color_image47_hover.png",
+      "colorRGBString": "8895a5",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image48.png",
+      "colorHgihlightIcon": "choose_bg_color_image48_hover.png",
+      "colorRGBString": "7d8971",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image49.png",
+      "colorHgihlightIcon": "choose_bg_color_image49_hover.png",
+      "colorRGBString": "af9483",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image50.png",
+      "colorHgihlightIcon": "choose_bg_color_image50_hover.png",
+      "colorRGBString": "ca9688",
+      "lock": "vip"
+    },
+    {
+      "colorIcon": "choose_bg_color_image51.png",
+      "colorHgihlightIcon": "choose_bg_color_image51_hover.png",
+      "colorRGBString": "934165",
+      "lock": "vip"
+    }
+  ],
+  "colorFontColorArray": [
+    "717171",
+    "a89965",
+    "a89965",
+    "82634f",
+    "806c92",
+    "0f2446",
+    "0f2446",
+    "44abb4",
+    "c26400",
+    "c45e6b",
+    "6c3b4c",
+    "3c6b8c",
+    "806c92",
+    "5f4239",
+    "5f4239",
+    "6c3b4c",
+    "dcdcdc",
+    "3d6b8c",
+    "82634f",
+    "5f423a",
+    "353535",
+    "5f423a",
+    "ffffff",
+    "dcdcdc",
+    "e0d8c3",
+    "6c3c4c",
+    "353535",
+    "353535",
+    "bdd8cf",
+    "b8a69a",
+    "b8a69a",
+    "e0d8c3",
+    "dcdcdc",
+    "bdd8cf",
+    "838488",
+    "5a716a",
+    "816a41",
+    "b89247",
+    "ad5d5e",
+    "723040",
+    "5b6479",
+    "4d5949",
+    "5e5544",
+    "816a41",
+    "944b28",
+    "d0dbea",
+    "d0dbea",
+    "e1e5de",
+    "efe1d7",
+    "efe1d7",
+    "e8d8d9"
+  ]
+}

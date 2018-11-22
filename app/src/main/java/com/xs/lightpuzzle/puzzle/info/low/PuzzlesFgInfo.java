@@ -7,8 +7,9 @@ import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
+import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
+import com.xs.lightpuzzle.imagedecode.core.ImageSize;
 import com.xs.lightpuzzle.puzzle.info.DrawView;
-import com.xs.lightpuzzle.puzzle.util.GlideBitmapFactoryHelper;
 
 
 /**
@@ -74,8 +75,8 @@ public class PuzzlesFgInfo implements DrawView {
             return;
         }
         synchronized (this) {
-            fgBitmap = GlideBitmapFactoryHelper
-                    .decode(context, fgPic, finalRect.width(), finalRect.height(), false);
+            fgBitmap = JaneBitmapFactory.decode(context, fgPic,
+                    new ImageSize(finalRect.width(), finalRect.height()));
         }
     }
 

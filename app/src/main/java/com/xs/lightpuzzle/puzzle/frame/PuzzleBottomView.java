@@ -13,11 +13,15 @@ import android.widget.RelativeLayout;
 
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.puzzle.PuzzleMode;
+import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.util.AnimUtils;
 import com.xs.lightpuzzle.puzzle.util.ColorUtil;
 import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.BtnLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Lin on 2017/12/12.
@@ -312,7 +316,37 @@ public class PuzzleBottomView extends RelativeLayout {
     private OnClickListener mOnClickListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View view) {
-
+            if (view == mLayoutBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.CHANGE_LAYOUT));
+            } else if (view == mLineFrameBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.CHANGE_LINE_FRAME));
+            } else if (view == mTemplateBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.CHANGE_TEMPALTE));
+            } else if (view == mAdjustBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ADJUST_PIC_FOR_VIDEO));
+            } else if (view == mOrderBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ORDER_PLAY));
+            } else if (view == mBgColoreBtnLayout) {
+                if (mPuzzleMode == PuzzleMode.MODE_VIDEO) {
+                    EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ADD_MUSIC));
+                } else {
+                    EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.CHANGE_BACKGROUND));
+                }
+            } else if (view == mAddBtnLayout) {
+                if (mPuzzleMode == PuzzleMode.MODE_VIDEO) {
+                    EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.PREVIEW_VIDEO));
+                } else {
+                    setTemlpateBgGone();
+                }
+            } else if (view == mAddTextBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ADD_TEXT));
+            } else if (view == mAddLabelBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ADD_LABEL));
+            } else if (view == mAddSinatureBtnLayout) {
+                EventBus.getDefault().post(new BottomMsgEvent(PuzzlesBottomMsgCode.ADD_SIGNATURE));
+            } else if (view == mBackBtnLayout) {
+                setTextSignLabelGone();
+            }
         }
     };
 

@@ -16,7 +16,6 @@ import com.xs.lightpuzzle.puzzle.data.lowdata.ImgPointData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.TextData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.VariableFgData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.WaterMarkData;
-import com.xs.lightpuzzle.yszx.Scheme;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,13 +53,17 @@ public class PuzzleDataAdapter {
             FgData fgData = new FgData();
             String foregroundFileName = template.getForegroundFileName();
             String foregroundFilePath = dirPath + File.separator + foregroundFileName;
-            fgData.setFgPic(Scheme.FILE.wrap(foregroundFilePath));
+            fgData.setFgPic(foregroundFilePath);
             templateData.setFgData(fgData);
         }
 
         //设置遮罩
         if (!TextUtils.isEmpty(template.getForegroundMaskFileName())) {
-            templateData.setMaskPic(template.getForegroundMaskFileName());
+
+            String maskFileName = template.getForegroundMaskFileName();
+            String maskFilePath = dirPath + File.separator + maskFileName;
+
+            templateData.setMaskPic(maskFilePath);
         }
 
         //设置水印
@@ -70,7 +73,7 @@ public class PuzzleDataAdapter {
         }
 
         //设置可变色前景
-        List<VariableFgData> variableFgData = getVariableFgData(template.getOrnaments());
+        List<VariableFgData> variableFgData = getVariableFgData(template.getOrnaments(), dirPath);
         if (variableFgData != null) {
             templateData.setVarFgDatas(variableFgData);
         }
@@ -136,7 +139,7 @@ public class PuzzleDataAdapter {
         return textDatas;
     }
 
-    private static List<VariableFgData> getVariableFgData(List<Template.Ornament> ornaments) {
+    private static List<VariableFgData> getVariableFgData(List<Template.Ornament> ornaments, String dirPath) {
 
         List<VariableFgData> variableFgDatas = new ArrayList<>();
         if (ornaments == null) {
@@ -146,9 +149,10 @@ public class PuzzleDataAdapter {
             VariableFgData fgData = new VariableFgData();
 
             RectF rect = ornament.getRegion();
-            String path = ornament.getFileName();
+            String fileName = ornament.getFileName();
 
-            if (!TextUtils.isEmpty(path) && !("none").equals(path)) {
+            if (!TextUtils.isEmpty(fileName) && !("none").equals(fileName)) {
+                String path = dirPath + File.separator + fileName;
                 fgData.setVarFgPic(path);
             }
 
