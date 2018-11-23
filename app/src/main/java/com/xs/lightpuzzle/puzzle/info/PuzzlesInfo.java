@@ -27,7 +27,7 @@ public class PuzzlesInfo implements DrawView {
 
     private List<TemplateInfo> templateInfos;
 
-//    private PuzzlesSignInfo signInfo;
+    private PuzzlesSignInfo signInfo;
 
 //    private List<PuzzlesAddTextInfo> puzzlesAddTextInfos;
 
@@ -46,9 +46,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.init();
             }
         }
-//        if (signInfo != null) {
-//            signInfo.init();
-//        }
+        if (signInfo != null) {
+            signInfo.init();
+        }
 //
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
@@ -83,10 +83,10 @@ public class PuzzlesInfo implements DrawView {
 //                }
             }
         }
-//
-//        if (signInfo != null) {
-//            signInfo.initBitmap(context);
-//        }
+
+        if (signInfo != null) {
+            signInfo.initBitmap(context);
+        }
 //
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
@@ -111,9 +111,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.draw(canvas);
             }
         }
-//        if (signInfo != null) {
-//            signInfo.draw(canvas);
-//        }
+        if (signInfo != null) {
+            signInfo.draw(canvas);
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                addTextInfo.draw(canvas);
@@ -141,12 +141,12 @@ public class PuzzlesInfo implements DrawView {
 //                }
 //            }
 //        }
-//        if (signInfo != null && !isTouchTemplate) {
-//            flag = signInfo.onTouchEvent(event);
-//            if (flag) {
-//                return true;
-//            }
-//        }
+        if (signInfo != null && !isTouchTemplate) {
+            flag = signInfo.onTouchEvent(event);
+            if (flag) {
+                return true;
+            }
+        }
 //        if (puzzlesAddTextInfos != null && !isTouchTemplate) {
 //            boolean isTouchAddText = false;
 //
@@ -175,12 +175,12 @@ public class PuzzlesInfo implements DrawView {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         boolean flag = false;
-//        if (signInfo != null) {
-//            flag = signInfo.dispatchTouchEvent(event);
-//            if (flag) {
-//                return true;
-//            }
-//        }
+        if (signInfo != null) {
+            flag = signInfo.dispatchTouchEvent(event);
+            if (flag) {
+                return true;
+            }
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                flag = addTextInfo.dispatchTouchEvent(event);
@@ -405,10 +405,10 @@ public class PuzzlesInfo implements DrawView {
             bgTextureInfo.setRect(puzzlesRect);
             bgTextureInfo.setOutPutRect(outPutRect);
         }
-//        if (signInfo != null) {
-//            signInfo.setRect(puzzlesRect);
-//            signInfo.setOutPutRect(outPutRect);
-//        }
+        if (signInfo != null) {
+            signInfo.setRect(puzzlesRect);
+            signInfo.setOutPutRect(outPutRect);
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                addTextInfo.setRect(puzzlesRect);
@@ -444,9 +444,9 @@ public class PuzzlesInfo implements DrawView {
 //                labelInfo.setCanDraw(visible);
 //            }
 //        }
-//        if (signInfo != null) {
-//            signInfo.setCanDraw(visible);
-//        }
+        if (signInfo != null) {
+            signInfo.setCanDraw(visible);
+        }
     }
 
     // ---image
@@ -842,19 +842,19 @@ public class PuzzlesInfo implements DrawView {
     }
 
     // ---sign
-//    public void addPuzzlesSignInfo(PuzzlesSignInfo puzzlesSignInfo) {
-//        if (puzzlesSignInfo == null) {
-//            return;
-//        }
-//        this.signInfo = puzzlesSignInfo;
-//    }
-//
-//    public void resetSignShowFrame() {
-//        if (signInfo == null) {
-//            return;
-//        }
-//        signInfo.setShowFrame(false);
-//    }
+    public void addPuzzlesSignInfo(PuzzlesSignInfo puzzlesSignInfo) {
+        if (puzzlesSignInfo == null) {
+            return;
+        }
+        this.signInfo = puzzlesSignInfo;
+    }
+
+    public void resetSignShowFrame() {
+        if (signInfo == null) {
+            return;
+        }
+        signInfo.setShowFrame(false);
+    }
 
     // ---card
     public void setCardKeys(Context context, List<String> keys) {
@@ -896,9 +896,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.reInit();
             }
         }
-//        if (signInfo != null) {
-//            signInfo.init();
-//        }
+        if (signInfo != null) {
+            signInfo.init();
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                addTextInfo.init();
@@ -918,9 +918,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.setValues();
             }
         }
-//        if (signInfo != null) {
-//            signInfo.matrixToValues();
-//        }
+        if (signInfo != null) {
+            signInfo.matrixToValues();
+        }
     }
 
     public void setSave() {
@@ -932,9 +932,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.setSave();
             }
         }
-//        if (signInfo != null) {
-//            signInfo.setSave(true);
-//        }
+        if (signInfo != null) {
+            signInfo.setSave(true);
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                addTextInfo.setSave(true);
@@ -953,9 +953,9 @@ public class PuzzlesInfo implements DrawView {
                 templateInfo.setDraftSave();
             }
         }
-//        if (signInfo != null) {
-//            signInfo.setShowFrame(false);
-//        }
+        if (signInfo != null) {
+            signInfo.setShowFrame(false);
+        }
 //        if (puzzlesAddTextInfos != null) {
 //            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
 //                addTextInfo.setShowFrame(false);
@@ -1000,9 +1000,9 @@ public class PuzzlesInfo implements DrawView {
 //        return labelInfos;
 //    }
 //
-//    public PuzzlesSignInfo getSignInfo() {
-//        return signInfo;
-//    }
+    public PuzzlesSignInfo getSignInfo() {
+        return signInfo;
+    }
 
 
     // --------recycle
@@ -1023,10 +1023,10 @@ public class PuzzlesInfo implements DrawView {
     }
 
     public void recycleSign() {
-//        if (signInfo != null) {
-//            signInfo.recycle();
-//            signInfo = null;
-//        }
+        if (signInfo != null) {
+            signInfo.recycle();
+            signInfo = null;
+        }
     }
 
     public void recycleAddTextInfos() {

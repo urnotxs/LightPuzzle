@@ -29,6 +29,9 @@
         <activity
             android:name=".photopicker.PhotoPickerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".puzzle.view.signature.SignatureActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".puzzle.PuzzleActivity"

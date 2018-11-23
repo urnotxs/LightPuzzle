@@ -37,9 +37,11 @@ public class HistoryPanel extends LinearLayout {
 
     private boolean mIsDeleteFirst = false;//是否是删除第0个，用来判断签名是否改变过，因为0个是显示的签名
 
-    public HistoryPanel(Context context) {
+    SignatureActivity.PageListener mListener;
+    public HistoryPanel(Context context, SignatureActivity.PageListener listener) {
         super(context);
         mContext = context;
+        mListener = listener;
         initUI();
         initDatas();
     }
@@ -159,7 +161,7 @@ public class HistoryPanel extends LinearLayout {
         if (select == 0) mIsDeleteFirst = true;
 
         String filePath = mPicPaths.remove(select);
-        FileUtils.deleteDir(filePath);//删除文件
+        FileUtils.deleteFile(filePath);//删除文件
         Bitmap bitmap = mBitmapLists.remove(select);
         if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
@@ -262,16 +264,15 @@ public class HistoryPanel extends LinearLayout {
                         return;//不在有效控件中
                     } else {
                         String picPath = mPicPaths.get(select);
-                        onClickOk(getContext(), picPath);
+                        if (mListener!=null) {
+                            mListener.onClickOkBtn(picPath);
+                        }
                     }
                 }
             }
         }
     };
 
-    private void onClickOk(Context context, String picPath) {
-        // TODO: 2018/11/22  
-    }
 
     /**
      * 释放内存

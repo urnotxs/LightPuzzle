@@ -1,10 +1,13 @@
 package com.xs.lightpuzzle.puzzle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.view.MotionEvent;
 
 import com.google.gson.Gson;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
@@ -17,16 +20,25 @@ import com.xs.lightpuzzle.photopicker.entity.Photo;
 import com.xs.lightpuzzle.puzzle.adapter.PuzzleDataAdapter;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
+import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.data.TemplateData;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesSignInfo;
+import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_HAS_HISTORY;
+import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_PATH;
 
 /**
  * Created by xs on 2018/11/20.
@@ -201,7 +213,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         mPuzzlesInfo = PuzzleHelper.createSimplePuzzlesInfo(mContext, puzzleMode,
                 rotationImgArr, templateData, bgTextureData, null);
 
-        if (mPuzzlesInfo!=null){
+        if (mPuzzlesInfo != null) {
             mPuzzlesInfo.resetId();
             mPuzzlesInfo.init();
             mPuzzlesInfo.initBitmap(context);
@@ -265,5 +277,92 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
 
     public PuzzlesInfo getPuzzlesInfo() {
         return mPuzzlesInfo;
+    }
+
+    public void reSetSelectForLong() {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.setImgSelectForLong(null);
+    }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mPuzzlesInfo != null && mPuzzlesInfo.onTouchEvent(event)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updateSignatureParams(Context context, Intent intent, int scrollY) {
+        if (intent != null && mPuzzlesInfo != null) {
+            String signaturePath = intent.getStringExtra(SIGNATURE_PATH);
+            boolean hasHistory = intent.getBooleanExtra(SIGNATURE_HAS_HISTORY, false);
+
+            if (!TextUtils.isEmpty(signaturePath)) {
+                SignatureData signatureData = new SignatureData();
+                signatureData.setSignPic(signaturePath);
+                setSignData(context, signatureData, scrollY);
+                invalidateView();
+            } else if (!hasHistory) {
+                mPuzzlesInfo.recycleSign();
+            }
+        }
+
+    }
+
+    /**
+     * 设置签名信息
+     *
+     * @param context       context
+     * @param signatureData 签名信息
+     * @param scrollY       y偏移量
+     */
+    public void setSignData(Context context, SignatureData signatureData, int scrollY) {
+        if (mPuzzlesInfo == null || signatureData == null) {
+            return;
+        }
+
+        PuzzlesSignInfo signInfo = mPuzzlesInfo.getSignInfo();
+        if (signInfo == null) {
+            // 点击底部签名按钮，历史有签名则直接绘制
+//            signInfo = mSignModel.getSignInfo(mPuzzlesInfo, signatureData, scrollY);
+
+            signInfo = new PuzzlesSignInfo();
+            signInfo.setRect(mPuzzlesInfo.getPuzzlesRect());
+            signInfo.setOutPutRect(mPuzzlesInfo.getOutPutRect());
+            signInfo.setPuzzleModel(mPuzzlesInfo.getPuzzleMode());
+            signInfo.setScrollY(scrollY);
+            signInfo.setSignPic(signatureData.getSignPic());
+            if (signatureData.getSignPoint() != null) {
+                // 切换自带签名的模板
+                signInfo.setSignPoint(signatureData.getSignPoint());
+                signInfo.setSignModel(true);
+            }
+        } else {
+            // 从签名页返回，
+            signInfo.setSignPic(signatureData.getSignPic());
+        }
+
+        if (signInfo != null) {
+            signInfo.init();
+            signInfo.initBitmap(context);
+            mPuzzlesInfo.addPuzzlesSignInfo(signInfo);
+        }
+    }
+
+    public void onSignBtnClick() {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        PuzzlesSignInfo signInfo = mPuzzlesInfo.getSignInfo();
+        if (signInfo != null) {
+            // 选中当前编辑页的签名
+            signInfo.setShowFrame(true);
+            invalidateView();
+        } else {
+            // 历史有签名则直接绘制，无历史签名跳转至签名编辑页
+            EventBus.getDefault().post(new PuzzlesRequestMsg(
+                    PuzzlesRequestMsgName.PUZZLES_SIGN_EDIT, MotionEvent.ACTION_UP, ""));
+        }
     }
 }

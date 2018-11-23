@@ -23,6 +23,7 @@ import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.widget.ColorImageButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by xs on 2018/8/23.
@@ -84,9 +85,11 @@ public class SignaturePage extends FrameLayout {
             0xFF6C3B4C, 0xFF5F4239, 0xFFFFFFFF};
 
     String SIGNATURE_PATH = "signature_path";
-    public SignaturePage(Context context, Intent intent) {
+    SignatureActivity.PageListener mListener;
+    public SignaturePage(Context context, Intent intent, SignatureActivity.PageListener listener) {
         super(context);
         mContext = context;
+        mListener = listener;
         mRestorePath = intent.getStringExtra(SIGNATURE_PATH);
         initView(context);
     }
@@ -156,6 +159,10 @@ public class SignaturePage extends FrameLayout {
             } else if (v == mBtCloseRl) {
                 release();//释放
                 deleteEditDirAfterNoHistory();
+                // TODO: 2018/11/23
+                if (mListener!=null){
+                    mListener.onClickBackBtn(mHistoryPanel.getItem() != 0);
+                }
 //                mSite.onBack(getContext(), mHistoryPanel.getItem() != 0);
             } else if (v == mBtSureRl) {
 
@@ -181,7 +188,11 @@ public class SignaturePage extends FrameLayout {
                     isColor = false;
                 }
                 release();//释放
-                onClickOk(mContext, picPath);
+
+                picPath = SignatureUtils.copySelectSignature2EditingDir(picPath);
+                if (mListener!=null) {
+                    mListener.onClickOkBtn(picPath);
+                }
             } else if (v instanceof ColorImageButton) {
                 if (bt != v) {
                     bt.setCheckState(false);
@@ -195,13 +206,12 @@ public class SignaturePage extends FrameLayout {
             }
         }
     };
-
     public void onClickOk(Context context, String picPath) {
         // TODO: 2018/11/22  
-//        picPath = SignatureUtils.copySelectSignature2EditingDir(picPath);
-//        HashMap<String, Object> params = new HashMap<>();
-//        params.put(KEY.SIGNATURE_PATH, picPath);
-//        MyFramework.SITE_Back(context, params, Framework2.ANIM_TRANSLATION_TOP);
+        picPath = SignatureUtils.copySelectSignature2EditingDir(picPath);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put(SIGNATURE_PATH, picPath);
+
     }
 
     private void deleteEditDirAfterNoHistory() {
@@ -492,7 +502,7 @@ public class SignaturePage extends FrameLayout {
         {
             params = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            mHistoryPanel = new HistoryPanel(mContext);
+            mHistoryPanel = new HistoryPanel(mContext, mListener);
             mHistoryHorizontalScrollView.addView(mHistoryPanel, params);
             mHistoryHorizontalScrollView.onFinishAddView(mHistoryPanel);
             if (mHistoryPanel.hasItem()) mBtHistoryRl.setAlpha(1.0f);//设置历史透明度

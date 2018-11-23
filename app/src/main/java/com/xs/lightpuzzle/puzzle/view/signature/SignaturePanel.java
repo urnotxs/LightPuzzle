@@ -430,7 +430,7 @@ public class SignaturePanel extends View {
 
         String savePath = "";
         if (mSignatureBitmap != null && mSignatureRect != null) {
-            String filePath = Utils.getSdcardPath() + "/" + PuzzleConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
+            String filePath = PuzzleConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
             String fileName = String.valueOf(System.currentTimeMillis()) + ".json";
             // eg: storage/emulated/0/PocoJane/appdata/signature/history/1538213267233.json
             savePath = filePath + fileName; // 历史草稿文件夹

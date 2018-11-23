@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 
 import static com.xs.lightpuzzle.puzzle.PuzzlePage.REQ_CODE_TRANSFORM_TEMPLATE;
+import static com.xs.lightpuzzle.puzzle.PuzzlePage.REQ_CODE_EDIT_SIGNATURE;
 
 /**
  * Created by xs on 2018/11/20.
@@ -41,6 +42,8 @@ public class PuzzleActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_CODE_TRANSFORM_TEMPLATE) {
             mPage.handleTransformTemplateResult(resultCode, data);
+        }else if (requestCode == REQ_CODE_EDIT_SIGNATURE){
+            mPage.handleEditSignatureResult(resultCode, data);
         }
     }
 }

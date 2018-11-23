@@ -5,11 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.xs.lightpuzzle.puzzle.PuzzlePresenter;
+import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.Utils;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by xs on 2018/11/20.
@@ -62,6 +67,36 @@ public abstract class PuzzleDrawView extends View {
                 canvas.restoreToCount(saveId);
             }
         }
+    }
+    private boolean isIntercept;
+    public boolean isInterceptTouchEvent(){
+        // 如果DrawView拦截了Touch事件，则不响应点击事件
+        return isIntercept;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mPuzzlePresenter == null) {
+            return super.onTouchEvent(event);
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            EventBus.getDefault().post(new PuzzlesRequestMsg(PuzzlesRequestMsgName.PUZZLES_HIDE_OPERATION_BAR, event.getAction()));
+        }
+        isIntercept = false;
+        if (mPuzzlePresenter.onTouchEvent(event)) {
+            this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
+            if (event.getAction() != MotionEvent.ACTION_UP){
+                isIntercept = true;
+            }
+            return true;
+        } else {
+            this.getParent().getParent().requestDisallowInterceptTouchEvent(false);
+            mPuzzlePresenter.reSetSelectForLong();
+            EventBus.getDefault().post(new PuzzlesRequestMsg(PuzzlesRequestMsgName.PUZZLES_CLOSE_PIC_FILTER, event.getAction()));
+        }
+        invalidateView();
+        return super.onTouchEvent(event);
     }
 
     public void recycle() {

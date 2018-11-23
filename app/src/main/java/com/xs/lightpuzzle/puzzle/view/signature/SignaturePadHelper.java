@@ -3,6 +3,7 @@ package com.xs.lightpuzzle.puzzle.view.signature;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.util.Log;
@@ -105,7 +106,10 @@ public class SignaturePadHelper {
                     }
                 }
 
-                return bitmap;
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
             }
         }
 

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,18 @@ import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
+import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
 import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.Utils;
+import com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity;
+import com.xs.lightpuzzle.puzzle.view.signature.SignatureUtils;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.EditBgTextureLayout;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.ViewCloseCallback;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
@@ -48,9 +54,10 @@ import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
 public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         implements PuzzleView, View.OnClickListener {
 
-    private static final int REQ_CODE_CHANGE_PHOTO = 1;
+    public static final int REQ_CODE_CHANGE_PHOTO = 1;
     public static final int REQ_CODE_TRANSFORM_TEMPLATE = 2;
-    private static final int REQ_CODE_REORDER_TO_REPLACE = 3;
+    public static final int REQ_CODE_REORDER_TO_REPLACE = 3;
+    public static final int REQ_CODE_EDIT_SIGNATURE = 4;
 
     private Context mContext;
 
@@ -131,6 +138,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                 case PuzzlesBottomMsgCode.ADD_TEXT:
                     break;
                 case PuzzlesBottomMsgCode.ADD_SIGNATURE:
+                    getPresenter().onSignBtnClick();
                     break;
                 case PuzzlesBottomMsgCode.ADD_LABEL:
                     break;
@@ -151,6 +159,55 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         }
     }
 
+    /**
+     * EventBus 拼图页各个子元素的触发接收
+     *
+     * @param puzzlesRequestMsg PuzzleInfo的各层元素 Touch 触发
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void puzzlesInfoRequest(PuzzlesRequestMsg puzzlesRequestMsg) {
+        if (puzzlesRequestMsg == null
+                && puzzlesRequestMsg.getObject() == null) {
+            return;
+        }
+
+        Object object = puzzlesRequestMsg.getObject();
+
+        switch (puzzlesRequestMsg.getMsgName()){
+            case PuzzlesRequestMsgName.PUZZLES_INVALIDATE_VIEW:
+            case PuzzlesRequestMsgName.PUZZLES_SIGN:
+            case PuzzlesRequestMsgName.PUZZLES_LABEL:
+            case PuzzlesRequestMsgName.PUZZLES_SIGN_SHOW_FRAME:
+                invalidateView();
+                break;
+            case PuzzlesRequestMsgName.PUZZLES_SIGN_DELETE:
+                getPresenter().getPuzzlesInfo().recycleSign();
+                invalidateView();
+                break;
+            case PuzzlesRequestMsgName.PUZZLES_SIGN_EDIT:
+                // 历史有签名则直接绘制，无历史签名跳转至签名编辑页
+                // 点击签名，跳转至签名编辑页
+                if (object instanceof String) {
+                    String signPath = SignatureUtils.getEditingSignature();
+                    if (getPresenter().getPuzzlesInfo().getSignInfo() == null
+                            && signPath != null && !signPath.equals("")) {
+                        SignatureData signatureData = new SignatureData();
+                        signatureData.setSignPic(signPath);
+                        getPresenter().setSignData(getContext(),
+                                signatureData, mPuzzleFrame.getScrollYOffset());
+                        invalidateView();
+                    } else {
+                        String path = (String) puzzlesRequestMsg.getObject();
+                        Navigator.navigateToSignatureActivity(
+                                (Activity) mContext, REQ_CODE_EDIT_SIGNATURE, path);
+                    }
+                }
+                break;
+        }
+
+
+
+    }
     private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
 
     private void showBgTextureLayout() {
@@ -315,8 +372,9 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
 
     private void getIntentData(Intent intent, boolean isBack) {
-        if (!isBack)
+        if (!isBack) {
             mPhotos = intent.getParcelableArrayListExtra(EXTRA_PHOTOS);
+        }
         mTemplateId = intent.getStringExtra(PuzzleActivity.EXTRA_TEMPLATE_ID);
         mTemplateCategory = intent.getIntExtra(
                 PuzzleActivity.EXTRA_TEMPLATE_CATEGORY,
@@ -331,6 +389,13 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         if (resultCode == RESULT_OK) {
             getIntentData(intent, true);
             initData(mTemplateId, mPhotos, mTemplateCategory);
+        }
+    }
+
+    public void handleEditSignatureResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            getPresenter().updateSignatureParams(mContext, data, mPuzzleFrame.getScrollYOffset());
+
         }
     }
 }
