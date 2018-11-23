@@ -6,7 +6,7 @@ import android.graphics.RectF;
 import static java.lang.Math.round;
 
 /**
- * Created by urnot_XS on 2017/12/12.
+ * Created by xs on 2017/12/12.
  * 编辑页布局相关
  */
 public class MatrixUtils {

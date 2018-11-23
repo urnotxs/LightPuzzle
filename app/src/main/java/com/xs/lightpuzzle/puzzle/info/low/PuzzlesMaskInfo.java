@@ -18,7 +18,8 @@ import com.xs.lightpuzzle.puzzle.info.DrawView;
 
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
+ * 遮罩图层
  */
 
 public class PuzzlesMaskInfo implements DrawView {
@@ -103,7 +104,7 @@ public class PuzzlesMaskInfo implements DrawView {
                 this.bgColor = bgColor;
                 canvas.drawColor(bgColor);
             }
-        }else if(colorTextureBitmap != null){
+        } else if (colorTextureBitmap != null) {
             colorMaskBitmap = colorTextureBitmap;
         }
     }

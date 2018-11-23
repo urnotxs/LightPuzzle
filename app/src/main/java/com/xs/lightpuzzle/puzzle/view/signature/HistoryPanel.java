@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.minnie.PuzzleConstant;
+import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.EffectiveImageButton;
 
@@ -38,6 +38,7 @@ public class HistoryPanel extends LinearLayout {
     private boolean mIsDeleteFirst = false;//是否是删除第0个，用来判断签名是否改变过，因为0个是显示的签名
 
     SignatureActivity.PageListener mListener;
+
     public HistoryPanel(Context context, SignatureActivity.PageListener listener) {
         super(context);
         mContext = context;
@@ -77,10 +78,10 @@ public class HistoryPanel extends LinearLayout {
             if (tempFile.isFile()) {
                 String absolutePath = tempFile.getAbsoluteFile().toString();
 
-                float minPaintWidth = mItemWidth/100.0f;
+                float minPaintWidth = mItemWidth / 100.0f;
                 Bitmap bitmap = SignaturePadHelper.getSignatureBitmap(
-                        SignaturePadHelper.getSignatureSaveVO(absolutePath), mItemWidth , 0 ,
-                        minPaintWidth , 0.5f , 30, false);
+                        SignaturePadHelper.getSignatureSaveVO(absolutePath), mItemWidth, 0,
+                        minPaintWidth, 0.5f, 30, false);
 
                 if (bitmap != null) {
                     addItem(absolutePath, bitmap);
@@ -264,7 +265,7 @@ public class HistoryPanel extends LinearLayout {
                         return;//不在有效控件中
                     } else {
                         String picPath = mPicPaths.get(select);
-                        if (mListener!=null) {
+                        if (mListener != null) {
                             mListener.onClickOkBtn(picPath);
                         }
                     }
@@ -292,7 +293,7 @@ public class HistoryPanel extends LinearLayout {
         return mIsDeleteFirst;
     }
 
-    public  int getItem(){
+    public int getItem() {
         return mPicPaths.size();
     }
 }

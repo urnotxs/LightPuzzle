@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Created by xs on 2018/4/12.
+ * <p>
  * 模板信息
  */
 public class TemplateData implements Serializable, Cloneable {

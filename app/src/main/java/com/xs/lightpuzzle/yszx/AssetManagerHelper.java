@@ -17,7 +17,7 @@ import java.io.InputStream;
 
 public class AssetManagerHelper {
 
-    public static String convertInputString(Context context, String path){
+    public static String convertInputString(Context context, String path) {
         if (!TextUtils.isEmpty(path)) {
             try {
                 InputStream is = context.getAssets().open(path);

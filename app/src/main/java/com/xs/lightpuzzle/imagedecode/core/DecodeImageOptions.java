@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * Created by lsq on 2018/4/2.
+ * Created by xs on 2018/4/2.
  */
 
 public class DecodeImageOptions {

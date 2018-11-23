@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//import cn.poco.config.Constant;
 
 /**
- * Created by Lin on 2017/12/28.
+ * Created by xs on 2017/12/28.
  */
 
 public class PuzzleTextUtils {
@@ -91,13 +90,14 @@ public class PuzzleTextUtils {
 
     /**
      * 获取起点位置
+     *
      * @param alignment
      * @param drawWidth
      * @param textWidth
      * @return
      */
 
-    public static float getStartX(String alignment, float drawWidth, float textWidth){
+    public static float getStartX(String alignment, float drawWidth, float textWidth) {
         if (TextUtils.isEmpty(alignment)) {
             return 0;
         } else {
@@ -114,7 +114,7 @@ public class PuzzleTextUtils {
     }
 
     public static List<String> getStrList(Context context, String autoStr, int fontSize, int maxFontSize, int
-            minFontSize, int lineSpace, String font, boolean downloadFont, int width, int height){
+            minFontSize, int lineSpace, String font, boolean downloadFont, int width, int height) {
         //先传入字体，因为字体是会影响大小的
         Paint paint = new Paint();
         if (!TextUtils.isEmpty(font)) {
@@ -125,7 +125,7 @@ public class PuzzleTextUtils {
     }
 
     public static List<String> getStrList(String autoStr, int fontSize, int maxFontSize,
-                                          int minFontSize, int lineSpace, int width, int height, Paint paint){
+                                          int minFontSize, int lineSpace, int width, int height, Paint paint) {
         if (TextUtils.isEmpty(autoStr)) {
             return null;
         }
@@ -145,7 +145,7 @@ public class PuzzleTextUtils {
                     int lineCount = strList.size() + 1;
                     if (lineHeight * lineCount + (lineCount - 1) * lineSpace > height) {
                         //减少5个px
-                        if (fontSize - 5 > minFontSize){
+                        if (fontSize - 5 > minFontSize) {
                             fontSize = fontSize - 5;
                             return getStrList(autoStr, fontSize, maxFontSize, minFontSize, lineSpace, width, height, paint);
                         } else {
@@ -167,7 +167,7 @@ public class PuzzleTextUtils {
                     int lineCount = strList.size() + 1;
                     if (lineHeight * lineCount + (lineCount - 1) * lineSpace > height) {
                         //减少5个px
-                        if (fontSize - 5 > minFontSize){
+                        if (fontSize - 5 > minFontSize) {
                             fontSize = fontSize - 5;
                             return getStrList(autoStr, fontSize, maxFontSize, minFontSize, lineSpace, width, height, paint);
                         } else {

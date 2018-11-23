@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.data.entity;
 
 import com.xs.lightpuzzle.data.TemplateManager;
-import com.xs.lightpuzzle.minnie.PuzzleConstant;
+import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class TemplateMapper {
         this.photoFilePaths = photoFilePaths;
     }
 
-    public static TemplateMapper get(int category, String id){
+    public static TemplateMapper get(int category, String id) {
         return get(category, id, null);
     }
 

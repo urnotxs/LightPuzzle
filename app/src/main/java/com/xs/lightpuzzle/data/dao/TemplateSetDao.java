@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by xs on 2018/11/6.
+ * 接口
+ * 用于对本地数据库的模板表进行增删改查
  */
 
 public interface TemplateSetDao {

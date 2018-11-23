@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * Created by xs on 2018/11/5.
+ * 实现类
+ * 用于对本地数据库的字体表进行增删改查
  */
 
 public class FontDaoImpl implements FontDao {

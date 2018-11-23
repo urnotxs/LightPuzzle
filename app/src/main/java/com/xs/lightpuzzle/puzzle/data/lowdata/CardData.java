@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Lin on 2018/4/2.
+ * Created by xs on 2018/4/2.
  */
 
 public class CardData implements Serializable, Cloneable {

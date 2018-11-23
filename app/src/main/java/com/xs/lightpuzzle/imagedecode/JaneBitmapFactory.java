@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by lsq on 2018/4/2.
+ * Created by xs on 2018/4/2.
  * <p>
  * 注意：如果指定ImgeSize 则ImageScaleType 不能设置为ImageScaleType.NONE或ImageScaleType.NONO_SAFE
  * 如果只想decode 得到原图的分辨率 -> decodexxx(context, pathName,ImageScaleType.NONE)

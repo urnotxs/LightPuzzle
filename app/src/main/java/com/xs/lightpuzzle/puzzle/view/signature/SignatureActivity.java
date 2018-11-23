@@ -42,8 +42,9 @@ public class SignatureActivity extends AppCompatActivity {
         setContentView(mPage);
     }
 
-    public interface PageListener{
+    public interface PageListener {
         void onClickOkBtn(String picPath);
+
         void onClickBackBtn(boolean hasHistory);
     }
 }

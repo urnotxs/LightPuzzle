@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
 public interface DrawView {

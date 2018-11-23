@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * Created by xs on 2018/04/27
  * 时间转字符串工具类
  */
 public class Time2StringUtils {

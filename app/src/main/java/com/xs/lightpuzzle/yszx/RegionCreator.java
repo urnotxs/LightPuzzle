@@ -3,11 +3,6 @@ package com.xs.lightpuzzle.yszx;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-/**
- * @author Mark Chan <a href="markchan2gm@gmail.com">Contact me.</a>
- * @version 1.0
- * @since 1/8/18
- */
 public class RegionCreator {
 
     public static float getCenterX(Rect rect) {

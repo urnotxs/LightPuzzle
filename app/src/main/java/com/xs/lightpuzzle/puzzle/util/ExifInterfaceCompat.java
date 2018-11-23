@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
+ * Created by xs on 2018/11/20.
+ * <p>
  * Bug fixture for ExifInterface constructor.
  */
 final class ExifInterfaceCompat {

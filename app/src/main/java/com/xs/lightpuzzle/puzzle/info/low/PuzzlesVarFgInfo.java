@@ -20,8 +20,8 @@ import com.xs.lightpuzzle.puzzle.info.DrawView;
 import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 
 /**
- * Created by Lin on 2018/4/12.
- * 前景
+ * Created by xs on 2018/4/12.
+ * 可变前景图层
  */
 
 public class PuzzlesVarFgInfo implements DrawView {

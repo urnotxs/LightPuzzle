@@ -1,7 +1,6 @@
 package com.xs.lightpuzzle.data;
 
 import com.blankj.utilcode.util.FileIOUtils;
-import com.xs.lightpuzzle.data.DataManager;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.data.entity.adapter.TemplateSetAdapter;
@@ -17,11 +16,11 @@ import java.util.List;
 
 public class TemplateManager {
 
-    public static boolean save(TemplateSet templateSet){
+    public static boolean save(TemplateSet templateSet) {
         return DataManager.getDefault().saveTemplateSet(templateSet);
     }
 
-    public static TemplateSet get(int category, String id){
+    public static TemplateSet get(int category, String id) {
         TemplateSet templateSet = DataManager.getDefault().getTemplateSet(category, id);
 
         String filePath = templateSet.getDirPath() + File.separator + id + ".json";
@@ -31,11 +30,11 @@ public class TemplateManager {
         return TemplateSetAdapterMapper.transform(adapter, false);
     }
 
-    public static TemplateSet list(int category, String id){
+    public static TemplateSet list(int category, String id) {
         return DataManager.getDefault().getTemplateSet(category, id);
     }
 
-    public static List<TemplateSet> list(TemplateSetQuery query){
+    public static List<TemplateSet> list(TemplateSetQuery query) {
         return DataManager.getDefault().getTemplateSets(query);
     }
 }

@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * @author Created by xs on 2018/11/20.
+ * @since 1.0.0
+ */
 public class Lunar {
     private int year;
     private int month;
@@ -80,6 +84,7 @@ public class Lunar {
         int num = year - 1900 + 36;
         return (cyclicalm(num));
     }
+
     public String getLunarMonthString() {
         // TODO Auto-generated method stub
         return null;
@@ -173,10 +178,10 @@ public class Lunar {
         return (leap ? "闰" : "") + chineseNumber[month - 1] + "月" + getChinaDayString(day);
     }
 
-    public String getDay(){
-        if(month == 12 && day >=21){
+    public String getDay() {
+        if (month == 12 && day >= 21) {
             return "年" + getChinaDayString(day);
         }
-        return   getChinaDayString(day);
+        return getChinaDayString(day);
     }
 }

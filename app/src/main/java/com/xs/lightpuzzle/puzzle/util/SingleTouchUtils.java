@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Created by xs on 2018/04/27
  * 单点触摸工具
  */
 public class SingleTouchUtils {

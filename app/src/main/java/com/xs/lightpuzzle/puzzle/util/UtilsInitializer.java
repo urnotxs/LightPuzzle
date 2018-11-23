@@ -40,6 +40,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Created by xs on 2018/04/27
+ */
 public class UtilsInitializer {
 
     public static float sDensity;

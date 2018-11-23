@@ -1,12 +1,12 @@
 package com.xs.lightpuzzle.puzzle.view.signature;
 
 import com.blankj.utilcode.util.FileUtils;
-import com.xs.lightpuzzle.minnie.PuzzleConstant;
+import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 
 import java.io.File;
 
 /**
- * Created by lsq on 2018/5/28.
+ * Created by xs on 2018/5/28.
  */
 
 public class SignatureUtils {
@@ -64,7 +64,7 @@ public class SignatureUtils {
         String dstPath = "";
         String editDir = PuzzleConstant.SD_SIGNATURE_EDITING_PATH;
         // 正在编辑的不用删除
-        if(filePath.contains(editDir)){
+        if (filePath.contains(editDir)) {
             return filePath;
         }
 

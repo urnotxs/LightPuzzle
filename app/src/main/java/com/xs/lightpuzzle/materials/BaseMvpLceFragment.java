@@ -21,7 +21,7 @@ import icepick.Icepick;
  * Created by xs on 2018/11/8.
  */
 
-public abstract class BaseMvpLceFragment <CV extends View, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
+public abstract class BaseMvpLceFragment<CV extends View, M, V extends MvpLceView<M>, P extends MvpPresenter<V>>
         extends MvpLceFragment<CV, M, V, P> {
 
     private Unbinder unbinder;

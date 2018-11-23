@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.imagedecode.core;
 
 /**
- * Created by lsq on 2018/3/30.
+ * Created by xs on 2018/3/30.
  */
 
 public class ImageSize {

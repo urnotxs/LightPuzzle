@@ -25,11 +25,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author Mark Chan <a href="markchan2gm@gmail.com">Contact me.</a>
+ * @author Created by xs on 2018/11/20.
  * @since 1.0.0
  */
 public class GlideBitmapFactoryHelper {
     private static final String TAG = GlideBitmapFactoryHelper.class.getSimpleName();
+
     public static Bitmap decode(Context context, String uri, int reqWidth, int reqHeight) {
         return decode(context, uri, reqWidth, reqHeight, true);
     }
@@ -136,7 +137,9 @@ public class GlideBitmapFactoryHelper {
         return orientation == ExifInterface.ORIENTATION_ROTATE_90
                 || orientation == ExifInterface.ORIENTATION_ROTATE_270;
     }
+
     private static final String SCHEME_CONTENT = "content";
+
     public static String getPath(ContentResolver resolver, Uri uri) {
         if (uri == null) {
             return null;

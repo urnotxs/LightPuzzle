@@ -24,7 +24,11 @@ public class MyHorizontalScrollView extends ElasticHorizontalScrollView {
      * TOUCH_SCROLL=手指拖动滚动
      * FLING=滚动
      */
-    enum ScrollType{IDLE,TOUCH_SCROLL,FLING};
+    enum ScrollType {
+        IDLE, TOUCH_SCROLL, FLING
+    }
+
+    ;
 
     /**
      * 记录当前滚动的距离
@@ -44,19 +48,21 @@ public class MyHorizontalScrollView extends ElasticHorizontalScrollView {
         super(context);
         mHandler = new Handler();
     }
-    public void setOnScrollStateChangedListener(ScrollViewListener listener){
+
+    public void setOnScrollStateChangedListener(ScrollViewListener listener) {
         this.scrollViewListener = listener;
     }
+
     /**
      * 滚动监听runnable
      */
     private Runnable scrollRunnable = new Runnable() {
         @Override
         public void run() {
-            if (getScrollX()==currentX) {
+            if (getScrollX() == currentX) {
                 //滚动停止,取消监听线程
                 scrollType = ScrollType.IDLE;
-                if (scrollViewListener!=null) {
+                if (scrollViewListener != null) {
                     scrollViewListener.onScrollChanged(scrollType);
                 }
                 mHandler.removeCallbacks(this);
@@ -64,7 +70,7 @@ public class MyHorizontalScrollView extends ElasticHorizontalScrollView {
             } else {
                 //手指离开屏幕,但是view还在滚动
                 scrollType = ScrollType.FLING;
-                if(scrollViewListener!=null){
+                if (scrollViewListener != null) {
                     scrollViewListener.onScrollChanged(scrollType);
                 }
             }

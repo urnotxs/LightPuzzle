@@ -12,7 +12,7 @@ import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.ColorLayout;
 
 /**
- * Created by poco on 2018/1/24.
+ * Created by xs on 2018/1/24.
  */
 
 public class ColorImageButton extends AppCompatImageView {

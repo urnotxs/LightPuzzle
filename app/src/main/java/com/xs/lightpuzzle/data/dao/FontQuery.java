@@ -2,6 +2,9 @@ package com.xs.lightpuzzle.data.dao;
 
 /**
  * Created by xs on 2018/11/2.
+ *
+ * 字体查询条件的对象
+ * Builder构建类
  */
 
 public class FontQuery {

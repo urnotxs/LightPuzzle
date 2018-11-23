@@ -24,8 +24,9 @@ import com.xs.lightpuzzle.puzzle.view.texturecolor.widget.TextureImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
- * Created by lsq on 2018/4/18.
+ * Created by xs on 2018/4/18.
  */
 
 public class EditBgTextureLayout
@@ -354,11 +355,11 @@ public class EditBgTextureLayout
                 root.addView(bottomRl, rParams);
 
                 rParams = new LayoutParams(
-                        Utils.getRealPixel3(200),Utils.getRealPixel3(100));
+                        Utils.getRealPixel3(200), Utils.getRealPixel3(100));
                 rParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 rParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 mColorBackRl = new RelativeLayout(getContext());
-                bottomRl.addView(mColorBackRl,rParams);
+                bottomRl.addView(mColorBackRl, rParams);
                 mColorBackRl.setOnClickListener(mOnClickListener);
 
                 // 向下推出颜色页面

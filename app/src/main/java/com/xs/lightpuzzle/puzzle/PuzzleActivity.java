@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 
+import static com.xs.lightpuzzle.puzzle.PuzzlePage.REQ_CODE_EDIT_LABEL;
 import static com.xs.lightpuzzle.puzzle.PuzzlePage.REQ_CODE_TRANSFORM_TEMPLATE;
 import static com.xs.lightpuzzle.puzzle.PuzzlePage.REQ_CODE_EDIT_SIGNATURE;
 
@@ -22,6 +23,7 @@ public class PuzzleActivity extends Activity {
     public static final String EXTRA_PHOTOS = "photos";
 
     private PuzzlePage mPage;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,10 @@ public class PuzzleActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_CODE_TRANSFORM_TEMPLATE) {
             mPage.handleTransformTemplateResult(resultCode, data);
-        }else if (requestCode == REQ_CODE_EDIT_SIGNATURE){
+        } else if (requestCode == REQ_CODE_EDIT_SIGNATURE) {
             mPage.handleEditSignatureResult(resultCode, data);
+        } else if (requestCode == REQ_CODE_EDIT_LABEL) {
+            mPage.handleEditLabelResult(resultCode, data);
         }
     }
 }

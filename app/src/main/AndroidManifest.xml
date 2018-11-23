@@ -31,7 +31,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".puzzle.view.signature.SignatureActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity
+            android:name=".puzzle.view.label.LabelActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
 
         <activity
             android:name=".puzzle.PuzzleActivity"

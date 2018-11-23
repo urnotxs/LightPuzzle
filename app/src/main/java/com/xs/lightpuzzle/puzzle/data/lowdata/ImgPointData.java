@@ -6,10 +6,10 @@ import android.graphics.PointF;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
-public class ImgPointData implements Serializable, Cloneable{
+public class ImgPointData implements Serializable, Cloneable {
 
     //浮点型坐标位置, 小于1
     private PointF[] picPointF;

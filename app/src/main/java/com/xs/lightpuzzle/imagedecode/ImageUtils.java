@@ -5,7 +5,7 @@ import android.media.ExifInterface;
 import java.io.IOException;
 
 /**
- * Created by lsq on 2018/8/16.
+ * Created by xs on 2018/8/16.
  */
 
 public class ImageUtils {

@@ -10,9 +10,9 @@ import java.util.Set;
  */
 
 public class TemplateSetAdapter {
-    public static class NodeAdapter{
+    public static class NodeAdapter {
 
-        public static NodeAdapter create(int category, String id){
+        public static NodeAdapter create(int category, String id) {
             return new NodeAdapter(category, id);
         }
 

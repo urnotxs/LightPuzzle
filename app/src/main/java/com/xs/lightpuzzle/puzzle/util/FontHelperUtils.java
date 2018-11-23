@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * @author Mark Chan <a href="markchan2gm@gmail.com">Contact me.</a>
+ * @author Created by xs on 2018/11/20.
  * @version 1.0
  * @function 字体的帮助类
  * @since 17/7/25

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by lsq on 2018/4/10.
+ * Created by xs on 2018/4/10.
  */
 
 public class PuzzleColorBean {

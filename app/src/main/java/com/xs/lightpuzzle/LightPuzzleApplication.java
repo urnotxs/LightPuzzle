@@ -15,6 +15,7 @@ import com.xs.lightpuzzle.data.DataManager;
 public class LightPuzzleApplication extends Application {
 
     private static LightPuzzleApplication INSTANCE;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -24,7 +25,7 @@ public class LightPuzzleApplication extends Application {
         DataManager.handleApplicationContext(this);
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return INSTANCE.getApplicationContext();
     }
 }

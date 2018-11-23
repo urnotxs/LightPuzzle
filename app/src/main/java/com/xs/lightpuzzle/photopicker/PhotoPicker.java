@@ -24,8 +24,8 @@ public class PhotoPicker {
     /**
      * 场景一: 跳转至选图界面选一张或者多张图片
      *
-     * @param activity 活动
-     * @param maxCount 可选择图片的最大数目
+     * @param activity       活动
+     * @param maxCount       可选择图片的最大数目
      * @param originalPhotos 之前已选中的图片
      */
     public static void multi(Activity activity, int maxCount, ArrayList<Photo> originalPhotos) {

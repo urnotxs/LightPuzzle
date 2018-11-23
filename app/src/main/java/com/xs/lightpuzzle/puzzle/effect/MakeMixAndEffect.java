@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 
-
+/**
+ * Created by xs on 2018/4/12.
+ */
 public class MakeMixAndEffect {
 
     public static final Bitmap createARGBImage(Bitmap bitmap, int color) {

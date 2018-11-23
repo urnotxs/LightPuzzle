@@ -37,11 +37,11 @@ public class TemplateInfo {
     private Rect rect;
     //保存时用到的rect
     private Rect outPutRect;
-//
+    //
     private PuzzlesFgInfo puzzlesFgInfo;
-//
+    //
     private PuzzlesMaskInfo puzzlesMaskInfo;
-//
+    //
 //    private PuzzlesQrCodeInfo puzzlesQrCodeInfo;
 //
 //    private PuzzlesImageInfo[] puzzlesImageInfos;

@@ -47,6 +47,9 @@ import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_RESOLVED_FILTER;
 import static android.content.pm.PackageManager.MATCH_DEFAULT_ONLY;
 
+/**
+ * Created by xs on 2018/04/27
+ */
 public class Utils extends UtilsInitializer {
 
     public static void hideKeyboard(Context context, IBinder iBinder) {
@@ -202,16 +205,13 @@ public class Utils extends UtilsInitializer {
         return strDir;
     }
 
-    public static String getPath(Context context, Uri uri)
-    {
+    public static String getPath(Context context, Uri uri) {
         String out = null;
         Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Video.Media.DATA}, null, null,
                 null);
-        if(cursor != null)
-        {
+        if (cursor != null) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-            if(column_index > -1)
-            {
+            if (column_index > -1) {
                 cursor.moveToFirst();
                 out = cursor.getString(column_index);
             }
@@ -445,6 +445,7 @@ public class Utils extends UtilsInitializer {
 
     /**
      * 随机生成一个字符串
+     *
      * @param length
      * @return
      */

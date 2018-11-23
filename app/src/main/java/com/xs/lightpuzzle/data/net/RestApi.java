@@ -12,5 +12,6 @@ import java.util.List;
 public interface RestApi {
 
     List<Font> getFonts();
+
     List<TemplateSet> getTemplates();
 }

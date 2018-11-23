@@ -232,7 +232,7 @@ public class MaterialListActivity extends BaseMaterialListActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.material_list_aty_menu_downloaded){
+        if (id == R.id.material_list_aty_menu_downloaded) {
             Navigator.navigateToDownloadedListActivity(this);
             return true;
         }

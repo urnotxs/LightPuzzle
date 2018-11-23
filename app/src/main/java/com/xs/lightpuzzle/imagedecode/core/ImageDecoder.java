@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by lsq on 2018/3/29.
+ * Created by xs on 2018/3/29.
  */
 
 public class ImageDecoder {

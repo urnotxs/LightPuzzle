@@ -50,4 +50,9 @@
     <color name="gray_800">#424242</color>
     <color name="gray_900">#212121</color>
 
+    <!-- label -->
+    <color name="puzzle_label_color">#66ffffff</color>
+    <color name="puzzle_label_title_color">#99ffffff</color>
+    <color name="puzzle_label_line_color">#19ffffff</color>
+    <color name="puzzle_label_text_color">#99ffffff</color>
 </resources>

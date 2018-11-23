@@ -2,6 +2,9 @@ package com.xs.lightpuzzle.puzzle;
 
 import com.xs.lightpuzzle.data.DataConstant;
 
+/**
+ * Created by xs on 2018/04/27
+ */
 public class PuzzleMode {
     //普通模板
     public static final int MODE_WAG = 0x4001;

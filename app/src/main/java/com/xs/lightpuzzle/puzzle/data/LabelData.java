@@ -1,11 +1,11 @@
 package com.xs.lightpuzzle.puzzle.data;
 
-import com.xs.lightpuzzle.puzzle.view.EditLabelView;
+import com.xs.lightpuzzle.puzzle.view.label.view.EditLabelView;
 
 import java.io.Serializable;
 
 /**
- * Created by admin on 2018/5/21.
+ * Created by xs on 2018/5/21.
  */
 
 public class LabelData implements Serializable, Cloneable {

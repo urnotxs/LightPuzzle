@@ -50,15 +50,15 @@ public class TemplateCategoryUiMapper {
         return NAME_MAPPER;
     }
 
-    public static int getPosition(int category){
-       return MAPPER.keyAt(MAPPER.indexOfValue(category));
+    public static int getPosition(int category) {
+        return MAPPER.keyAt(MAPPER.indexOfValue(category));
     }
 
-    public static int getCategory(int position){
+    public static int getCategory(int position) {
         return MAPPER.get(position);
     }
 
-    public static String getCategoryName(int position){
+    public static String getCategoryName(int position) {
         return NAME_MAPPER.get(position);
     }
 }

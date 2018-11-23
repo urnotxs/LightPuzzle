@@ -6,7 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
 /**
- * Created by Lin on 2016/12/7.
+ * Created by xs on 2016/12/7.
  */
 public class AnimUtils {
 
@@ -72,8 +72,8 @@ public class AnimUtils {
 
     public static void setTransAnim(final View view, float form_x, float to_x, float from_y, float
             to_y, long duration, final AnimEndCallBack callBack) {
-            view.clearAnimation();
-        if (view.getAnimation() == null){
+        view.clearAnimation();
+        if (view.getAnimation() == null) {
             TranslateAnimation animation = new TranslateAnimation(
                     Animation.RELATIVE_TO_SELF, form_x, Animation.RELATIVE_TO_SELF, to_x,
                     Animation.RELATIVE_TO_SELF, from_y, Animation.RELATIVE_TO_SELF, to_y);
@@ -143,6 +143,7 @@ public class AnimUtils {
 
     /**
      * 获取平移动画(用于添加入动画集,监听效果自己加)
+     *
      * @return
      */
 
@@ -156,6 +157,7 @@ public class AnimUtils {
 
     /**
      * 获取淡入淡出效果(用于添加入动画集,监听效果自己加)
+     *
      * @return
      */
 

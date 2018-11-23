@@ -44,6 +44,7 @@ public class AlbumListFragment extends BaseFragment {
         mAlbums = new ArrayList<>();
         mGlide = Glide.with(this);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

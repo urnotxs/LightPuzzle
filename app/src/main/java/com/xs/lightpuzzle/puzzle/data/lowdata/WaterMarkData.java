@@ -5,10 +5,10 @@ import android.graphics.PointF;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
-public class WaterMarkData implements Serializable, Cloneable{
+public class WaterMarkData implements Serializable, Cloneable {
 
     private String waterPic;
 

@@ -17,6 +17,7 @@ import com.xs.lightpuzzle.puzzle.param.TimedPoint;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by xs on 2018/8/24.
  */
@@ -40,7 +41,8 @@ public class SignaturePadHelper {
         if (FileUtils.isFileExists(signPic)) {
             signatureSaveVO = new Gson().fromJson(
                     FileIOUtils.readFile2String(signPic),
-                    new TypeToken<SignatureSaveVO>() {}.getType());
+                    new TypeToken<SignatureSaveVO>() {
+                    }.getType());
         }
         return signatureSaveVO;
     }
@@ -49,25 +51,25 @@ public class SignaturePadHelper {
      * 获取签名bitmap
      *
      * @param signatureSaveVO
-     * @param height             签名高
-     * @param rotation         旋转角度，拼图页需要旋转-90度
-     * @param minPaintWidth    最小画笔宽度
+     * @param height               签名高
+     * @param rotation             旋转角度，拼图页需要旋转-90度
+     * @param minPaintWidth        最小画笔宽度
      * @param velocityFilterWeight
-     * @param loa              采集点
-     * @param isBlackToGray    是否将黑色绘制成灰色
+     * @param loa                  采集点
+     * @param isBlackToGray        是否将黑色绘制成灰色
      * @return
      */
     public static Bitmap getSignatureBitmap(SignatureSaveVO signatureSaveVO,
-                                            int height, int rotation, float minPaintWidth ,
-                                            float velocityFilterWeight ,  int loa, boolean isBlackToGray) {
-        if (signatureSaveVO != null){
-            List<TimedPoint>  points = new ArrayList<>();
+                                            int height, int rotation, float minPaintWidth,
+                                            float velocityFilterWeight, int loa, boolean isBlackToGray) {
+        if (signatureSaveVO != null) {
+            List<TimedPoint> points = new ArrayList<>();
             int paintColor = signatureSaveVO.getColor();
-            if (signatureSaveVO.getColor() == 0xff000000 && isBlackToGray){
+            if (signatureSaveVO.getColor() == 0xff000000 && isBlackToGray) {
                 //如果是黑色，变为灰色绘制
                 paintColor = 0xff666666;
             }
-            float mStorageRatioWH = signatureSaveVO.getWidth()/signatureSaveVO.getHeight();
+            float mStorageRatioWH = signatureSaveVO.getWidth() / signatureSaveVO.getHeight();
             ArrayList<ArrayList<TimedPoint>> mStoragePoints = signatureSaveVO.getTimedPointsArray();
 
             int width = (int) (height * mStorageRatioWH);
@@ -84,25 +86,25 @@ public class SignaturePadHelper {
             paint.setColor(paintColor);//默认颜色
 
             mLastWidth = (mMinWidth + mMaxWidth) / 2;
-            mLastVelocity = 0 ;
+            mLastVelocity = 0;
 
-            if (mStoragePoints != null && mStoragePoints.size() > 0 && mStoragePoints.get(0).size() > 0){
+            if (mStoragePoints != null && mStoragePoints.size() > 0 && mStoragePoints.get(0).size() > 0) {
 
-                Bitmap bitmap = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 canvas.setDrawFilter(
                         new PaintFlagsDrawFilter(0,
                                 Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvas.drawColor(Color.TRANSPARENT);
 
-                for (int i = 0 ; i < mStoragePoints.size() ; i++){
+                for (int i = 0; i < mStoragePoints.size(); i++) {
                     points.clear();
-                    for (int j = 0 ; j < mStoragePoints.get(i).size() ; j++){
+                    for (int j = 0; j < mStoragePoints.get(i).size(); j++) {
                         TimedPoint newPoint = new TimedPoint(
                                 mStoragePoints.get(i).get(j).x * width,
                                 mStoragePoints.get(i).get(j).y * height);
                         newPoint.timestamp = mStoragePoints.get(i).get(j).timestamp;
-                        addPoint(canvas , paint , points , newPoint);
+                        addPoint(canvas, paint, points, newPoint);
                     }
                 }
 
@@ -134,12 +136,13 @@ public class SignaturePadHelper {
 
             // The new width is a function of the velocity. Higher velocities
             // correspond to thinner strokes.
-            float newWidth = Math.max(mMaxWidth / (velocity + 1), mMinWidth);;
+            float newWidth = Math.max(mMaxWidth / (velocity + 1), mMinWidth);
+            ;
 
             Log.i("test:", "" + velocity + "\r\n" + "newWidth:" + newWidth);
             // gradually changes to the stroke width just calculated. The new
             // start and end mPoints.
-            addBspline(canvas ,paint ,points.get(0), points.get(1), points.get(2), points.get(3), mLastWidth, newWidth);
+            addBspline(canvas, paint, points.get(0), points.get(1), points.get(2), points.get(3), mLastWidth, newWidth);
 
             mLastVelocity = velocity;
             mLastWidth = newWidth;
@@ -151,7 +154,7 @@ public class SignaturePadHelper {
     }
 
     //b样条曲线
-    public static void addBspline(Canvas canvas, Paint paint ,TimedPoint pt0, TimedPoint pt1, TimedPoint pt2, TimedPoint pt3, float startWidth, float endWidth) {
+    public static void addBspline(Canvas canvas, Paint paint, TimedPoint pt0, TimedPoint pt1, TimedPoint pt2, TimedPoint pt3, float startWidth, float endWidth) {
         float originalWidth = paint.getStrokeWidth();
         float widthDelta = endWidth - startWidth;
 

@@ -7,8 +7,7 @@ import android.content.res.ColorStateList;
  */
 
 public class ColorUtil {
-    public static ColorStateList createColorStateList(int normal, int pressed)
-    {
+    public static ColorStateList createColorStateList(int normal, int pressed) {
         int focused = 0;
         int unable = 0;
         int[] colors = new int[]{pressed, focused, normal, focused, unable, normal};

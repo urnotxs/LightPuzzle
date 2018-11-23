@@ -10,10 +10,10 @@ import com.xs.lightpuzzle.puzzle.util.Utils;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2017/12/28.
+ * Created by xs on 2017/12/28.
  */
 
-public class TextData implements Serializable, Cloneable{
+public class TextData implements Serializable, Cloneable {
 
     /**
      * "Font": "青鸟华光简报宋二.TTF",
@@ -250,8 +250,10 @@ public class TextData implements Serializable, Cloneable{
         setTypefaceId(fontId);
         setTypefaceUri(typefaceUri);
     }
+
     private String mTypefaceId;
     private String mTypefaceUri;
+
     public String getTypefaceId() {
         return mTypefaceId;
     }

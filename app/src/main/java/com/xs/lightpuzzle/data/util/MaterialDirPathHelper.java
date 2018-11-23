@@ -14,15 +14,15 @@ public class MaterialDirPathHelper {
         return DataConstant.DIR_PATH.FONT + File.separator + id;
     }
 
-    public static String template(int category, String id, int photoNum){
+    public static String template(int category, String id, int photoNum) {
         return template(category, id) + File.separator + photoNum;
     }
 
-    public static String template(int category, String id){
+    public static String template(int category, String id) {
         return template(category) + File.separator + id;
     }
 
-    public static String template(int category){
+    public static String template(int category) {
         return DataConstant.DIR_PATH.TEMPLATE + File.separator
                 + TemplateCategoryHelper.getName(category);
     }

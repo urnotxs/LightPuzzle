@@ -9,34 +9,42 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
-import com.google.gson.Gson;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.TemplateManager;
-import com.xs.lightpuzzle.data.entity.BackgroundTexture;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
 import com.xs.lightpuzzle.puzzle.adapter.PuzzleDataAdapter;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
+import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.data.TemplateData;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesSignInfo;
+import com.xs.lightpuzzle.puzzle.model.PuzzlesLabelModel;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
+import com.xs.lightpuzzle.puzzle.view.label.view.EditLabelView;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_BITMAP;
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_ICON_TYPE;
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_IS_INVERT;
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_IS_UPDATE;
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_LABEL_TYPE;
+import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_TEXT;
 import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_HAS_HISTORY;
 import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_PATH;
 
@@ -249,28 +257,6 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         return additional;
     }
 
-    private Gson mGson = new Gson();
-    private List<BackgroundTexture> mBackgroundTextures;
-//    private BackgroundTexture getBackgroundTexture(int order) {
-//        if (mBackgroundTextures == null){
-//            String data = AssetManagerHelper.convertInputString(mContext,
-//                    PuzzleConstant.ASSET_DATA_PATH.BACKGROUND_TEXTURE);
-//            if (TextUtils.isEmpty(data)) {
-//                throw new RuntimeException("open assets " +
-//                        PuzzleConstant.ASSET_DATA_PATH.BACKGROUND_TEXTURE + "file error");
-//            }
-//            mBackgroundTextures = mGson.fromJson(data, new TypeToken<List<BackgroundTexture>>(){
-//
-//            }.getType());
-//        }
-//        for (BackgroundTexture texture : mBackgroundTextures){
-//            if (texture.getOrder() == order){
-//                return texture;
-//            }
-//        }
-//        return null;
-//    }
-
     public boolean isPageClose() {
         return isPageClose;
     }
@@ -293,6 +279,77 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         return false;
     }
 
+    /**
+     * 标签编辑页点击保存后
+     * 更新LabelInfo，重绘编辑页
+     * LabelPageSite.SAVE_KEY
+     */
+    public void updateLabelPageParams(Context context, Intent intent, int scrollY) {
+
+        if (intent == null) {
+            return;
+        }
+        int iconIndex = intent.getIntExtra(LABEL_ICON_TYPE, 0);
+        EditLabelView.ICON_TYPE[] iconTypes = EditLabelView.ICON_TYPE.values();
+        int labelIndex = intent.getIntExtra(LABEL_LABEL_TYPE, 0);
+        EditLabelView.LABEL_TYPE[] labelTypes = EditLabelView.LABEL_TYPE.values();
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put(LABEL_BITMAP, intent.getStringExtra(LABEL_BITMAP));
+        params.put(LABEL_ICON_TYPE, iconTypes[iconIndex]);
+        params.put(LABEL_LABEL_TYPE, labelTypes[labelIndex]);
+        params.put(LABEL_TEXT, intent.getStringExtra(LABEL_TEXT));
+        params.put(LABEL_IS_INVERT, intent.getBooleanExtra(LABEL_IS_INVERT, false));
+        params.put(LABEL_IS_UPDATE, intent.getBooleanExtra(LABEL_IS_UPDATE, false));
+
+        if (!TextUtils.isEmpty((String) params.get(LABEL_TEXT))) {
+            String text = (String) params.get(LABEL_TEXT);
+            String labelPic = (String) params.get(LABEL_BITMAP);
+            boolean isInvert = (boolean) params.get(LABEL_IS_INVERT);
+            boolean isUpdate = (boolean) params.get(LABEL_IS_UPDATE);
+            EditLabelView.ICON_TYPE iconType = (EditLabelView.ICON_TYPE)
+                    params.get(LABEL_ICON_TYPE);
+            EditLabelView.LABEL_TYPE labelType = (EditLabelView.LABEL_TYPE)
+                    params.get(LABEL_LABEL_TYPE);
+
+            if (text != null) {
+                LabelData labelData = new LabelData();
+                labelData.setText(text);
+                labelData.setLabelPic(labelPic);
+                labelData.setInvert(isInvert);
+                labelData.setIconType(iconType);
+                labelData.setLabelType(labelType);
+                labelData.setUpdate(isUpdate);
+                setLabelData(context, labelData, scrollY);
+            }
+        }
+    }
+
+    // --- 标签
+    private void setLabelData(Context context, LabelData labelData, int scrollY) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+
+        PuzzlesLabelInfo labelInfo = PuzzlesLabelModel.getLabelInfo(mPuzzlesInfo, labelData);
+        if (labelInfo != null) {
+            labelInfo.setScrollY(scrollY);
+            labelInfo.init();
+            labelInfo.initBitmap(context);
+            if (!labelData.isUpdate()) {
+                mPuzzlesInfo.addPuzzleLabelInfos(labelInfo);
+            }
+        }
+    }
+
+    public void deleteLabelItem() {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.deleteLabelItem();
+        invalidateView();
+    }
+
     public void updateSignatureParams(Context context, Intent intent, int scrollY) {
         if (intent != null && mPuzzlesInfo != null) {
             String signaturePath = intent.getStringExtra(SIGNATURE_PATH);
@@ -307,7 +364,6 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
                 mPuzzlesInfo.recycleSign();
             }
         }
-
     }
 
     /**

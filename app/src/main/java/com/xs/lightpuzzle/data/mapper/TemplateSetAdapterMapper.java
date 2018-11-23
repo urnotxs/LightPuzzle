@@ -35,7 +35,7 @@ public class TemplateSetAdapterMapper {
     }
 
     public static TemplateSet transform(TemplateSetAdapter adapter,
-                                         boolean isTransientTemplateMap) {
+                                        boolean isTransientTemplateMap) {
         if (adapter == null) {
             return null;
         }
@@ -75,7 +75,6 @@ public class TemplateSetAdapterMapper {
 
         return collection;
     }
-
 
 
     private static Map<Integer, Template> transformTemplateMap(

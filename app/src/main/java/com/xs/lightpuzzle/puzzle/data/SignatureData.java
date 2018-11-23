@@ -7,10 +7,10 @@ import com.xs.lightpuzzle.puzzle.param.SignatureSaveVO;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
-public class SignatureData implements Serializable, Cloneable{
+public class SignatureData implements Serializable, Cloneable {
 
     //签名信息
     private PointF[] signPoint;

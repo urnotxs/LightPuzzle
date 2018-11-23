@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 
 public class Serializer {
     private final Gson gson = new Gson();
+
     /**
      * Serialize an object to Json.
      *

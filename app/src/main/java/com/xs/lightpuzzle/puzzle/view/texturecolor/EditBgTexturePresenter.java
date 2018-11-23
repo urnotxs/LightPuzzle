@@ -6,7 +6,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
 
 /**
- * Created by lsq on 2018/4/11.
+ * Created by xs on 2018/4/11.
  */
 
 public class EditBgTexturePresenter extends MvpBasePresenter<EditBgTextureView> {

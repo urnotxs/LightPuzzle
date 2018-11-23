@@ -6,9 +6,7 @@ import android.view.View.OnClickListener;
 import java.util.Calendar;
 
 /**
- * @author junlintianxia
- * @version Create on：2015年6月12日 上午10:03:10
- * @describe
+ * Created by xs on 2018/11/20.
  */
 public abstract class NoDoubleClickListener implements OnClickListener {
 

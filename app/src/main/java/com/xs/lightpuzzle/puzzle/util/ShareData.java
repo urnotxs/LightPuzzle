@@ -20,6 +20,9 @@ import android.view.WindowManager;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * Created by xs on 2018/04/27
+ */
 public class ShareData {
     public static int m_screenWidth = 0;
     public static int m_screenHeight = 0;
@@ -137,9 +140,8 @@ public class ShareData {
                 e.printStackTrace();
             }
             m_HasNotch = ScreenNotchUtils.hasNotchInScreen(context);
-            if (context instanceof Activity)
-            {
-                m_realStatusBarHeight = GetStatusBarHeight2((Activity)context);
+            if (context instanceof Activity) {
+                m_realStatusBarHeight = GetStatusBarHeight2((Activity) context);
             }
 
         } else {
@@ -592,14 +594,11 @@ public class ShareData {
         return -1;
     }
 
-    public static boolean hasStatusBar(Activity activity)
-    {
+    public static boolean hasStatusBar(Activity activity) {
         boolean out = false;
-        if(activity != null)
-        {
-            if((activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0 &&
-               (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0)
-            {
+        if (activity != null) {
+            if ((activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0 &&
+                    (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                 out = true;
             }
         }

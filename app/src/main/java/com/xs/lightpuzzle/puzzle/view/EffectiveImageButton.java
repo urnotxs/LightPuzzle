@@ -11,8 +11,8 @@ import android.view.MotionEvent;
 
 /**
  * 带按压效果的按钮, 并且可以设置按压时的透明度
- *
- * Created by zwq on 2015/1/6 09:29
+ * <p>
+ * Created by xs on 2015/1/6 09:29
  */
 public class EffectiveImageButton extends AppCompatImageView {
 
@@ -32,7 +32,7 @@ public class EffectiveImageButton extends AppCompatImageView {
 
     /**
      * @param normalResId 正常的图片
-     * @param resPress 按压时的图片
+     * @param resPress    按压时的图片
      */
     public EffectiveImageButton(Context context, int normalResId, int resPress) {
         super(context);
@@ -41,7 +41,7 @@ public class EffectiveImageButton extends AppCompatImageView {
     }
 
     /**
-     * @param normalResId 正常的图片
+     * @param normalResId  正常的图片
      * @param pressedResId 按压时的图片
      */
     public void setButtonImage(int normalResId, int pressedResId) {
@@ -49,7 +49,7 @@ public class EffectiveImageButton extends AppCompatImageView {
     }
 
     /**
-     * @param normalResId 正常的图片
+     * @param normalResId  正常的图片
      * @param pressedResId 按压时的图片
      * @param isReplaceOld 替换掉原来的图片
      */
@@ -59,9 +59,9 @@ public class EffectiveImageButton extends AppCompatImageView {
     }
 
     /**
-     * @param normalResId 正常的图片
+     * @param normalResId  正常的图片
      * @param pressedResId 按压时的图片
-     * @param alpha 按压时的透明度 0-255
+     * @param alpha        按压时的透明度 0-255
      */
     public void setButtonImage(int normalResId, int pressedResId, int alpha) {
         if (!mOrigin) {

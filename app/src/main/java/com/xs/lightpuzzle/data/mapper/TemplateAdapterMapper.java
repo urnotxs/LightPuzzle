@@ -16,8 +16,8 @@ import java.util.List;
 
 public class TemplateAdapterMapper {
 
-    public static Template transform(TemplateAdapter adapter){
-        if (adapter == null){
+    public static Template transform(TemplateAdapter adapter) {
+        if (adapter == null) {
             return null;
         }
 
@@ -42,7 +42,7 @@ public class TemplateAdapterMapper {
     }
 
     private static Background transformBackground(BackgroundAdapter adapter) {
-        if (adapter == null){
+        if (adapter == null) {
             return null;
         }
 
@@ -58,9 +58,9 @@ public class TemplateAdapterMapper {
         }
 
         List<Template.Photo> photos = new ArrayList<>();
-        for (TemplateAdapter.PhotoAdapter adapter : adapterCollection){
+        for (TemplateAdapter.PhotoAdapter adapter : adapterCollection) {
             Template.Photo photo = transformPhoto(adapter);
-            if (photo != null){
+            if (photo != null) {
                 photos.add(photo);
             }
         }
@@ -69,7 +69,7 @@ public class TemplateAdapterMapper {
 
     private static Template.Photo transformPhoto(
             TemplateAdapter.PhotoAdapter adapter) {
-        if (adapter == null){
+        if (adapter == null) {
             return null;
         }
         Template.Photo photo = new Template.Photo();
@@ -80,14 +80,14 @@ public class TemplateAdapterMapper {
 
     private static List<Template.Ornament> transformOrnament(
             Collection<TemplateAdapter.OrnamentAdapter> ornamentAdapters) {
-        if (ornamentAdapters == null || ornamentAdapters.isEmpty()){
+        if (ornamentAdapters == null || ornamentAdapters.isEmpty()) {
             return null;
         }
         List<Template.Ornament> ornaments = new ArrayList<>();
         for (TemplateAdapter.OrnamentAdapter adapter
-                : ornamentAdapters){
+                : ornamentAdapters) {
             Template.Ornament ornament = transformOrnament(adapter);
-            if (ornament!=null){
+            if (ornament != null) {
                 ornaments.add(ornament);
             }
         }
@@ -96,7 +96,7 @@ public class TemplateAdapterMapper {
 
     private static Template.Ornament transformOrnament(
             TemplateAdapter.OrnamentAdapter adapter) {
-        if (adapter == null){
+        if (adapter == null) {
             return null;
         }
         Template.Ornament ornament = new Template.Ornament();
@@ -108,13 +108,13 @@ public class TemplateAdapterMapper {
     private static List<Template.Text> transformText(
             Collection<TemplateAdapter.TextAdapter> textCollection) {
 
-        if (textCollection == null || textCollection.isEmpty()){
+        if (textCollection == null || textCollection.isEmpty()) {
             return null;
         }
         List<Template.Text> texts = new ArrayList<>();
-        for (TemplateAdapter.TextAdapter adapter : textCollection){
+        for (TemplateAdapter.TextAdapter adapter : textCollection) {
             Template.Text text = transformText(adapter);
-            if (text != null){
+            if (text != null) {
                 texts.add(text);
             }
         }
@@ -123,7 +123,7 @@ public class TemplateAdapterMapper {
 
     private static Template.Text transformText(
             TemplateAdapter.TextAdapter adapter) {
-        if (adapter == null){
+        if (adapter == null) {
             return null;
         }
         Template.Text text = new Template.Text();

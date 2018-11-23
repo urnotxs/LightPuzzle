@@ -73,7 +73,7 @@ public class PhotoListFragment extends BaseFragment {
 
     public void setAlbum(Album album) {
         mAlbum = album;
-        if (mAlbum != null){
+        if (mAlbum != null) {
             setPhotos(mAlbum.getPhotos());
         }
     }

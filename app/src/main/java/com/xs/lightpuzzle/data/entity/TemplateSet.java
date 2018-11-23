@@ -25,7 +25,7 @@ public class TemplateSet {
 
     /**
      * 长图子模板链接
-     * */
+     */
     public static class Node {
         private final int category;
         private final String id;
@@ -122,10 +122,10 @@ public class TemplateSet {
 
     @Generated(hash = 269154088)
     public TemplateSet(Long localId, int category, @NotNull String id, String name, int proportion, String url,
-            String thumbUrl, String thumbFileName, int minPhotoNum, int maxPhotoNum,
-            Map<Integer, String> thumbFileNameMap, Set<String> attachedFontIdSet,
-            Map<Integer, Node> attachedNodeMap, long order, float uiRatio, String dirPath, long downloadedOrder,
-            long historyOrder, long likeOrder, int flag) {
+                       String thumbUrl, String thumbFileName, int minPhotoNum, int maxPhotoNum,
+                       Map<Integer, String> thumbFileNameMap, Set<String> attachedFontIdSet,
+                       Map<Integer, Node> attachedNodeMap, long order, float uiRatio, String dirPath, long downloadedOrder,
+                       long historyOrder, long likeOrder, int flag) {
         this.localId = localId;
         this.category = category;
         this.id = id;

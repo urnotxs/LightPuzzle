@@ -81,9 +81,9 @@ public final class ThumbHelper {
 
     private static void loadThumb(RequestManager glide, TemplateSet ts,
                                   Integer photoNum, AppCompatImageView iv) {
-        if (ts.isDownloaded() && photoNum != null){
+        if (ts.isDownloaded() && photoNum != null) {
             loadLocal(glide, ts, photoNum, iv);
-        }else{
+        } else {
             RequestOptions options = new RequestOptions()
                     .placeholder(R.drawable.bg_placeholder)
                     .dontAnimate();

@@ -67,4 +67,17 @@
     <string name="clipvideopage_play_at_same_time">同时播放</string>
     <string name="clipvideopage_play_at_order_time">顺序播放</string>
 
+    <!-- editlabelpage -->
+    <string name="editlabelpage_title">添加标签</string>
+    <string name="editlabelpage_choose_type">请选择标签类型</string>
+    <string name="editlabelpage_choose_style">请选择标签样式</string>
+    <string name="editlabelpage_content_empty">文字不能为空！</string>
+    <string name="editlabelpage_brand">品牌</string>
+    <string name="editlabelpage_location">地点</string>
+    <string name="editlabelpage_people">人物</string>
+    <string name="editlabelpage_price">价格</string>
+    <string name="editlabelpage_weather">天气</string>
+    <string name="editlabelpage_custom_setting">自定义</string>
+    <string name="editlabelpage_hint">请输入文字内容</string>
+
 </resources>

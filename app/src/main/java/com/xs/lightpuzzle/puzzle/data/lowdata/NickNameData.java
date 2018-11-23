@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.puzzle.data.lowdata;
 
 /**
- * Created by Lin on 2018/5/21.
+ * Created by xs on 2018/5/21.
  */
 
 public class NickNameData {

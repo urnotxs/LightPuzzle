@@ -24,7 +24,7 @@ import com.xs.lightpuzzle.puzzle.view.EffectiveImageButton;
 
 
 /**
- * Created by Yif on 2018/1/12.
+ * Created by xs on 2018/1/12.
  * 编辑工具条
  */
 

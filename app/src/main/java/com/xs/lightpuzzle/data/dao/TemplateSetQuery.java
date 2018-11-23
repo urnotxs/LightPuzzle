@@ -7,6 +7,9 @@ import com.xs.lightpuzzle.data.util.TemplateCategoryHelper;
 
 /**
  * Created by xs on 2018/11/6.
+ *
+ * 模板查询条件的对象
+ * Builder构建类
  */
 
 public class TemplateSetQuery implements Parcelable {

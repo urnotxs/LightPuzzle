@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.puzzle.msgevent.code;
 
 /**
- * Created by Lin on 2018/4/13.
+ * Created by xs on 2018/4/13.
  */
 
 public interface PuzzlesRequestMsgName {

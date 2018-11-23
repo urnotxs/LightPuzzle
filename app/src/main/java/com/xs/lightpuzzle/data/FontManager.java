@@ -29,9 +29,9 @@ public class FontManager {
         Font font = DataManager.getDefault().getFont(id);
         if (font != null && font.isDownloaded()) {
             String filePath = font.getFilePath();
-            if (FileUtils.isFileExists(filePath)){
+            if (FileUtils.isFileExists(filePath)) {
                 return Scheme.FILE.wrap(filePath);
-            }else{
+            } else {
                 font.setDownloaded(false);
                 FontManager.save(font);
             }

@@ -1,6 +1,7 @@
 package com.xs.lightpuzzle.puzzle.frame;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
@@ -15,12 +16,16 @@ import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.puzzle.PuzzleMode;
 import com.xs.lightpuzzle.puzzle.PuzzlePresenter;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.msgevent.LabelBarMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.ShareData;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.CustomScrollView;
 import com.xs.lightpuzzle.puzzle.view.EffectiveImageButton;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by xs on 2018/11/20.
@@ -121,8 +126,10 @@ public class PuzzleFrame extends FrameLayout {
             mPuzzleToolBar.setPuzzleViewWH(width, height);
         }
     }
+
     private int mPuzzlesViewHeight;
     private int mLongTemplateEditBtnHeight;
+
     private void measureDrawView(int drawViewWidth, int drawViewHeight, int templateSize) {
 
         if (drawViewWidth == -1 || drawViewHeight == -1) {
@@ -384,6 +391,7 @@ public class PuzzleFrame extends FrameLayout {
             }
         }
     }
+
     /**
      * 获取Y滚动偏移量
      *
@@ -395,6 +403,7 @@ public class PuzzleFrame extends FrameLayout {
         }
         return 0;
     }
+
     // TODO: 2018/11/15 合法
     private boolean isLegal() {
         if (mPuzzlePresenter == null) {
@@ -402,6 +411,36 @@ public class PuzzleFrame extends FrameLayout {
         }
         return true;
     }
+
+    public void showLabelBar(Rect rect) {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        if (rect != null) {
+            mLabelBar.setVisibility(VISIBLE);
+            params.leftMargin = mPuzzlesDrawView.getLeft() + rect.left + (rect.width() - mLabelBar.getWidth()) / 2;
+            params.topMargin =
+                    mPuzzlesDrawView.getTop() + rect.top - (int) (rect.height() * 0.98f) - mScrollView.getScrollY();
+            if (params.leftMargin < 0) {
+                params.leftMargin = 0;
+            }
+            if (params.leftMargin > Utils.getScreenW() - mLabelBar.getWidth()) {
+                params.leftMargin = Utils.getScreenW() - mLabelBar.getWidth();
+            }
+
+            if (params.topMargin < mPuzzlesDrawView.getTop()) {
+                params.topMargin = mPuzzlesDrawView.getTop() + rect.top + rect.height();
+            }
+
+            mLabelBar.setLayoutParams(params);
+        }
+    }
+
+    public void disLabelBar() {
+        if (mLabelBar.getVisibility() == VISIBLE) {
+            mLabelBar.setVisibility(INVISIBLE);
+        }
+    }
+
     private OnClickListener mOnClickListener = new NoDoubleClickListener() {
 
         @Override
@@ -410,7 +449,18 @@ public class PuzzleFrame extends FrameLayout {
                 return;
             }
 
-
+            if (v == mLabelBarDel) {
+                // 隐藏toolbar
+                disLabelBar();
+                // 删除labels的item
+                EventBus.getDefault().post(new LabelBarMsgEvent(PuzzelsLabelBarMsgCode.LABELBAR_DEL));
+                // 刷新界面
+            } else if (v == mLabelBarEdit) {
+                // 隐藏toolbar
+                disLabelBar();
+                // 打开编辑页，并传入标签的信息
+                EventBus.getDefault().post(new LabelBarMsgEvent(PuzzelsLabelBarMsgCode.LABELBAR_EDIT));
+            }
         }
     };
 
@@ -461,9 +511,11 @@ public class PuzzleFrame extends FrameLayout {
 
 
     private OnBtnBgVisListener mBtnBgVisListener;
+
     public interface OnBtnBgVisListener {
         void onBtnBgVis(boolean visible);
     }
+
     public void setOnBtnBgVisListener(OnBtnBgVisListener onBtnBgVisListener) {
         mBtnBgVisListener = onBtnBgVisListener;
     }

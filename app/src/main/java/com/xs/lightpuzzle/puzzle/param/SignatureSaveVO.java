@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by xs on 2018/8/23.
  */
 
-public class SignatureSaveVO implements Serializable{
+public class SignatureSaveVO implements Serializable {
 
     private int color;
     private RectF rectF; // 存放签名画板中的签名矩形

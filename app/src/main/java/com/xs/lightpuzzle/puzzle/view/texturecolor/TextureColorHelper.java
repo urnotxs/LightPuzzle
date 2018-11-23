@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xs.lightpuzzle.LightPuzzleApplication;
-import com.xs.lightpuzzle.minnie.PuzzleConstant;
+import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.EditFontColorBean;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBlendAlphaBean;
@@ -17,7 +17,7 @@ import com.xs.lightpuzzle.yszx.AssetManagerHelper;
 import java.util.List;
 
 /**
- * Created by lsq on 2018/4/11.
+ * Created by xs on 2018/4/11.
  */
 
 public class TextureColorHelper {

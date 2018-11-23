@@ -5,10 +5,10 @@ import android.graphics.PointF;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
-public class HeadData implements Serializable, Cloneable{
+public class HeadData implements Serializable, Cloneable {
     //
     private String headPic;
 

@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
-import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -21,17 +22,20 @@ import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
+import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
 import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.LabelBarMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.Utils;
-import com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity;
 import com.xs.lightpuzzle.puzzle.view.signature.SignatureUtils;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.EditBgTextureLayout;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.ViewCloseCallback;
@@ -58,6 +62,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public static final int REQ_CODE_TRANSFORM_TEMPLATE = 2;
     public static final int REQ_CODE_REORDER_TO_REPLACE = 3;
     public static final int REQ_CODE_EDIT_SIGNATURE = 4;
+    public static final int REQ_CODE_EDIT_LABEL = 5;
 
     private Context mContext;
 
@@ -141,6 +146,10 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                     getPresenter().onSignBtnClick();
                     break;
                 case PuzzlesBottomMsgCode.ADD_LABEL:
+                    Navigator.navigateToLabelActivity(
+                            (Activity) mContext, REQ_CODE_EDIT_LABEL,
+                            null, 0, 0,
+                            null, false);
                     break;
                 case PuzzlesBottomMsgCode.ADD_MUSIC:
                     break;
@@ -173,7 +182,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
         Object object = puzzlesRequestMsg.getObject();
 
-        switch (puzzlesRequestMsg.getMsgName()){
+        switch (puzzlesRequestMsg.getMsgName()) {
             case PuzzlesRequestMsgName.PUZZLES_INVALIDATE_VIEW:
             case PuzzlesRequestMsgName.PUZZLES_SIGN:
             case PuzzlesRequestMsgName.PUZZLES_LABEL:
@@ -203,11 +212,66 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                     }
                 }
                 break;
+            case PuzzlesRequestMsgName.PUZZLES_LABEL_SHOW_BAR:
+                switch (puzzlesRequestMsg.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mPuzzleFrame.showLabelBar((Rect) object);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // 隐藏toolbar
+                        mPuzzleFrame.disLabelBar();
+                        break;
+                    case -1:
+                        for (int i = 0; i < getPresenter().getPuzzlesInfo().getPuzzlesLabelInfos().size(); i++) {
+                            if (getPresenter().getPuzzlesInfo().getPuzzlesLabelInfos().get(i).isLongTouch()) {
+                                return;
+                            }
+                        }
+                        mPuzzleFrame.disLabelBar();
+                        break;
+                    default:
+                        mPuzzleFrame.disLabelBar();
+                        break;
+                }
+                break;
         }
 
 
-
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLabelBarMsgEvent(LabelBarMsgEvent labelBarMsgEvent) {
+        if (labelBarMsgEvent != null) {
+            switch (labelBarMsgEvent.getMsgCode()) {
+                case PuzzelsLabelBarMsgCode.LABELBAR_DEL:
+                    getPresenter().deleteLabelItem();
+                    break;
+                case PuzzelsLabelBarMsgCode.LABELBAR_EDIT:
+                    // 跳转至标签编辑页
+                    List<PuzzlesLabelInfo> labelInfoList = getPresenter()
+                            .getPuzzlesInfo().getPuzzlesLabelInfos();
+                    LabelData labelData = new LabelData();
+                    for (int i = 0; i < labelInfoList.size(); i++) {
+                        if (labelInfoList.get(i).isLongTouch()) {
+                            labelData.setInvert(labelInfoList.get(i).isInvert());
+                            labelData.setLabelType(labelInfoList.get(i).getLabelType());
+                            labelData.setIconType(labelInfoList.get(i).getIconType());
+                            labelData.setLabelPic(labelInfoList.get(i).getPicPath());
+                            labelData.setText(labelInfoList.get(i).getText());
+
+                            break;
+                        }
+                    }
+                    Navigator.navigateToLabelActivity(
+                            (Activity) mContext, REQ_CODE_EDIT_LABEL,
+                            labelData.getLabelPic(), labelData.getIconType().ordinal(),
+                            labelData.getLabelType().ordinal(),
+                            labelData.getText(), labelData.isInvert());
+                    break;
+            }
+        }
+    }
+
     private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
 
     private void showBgTextureLayout() {
@@ -395,7 +459,12 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public void handleEditSignatureResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             getPresenter().updateSignatureParams(mContext, data, mPuzzleFrame.getScrollYOffset());
+        }
+    }
 
+    public void handleEditLabelResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            getPresenter().updateLabelPageParams(mContext, data, mPuzzleFrame.getScrollYOffset());
         }
     }
 }

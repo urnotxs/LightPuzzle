@@ -24,7 +24,7 @@ import com.xs.lightpuzzle.puzzle.view.BtnLayout;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by Lin on 2017/12/12.
+ * Created by xs on 2017/12/12.
  * 编辑页底部按钮
  */
 

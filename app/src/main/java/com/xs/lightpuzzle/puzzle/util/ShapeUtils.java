@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import android.graphics.Region;
 
 /**
- * Created by pocouser on 2015/11/23 0023.
+ * Created by xs on 2018/04/27
  */
 public class ShapeUtils {
 

@@ -3,7 +3,7 @@ package com.xs.lightpuzzle.puzzle.view.texturecolor.bean;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by lsq on 2018/4/11.
+ * Created by xs on 2018/4/11.
  */
 
 public class EditFontColorBean {

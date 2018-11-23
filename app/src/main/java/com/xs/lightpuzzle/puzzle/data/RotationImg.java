@@ -3,7 +3,7 @@ package com.xs.lightpuzzle.puzzle.data;
 import java.io.Serializable;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
 public class RotationImg implements Serializable, Cloneable {
@@ -16,9 +16,9 @@ public class RotationImg implements Serializable, Cloneable {
 
     protected boolean isChangedBeauty;
 
-    protected int skinSmoothAlpha ;// 美颜美肤默认值为35
+    protected int skinSmoothAlpha;// 美颜美肤默认值为35
 
-    protected int skinColorAlpha ;// 美颜肤色默认值为35
+    protected int skinColorAlpha;// 美颜肤色默认值为35
 
 //    protected TepFilterInfo tepFilterInfo;
 

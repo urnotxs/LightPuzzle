@@ -68,8 +68,10 @@ public abstract class PuzzleDrawView extends View {
             }
         }
     }
+
     private boolean isIntercept;
-    public boolean isInterceptTouchEvent(){
+
+    public boolean isInterceptTouchEvent() {
         // 如果DrawView拦截了Touch事件，则不响应点击事件
         return isIntercept;
     }
@@ -86,7 +88,7 @@ public abstract class PuzzleDrawView extends View {
         isIntercept = false;
         if (mPuzzlePresenter.onTouchEvent(event)) {
             this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
-            if (event.getAction() != MotionEvent.ACTION_UP){
+            if (event.getAction() != MotionEvent.ACTION_UP) {
                 isIntercept = true;
             }
             return true;

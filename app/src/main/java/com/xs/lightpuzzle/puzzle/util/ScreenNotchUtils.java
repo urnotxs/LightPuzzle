@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 
 /**
- * Created by zwq on 2018/04/27 18:50.<br/><br/>
+ * Created by xs on 2018/04/27 18:50.<br/><br/>
  * 判断是否是刘海屏
  */
 public class ScreenNotchUtils {

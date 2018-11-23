@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
+/**
+ * Created by xs on 2017/12/12.
+ */
 public class CustomScrollView extends ScrollView {
 
     private OnBorderListener onBorderListener;

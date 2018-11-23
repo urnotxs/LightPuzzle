@@ -29,13 +29,13 @@ import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
 public class MediaStoreHelper {
     final static int INDEX_ALL_PHOTOS = 0;
 
-    public static void getAlubums(FragmentActivity activity,Callback callback){
+    public static void getAlubums(FragmentActivity activity, Callback callback) {
         LoaderManager.getInstance(activity)
                 .initLoader(0, null, new AlbumLoaderCallbacks(activity, callback));
     }
 
     static class AlbumLoaderCallbacks implements
-            LoaderManager.LoaderCallbacks<Cursor>{
+            LoaderManager.LoaderCallbacks<Cursor> {
 
         private WeakReference<Context> mContext;
         private Callback mCallback;
@@ -54,7 +54,7 @@ public class MediaStoreHelper {
         @Override
         public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
 
-            if (cursor == null){
+            if (cursor == null) {
                 return;
             }
 
@@ -64,7 +64,7 @@ public class MediaStoreHelper {
             allPhotoAlbum.setName(mContext.get().getString(R.string.photo_picker_aty_all_images));
             allPhotoAlbum.setId("ALL");
 
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
 
                 String buckedId = cursor.getString(cursor.getColumnIndexOrThrow(BUCKET_ID));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(BUCKET_DISPLAY_NAME));
@@ -76,19 +76,19 @@ public class MediaStoreHelper {
                 album.setId(buckedId);
                 album.setName(name);
 
-                if (!albums.contains(album)){
+                if (!albums.contains(album)) {
                     album.setCoverPath(path);
                     album.addPhoto(photoId, path);
                     album.setDataAdded(cursor.getLong(cursor.getColumnIndexOrThrow(DATE_ADDED)));
                     albums.add(album);
-                }else{
+                } else {
                     albums.get(albums.indexOf(album)).addPhoto(photoId, path);
                 }
 
                 allPhotoAlbum.addPhoto(photoId, path);
             }
 
-            if (allPhotoAlbum.getPhotoPaths().size() > 0){
+            if (allPhotoAlbum.getPhotoPaths().size() > 0) {
                 allPhotoAlbum.setCoverPath(allPhotoAlbum.getPhotoPaths().get(0));
             }
 

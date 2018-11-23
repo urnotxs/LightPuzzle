@@ -11,10 +11,14 @@ import java.util.List;
 
 public interface IPhotoPicker {
 
-    /** 获取当前的场景 */
+    /**
+     * 获取当前的场景
+     */
     int getScene();
 
-    /** 获取被选中的图片 */
+    /**
+     * 获取被选中的图片
+     */
     List<Photo> getSelectedPhotos();
 
     /**

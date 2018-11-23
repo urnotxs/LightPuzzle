@@ -86,6 +86,7 @@ public class SignaturePage extends FrameLayout {
 
     String SIGNATURE_PATH = "signature_path";
     SignatureActivity.PageListener mListener;
+
     public SignaturePage(Context context, Intent intent, SignatureActivity.PageListener listener) {
         super(context);
         mContext = context;
@@ -160,7 +161,7 @@ public class SignaturePage extends FrameLayout {
                 release();//释放
                 deleteEditDirAfterNoHistory();
                 // TODO: 2018/11/23
-                if (mListener!=null){
+                if (mListener != null) {
                     mListener.onClickBackBtn(mHistoryPanel.getItem() != 0);
                 }
 //                mSite.onBack(getContext(), mHistoryPanel.getItem() != 0);
@@ -190,7 +191,7 @@ public class SignaturePage extends FrameLayout {
                 release();//释放
 
                 picPath = SignatureUtils.copySelectSignature2EditingDir(picPath);
-                if (mListener!=null) {
+                if (mListener != null) {
                     mListener.onClickOkBtn(picPath);
                 }
             } else if (v instanceof ColorImageButton) {
@@ -206,6 +207,7 @@ public class SignaturePage extends FrameLayout {
             }
         }
     };
+
     public void onClickOk(Context context, String picPath) {
         // TODO: 2018/11/22  
         picPath = SignatureUtils.copySelectSignature2EditingDir(picPath);

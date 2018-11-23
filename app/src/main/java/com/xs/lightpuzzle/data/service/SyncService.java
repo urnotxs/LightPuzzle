@@ -14,7 +14,7 @@ import com.xs.lightpuzzle.data.DataManager;
 
 public class SyncService extends Service {
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, SyncService.class);
         context.startService(intent);
     }

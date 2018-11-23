@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.HorizontalScrollView;
 
+/**
+ * Created by xs on 2017/12/12.
+ */
 public class ElasticHorizontalScrollView extends HorizontalScrollView {
 
     // 拖动的距离, size = 4的意思是: 只允许拖动屏幕的1/4

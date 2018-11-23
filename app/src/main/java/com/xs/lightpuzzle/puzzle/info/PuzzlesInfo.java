@@ -31,7 +31,7 @@ public class PuzzlesInfo implements DrawView {
 
 //    private List<PuzzlesAddTextInfo> puzzlesAddTextInfos;
 
-//    private List<PuzzlesLabelInfo> labelInfos;
+    private List<PuzzlesLabelInfo> labelInfos;
 
     //点击模板（移动图片,名片，二维码，水印等）信息，移动过程中放弃标签、文字等拦截事件
     private boolean isTouchTemplate = false;
@@ -55,11 +55,11 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.init();
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.init();
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.init();
+            }
+        }
     }
 
     @Override
@@ -94,11 +94,11 @@ public class PuzzlesInfo implements DrawView {
 //            }
 //        }
 //
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.initBitmap(context);
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.initBitmap(context);
+            }
+        }
     }
 
     @Override
@@ -119,11 +119,11 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.draw(canvas);
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.draw(canvas);
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.draw(canvas);
+            }
+        }
     }
 
     @Override
@@ -133,14 +133,14 @@ public class PuzzlesInfo implements DrawView {
             isTouchTemplate = false;
         }
 
-//        if (labelInfos != null && !isTouchTemplate) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                flag = labelInfo.onTouchEvent(event);
-//                if (flag) {
-//                    return true;
-//                }
-//            }
-//        }
+        if (labelInfos != null && !isTouchTemplate) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                flag = labelInfo.onTouchEvent(event);
+                if (flag) {
+                    return true;
+                }
+            }
+        }
         if (signInfo != null && !isTouchTemplate) {
             flag = signInfo.onTouchEvent(event);
             if (flag) {
@@ -201,7 +201,6 @@ public class PuzzlesInfo implements DrawView {
     }
 
 
-
     public List<String> getAllTemplateId() {
         List<String> ids = null;
         if (templateInfos != null) {
@@ -221,6 +220,7 @@ public class PuzzlesInfo implements DrawView {
     /**
      * 添加一个templateInfo至puzzleInfo
      * 重算预览和保存的画布宽高
+     *
      * @param templateInfo
      */
     public void addTemplateInfo(TemplateInfo templateInfo) {
@@ -415,12 +415,12 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.setOutPutRect(outPutRect);
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.setRect(puzzlesRect);
-//                labelInfo.setOutPutRect(outPutRect);
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.setRect(puzzlesRect);
+                labelInfo.setOutPutRect(outPutRect);
+            }
+        }
     }
 
     public void setFirstInit() {
@@ -439,11 +439,11 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.setCanDraw(visible);
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.setCanDraw(visible);
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.setCanDraw(visible);
+            }
+        }
         if (signInfo != null) {
             signInfo.setCanDraw(visible);
         }
@@ -817,28 +817,28 @@ public class PuzzlesInfo implements DrawView {
     }
 
     // ---label
-//    public void addPuzzleLabelInfos(PuzzlesLabelInfo puzzlesLabelInfo) {
-//        if (puzzlesLabelInfo == null) {
-//            return;
-//        }
-//        if (labelInfos == null) {
-//            labelInfos = new ArrayList<>();
-//        }
-//        labelInfos.add(puzzlesLabelInfo);
-//
-//    }
+    public void addPuzzleLabelInfos(PuzzlesLabelInfo puzzlesLabelInfo) {
+        if (puzzlesLabelInfo == null) {
+            return;
+        }
+        if (labelInfos == null) {
+            labelInfos = new ArrayList<>();
+        }
+        labelInfos.add(puzzlesLabelInfo);
+
+    }
 
     public void deleteLabelItem() {
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                if (labelInfo.isLongTouch()) {
-//                    // 删除picpath
-//                    //FileUtils.deleteFile(labelInfo.getPicPath() , false);
-//                    labelInfos.remove(labelInfo);
-//                    return;
-//                }
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                if (labelInfo.isLongTouch()) {
+                    // 删除picpath
+                    //FileUtils.deleteFile(labelInfo.getPicPath() , false);
+                    labelInfos.remove(labelInfo);
+                    return;
+                }
+            }
+        }
     }
 
     // ---sign
@@ -904,11 +904,11 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.init();
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.init();
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.init();
+            }
+        }
     }
 
     public void setValues() {
@@ -940,11 +940,11 @@ public class PuzzlesInfo implements DrawView {
 //                addTextInfo.setSave(true);
 //            }
 //        }
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                labelInfo.setSave(true);
-//            }
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                labelInfo.setSave(true);
+            }
+        }
     }
 
     public void setDraftSave() {
@@ -995,11 +995,11 @@ public class PuzzlesInfo implements DrawView {
 //    public List<PuzzlesAddTextInfo> getPuzzlesAddTextInfos() {
 //        return puzzlesAddTextInfos;
 //    }
-//
-//    public List<PuzzlesLabelInfo> getPuzzlesLabelInfos() {
-//        return labelInfos;
-//    }
-//
+
+    public List<PuzzlesLabelInfo> getPuzzlesLabelInfos() {
+        return labelInfos;
+    }
+
     public PuzzlesSignInfo getSignInfo() {
         return signInfo;
     }
@@ -1039,13 +1039,13 @@ public class PuzzlesInfo implements DrawView {
     }
 
     public void recycleLabels() {
-//        if (labelInfos != null) {
-//            for (PuzzlesLabelInfo labelInfo : labelInfos) {
-//                // 删除picpath
-//                //FileUtils.deleteFile(labelInfo.getPicPath() , false);
-//                labelInfo.recycle();
-//            }
-//            labelInfos = null;
-//        }
+        if (labelInfos != null) {
+            for (PuzzlesLabelInfo labelInfo : labelInfos) {
+                // 删除picpath
+                //FileUtils.deleteFile(labelInfo.getPicPath() , false);
+                labelInfo.recycle();
+            }
+            labelInfos = null;
+        }
     }
 }

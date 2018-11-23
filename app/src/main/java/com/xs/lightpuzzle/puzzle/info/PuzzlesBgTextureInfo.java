@@ -15,8 +15,8 @@ import com.xs.lightpuzzle.LightPuzzleConstant;
 import com.xs.lightpuzzle.imagedecode.BitmapHelper;
 import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
 import com.xs.lightpuzzle.imagedecode.core.ImageSize;
-import com.xs.lightpuzzle.minnie.util.PuzzleUtils;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
+import com.xs.lightpuzzle.puzzle.util.PuzzleUtils;
 import com.xs.lightpuzzle.yszx.Scheme;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import java.io.IOException;
 import cn.poco.filter.POCOCompositor;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
 public class PuzzlesBgTextureInfo implements DrawView {

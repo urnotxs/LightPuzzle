@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.puzzle.view.texturecolor.bean;
 
 /**
- * Created by lsq on 2018/4/11.
+ * Created by xs on 2018/4/11.
  */
 
 public class PuzzleBackgroundBean {

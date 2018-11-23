@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by xs on 2018/11/2.
+ * 接口
+ * 用于对本地数据库的字体表进行增删改查
  */
 
 public interface FontDao {

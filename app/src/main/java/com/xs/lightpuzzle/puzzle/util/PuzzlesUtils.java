@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 /**
- * Created by Lin on 2018/4/12.
+ * Created by xs on 2018/4/12.
  */
 
 public class PuzzlesUtils {
@@ -194,7 +194,7 @@ public class PuzzlesUtils {
     public static boolean pointFInRegion(List<PointF> plist, Point pt) {
         int nCross = 0;    // 定义变量，统计目标点向右画射线与多边形相交次数
 
-        if(plist ==null){
+        if (plist == null) {
             return false;
         }
 
@@ -268,7 +268,7 @@ public class PuzzlesUtils {
     /**
      * 根据旋转中心点和旋转弧度，计算旋转后的点
      *
-     * @param pointF pointF
+     * @param pointF  pointF
      * @param center  旋转中心点
      * @param radians 弧度
      * @return PointF
@@ -348,7 +348,7 @@ public class PuzzlesUtils {
         return values[valueIndex];
     }
 
-    public static Paint getPuzzleSettingPaint(Paint paint){
+    public static Paint getPuzzleSettingPaint(Paint paint) {
         paint.reset();
         paint.setAntiAlias(true); // 防止边缘的锯齿
         paint.setFilterBitmap(true); // 对位图进行滤波处理

@@ -34,15 +34,15 @@ public class AssetsRestApi implements RestApi {
     public List<Font> getFonts() {
         String gsonString = AssetManagerHelper.convertInputString(
                 mContext, DataConstant.ASSETS_DATA.FONT);
-        if (!TextUtils.isEmpty(gsonString)){
+        if (!TextUtils.isEmpty(gsonString)) {
             try {
                 List<FontAdapter> adapters = mSerializer
                         .deserialize(gsonString,
-                                new TypeToken<List<FontAdapter>>(){
+                                new TypeToken<List<FontAdapter>>() {
                                     // no-op by default
                                 }.getType());
 
-                if (adapters != null && !adapters.isEmpty()){
+                if (adapters != null && !adapters.isEmpty()) {
                     return FontAdapterMapper.transform(adapters);
                 }
             } catch (Exception e) {
@@ -57,15 +57,15 @@ public class AssetsRestApi implements RestApi {
         String gsonString = AssetManagerHelper.convertInputString(
                 mContext, DataConstant.ASSETS_DATA.TEMPLATE);
 
-        if (!TextUtils.isEmpty(gsonString)){
+        if (!TextUtils.isEmpty(gsonString)) {
             try {
                 List<TemplateSetAdapter> adapters = mSerializer
                         .deserialize(gsonString,
-                                new TypeToken<List<TemplateSetAdapter>>(){
+                                new TypeToken<List<TemplateSetAdapter>>() {
                                     // no-op by default
                                 }.getType());
 
-                if (adapters != null && !adapters.isEmpty()){
+                if (adapters != null && !adapters.isEmpty()) {
                     return TemplateSetAdapterMapper.transform(adapters);
                 }
             } catch (Exception e) {

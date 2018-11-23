@@ -16,7 +16,7 @@ import android.view.View;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.google.gson.Gson;
-import com.xs.lightpuzzle.minnie.PuzzleConstant;
+import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.param.SignatureSaveVO;
 import com.xs.lightpuzzle.puzzle.param.TimedPoint;
 import com.xs.lightpuzzle.puzzle.util.ShareData;

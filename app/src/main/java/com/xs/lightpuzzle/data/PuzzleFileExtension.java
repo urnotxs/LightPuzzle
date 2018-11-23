@@ -26,7 +26,7 @@ public final class PuzzleFileExtension {
 
     public static void mapDir(String dirPath) {
 
-        List<File> files = FileUtils.listFilesInDir(dirPath,true);
+        List<File> files = FileUtils.listFilesInDir(dirPath, true);
         if (files == null) {
             return;
         }

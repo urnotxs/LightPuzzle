@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * Created by lsq on 2018/3/29.
+ * Created by xs on 2018/3/29.
  */
 
 public class BitmapHelper {

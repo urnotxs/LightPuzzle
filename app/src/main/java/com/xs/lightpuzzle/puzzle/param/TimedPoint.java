@@ -18,7 +18,7 @@ public class TimedPoint implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public TimedPoint(float x, float y , long time) {
+    public TimedPoint(float x, float y, long time) {
         this.x = x;
         this.y = y;
         this.timestamp = time;

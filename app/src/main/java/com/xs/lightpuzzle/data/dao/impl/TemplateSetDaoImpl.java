@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Created by xs on 2018/11/6.
+ * 实现类
+ * 用于对本地数据库的模板表 进行增删改查
  */
 
 public class TemplateSetDaoImpl implements TemplateSetDao {
