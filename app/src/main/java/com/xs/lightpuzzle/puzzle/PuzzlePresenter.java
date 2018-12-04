@@ -3,6 +3,8 @@ package com.xs.lightpuzzle.puzzle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -21,21 +23,28 @@ import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.data.TemplateData;
+import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
+import com.xs.lightpuzzle.puzzle.info.PuzzlesAddTextInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesSignInfo;
+import com.xs.lightpuzzle.puzzle.layout.BasePuzzleInfo;
+import com.xs.lightpuzzle.puzzle.layout.LayoutOrderBean;
+import com.xs.lightpuzzle.puzzle.model.PuzzlesAddTextModel;
 import com.xs.lightpuzzle.puzzle.model.PuzzlesLabelModel;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.view.label.view.EditLabelView;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
+import com.xs.lightpuzzle.yszx.AssetManagerHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -137,7 +146,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
     }
 
     public void initData(final Context context, final String templateId,
-                         final ArrayList<Photo> photos, final int templateCategory) {
+                         final ArrayList<Photo> photos, final int templateCategory, final float templateRatio) {
         if (firstInit) {
             new Thread(new Runnable() {
                 @Override
@@ -146,7 +155,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
 
                         long starTime = System.currentTimeMillis();
 
-                        if (initPuzzleInfo(context, templateId, photos, templateCategory)) {
+                        if (initPuzzleInfo(context, templateId, photos, templateCategory, templateRatio)) {
 
                             long waitTime = animationDuration - (System.currentTimeMillis() - starTime);
                             final long finalWaitTime = waitTime < 0 ? 0 : waitTime;
@@ -171,7 +180,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
                 }
             }).start();
         } else {
-            if (initPuzzleInfo(context, templateId, photos, templateCategory)) {
+            if (initPuzzleInfo(context, templateId, photos, templateCategory, templateRatio)) {
                 ifViewAttached(new ViewAction<PuzzleView>() {
                     @Override
                     public void run(@NonNull PuzzleView view) {
@@ -184,7 +193,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
     }
 
     private boolean initPuzzleInfo(Context context, String templateId,
-                                   ArrayList<Photo> photos, int templateCategory) {
+                                   ArrayList<Photo> photos, int templateCategory, float templateRatio) {
         if (photos == null || photos.isEmpty()) {
             throw new NullPointerException("Photo list is null or empty");
         }
@@ -196,7 +205,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         mPlatterPhotoFile = new TreeMap<>();
         mPlatterPhotoFile.put(1, mPhotoFilePaths);
 
-        loadTemplate(templateId, templateCategory, mPhotoFilePaths.size());
+        loadTemplate(context, templateId, templateCategory, mPhotoFilePaths.size(), templateRatio);
 
         initPuzzleInfo(context);
 
@@ -230,23 +239,69 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
     }
 
 
-    private void loadTemplate(String templateId, int templateCategory, int photoNum) {
-        TemplateSet templateSet = TemplateManager.get(templateCategory, templateId);
-        if (templateSet == null) {
-            throw new RuntimeException("No corresponding transformTemplate was found");
-        }
+    private void loadTemplate(Context context, String templateId, int templateCategory, int photoNum, float templateRatio) {
+        if (templateCategory == DataConstant.TEMPLATE_CATEGORY.LAYOUT) {
 
-        mTemplateCategory = templateCategory;
-        mAdditionalTemplateId = mTemplateId = templateId;
-        mAdditionalTemplateCategory = mapAdditionalTemplateCategory(templateCategory);
+            // 所选图片张数和所选比例 对应的模板ID排序列表 (针对图片张数和比例进行筛选)
+            List<String> idArr = new LayoutOrderBean().getLayoutOrder(
+                    context, photoNum, templateRatio);
+            String name = "/BasePuzzle" + idArr.get(0) + ".json";
+            String data = AssetManagerHelper.convertInputString(
+                    context, DataConstant.ASSETS_DATA_LAYOUT.LAYOUT + idArr.get(0) + name);
 
-        try {
-            mTemplate = templateSet.getTemplateMap().get(photoNum);
-            mTemplateSet = templateSet;
+            BasePuzzleInfo info = BasePuzzleInfo.JsonStringToInfo(data);
+
+            if (info != null) {
+
+                mTemplate = new Template();
+                mTemplate.setWidth(Integer.parseInt(info.getPic_w()));
+                mTemplate.setHeight(Integer.parseInt(info.getPic_h()));
+                mTemplate.setBackground(new Template.Background(Color.parseColor("#" + info.getBgcolor())));
+                mTemplate.setPhotoNum(Integer.parseInt(info.getMinPicNum()));
+                ArrayList<Template.Photo> photos = new ArrayList<>();
+                List<String> points = info.getPoint().get(String.valueOf(photoNum));
+                for (int i = 0; i < points.size(); i++) {
+
+                    Template.Photo photo = new Template.Photo();
+                    String[] stringArr = points.get(i).split(",");
+                    photo.setRegionPathPointArr(new PointF[]{
+                            new PointF(Float.parseFloat(stringArr[0]), Float.parseFloat(stringArr[1])),
+                            new PointF(Float.parseFloat(stringArr[2]), Float.parseFloat(stringArr[3]))
+                    });
+                    photos.add(photo);
+                }
+                mTemplate.setPhotos(photos);
+            }
+
+            mTemplateSet = new TemplateSet();
+            mTemplateSet.setId(idArr.get(0));
+            mTemplateSet.setMinPhotoNum(Integer.parseInt(info.getMinPicNum()));
+            mTemplateSet.setMaxPhotoNum(Integer.parseInt(info.getMaxPicNum()));
+            mTemplateSet.setUiRatio(templateRatio);
+            mTemplateSet.setCategory(templateCategory);
+            Map<Integer, Template> map = new HashMap<>();
+            map.put(photoNum, mTemplate);
+            mTemplateSet.setTemplateMap(map);
             mPhotoNum = photoNum;
-        } catch (Exception e) {
-            throw new RuntimeException("Photo number over limit");
+        } else {
+            TemplateSet templateSet = TemplateManager.get(templateCategory, templateId);
+            if (templateSet == null) {
+                throw new RuntimeException("No corresponding transformTemplate was found");
+            }
+
+            mTemplateCategory = templateCategory;
+            mAdditionalTemplateId = mTemplateId = templateId;
+            mAdditionalTemplateCategory = mapAdditionalTemplateCategory(templateCategory);
+
+            try {
+                mTemplate = templateSet.getTemplateMap().get(photoNum);
+                mTemplateSet = templateSet;
+                mPhotoNum = photoNum;
+            } catch (Exception e) {
+                throw new RuntimeException("Photo number over limit");
+            }
         }
+
     }
 
     private int mapAdditionalTemplateCategory(int templateCategory) {
@@ -420,5 +475,44 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
             EventBus.getDefault().post(new PuzzlesRequestMsg(
                     PuzzlesRequestMsgName.PUZZLES_SIGN_EDIT, MotionEvent.ACTION_UP, ""));
         }
+    }
+
+    /**
+     * 新增一个默认的自定义文字
+     *
+     * @param context
+     * @param scrollY 当前Y方向滚动偏移量
+     */
+    public void createAddTextInfo(Context context, int scrollY) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+
+        PuzzlesAddTextInfo puzzlesAddTextInfo = PuzzlesAddTextModel.getAddTextInfo(context, mPuzzlesInfo);
+
+        if (puzzlesAddTextInfo != null) {
+            // 让旧的addText都不显示边框
+            if (mPuzzlesInfo.getPuzzlesAddTextInfos() != null) {
+                for (int i = 0; i < mPuzzlesInfo.getPuzzlesAddTextInfos().size(); i++) {
+                    mPuzzlesInfo.getPuzzlesAddTextInfos().get(i).setShowFrame(false);
+                }
+            }
+
+            puzzlesAddTextInfo.setScrollY(scrollY);
+            puzzlesAddTextInfo.init();
+            puzzlesAddTextInfo.initBitmap(context);
+            mPuzzlesInfo.addPuzzleAddTextInfos(puzzlesAddTextInfo);
+            invalidateView();
+        }
+    }
+
+    public TemporaryTextData getTemporaryTextData() {
+        if (mPuzzlesInfo != null && mPuzzlesInfo.getPuzzlesAddTextInfos() != null
+                && mPuzzlesInfo.getPuzzlesAddTextInfos().size() > 0) {
+            return mPuzzlesInfo.getPuzzlesAddTextInfos()
+                    .get(mPuzzlesInfo.getPuzzlesAddTextInfos().size() - 1)
+                    .getTemporaryTextData();
+        }
+        return null;
     }
 }

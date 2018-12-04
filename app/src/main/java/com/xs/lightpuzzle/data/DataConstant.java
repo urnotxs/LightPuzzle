@@ -15,6 +15,11 @@ public interface DataConstant {
     interface ASSETS_DATA {
         String TEMPLATE = "data/template.json";
         String FONT = "data/font.json";
+        String LAYOUT = "data/layout.json";
+    }
+
+    interface ASSETS_DATA_LAYOUT {
+        String LAYOUT = "template/layout/BasePuzzle";
     }
 
     interface DIR_PATH {
@@ -43,6 +48,7 @@ public interface DataConstant {
         int BUSINESS_CARD = 0x00000800;
         int LONG_COLLAGE_GROUP = 0x00000900;
         int LONG_COLLAGE_SUB = 0x00000a00;
+        int LAYOUT = 0x00000b00;
     }
 
     interface TEMPLATE_ADDITIONAL_CATEGORY {
@@ -63,5 +69,6 @@ public interface DataConstant {
         String BUSINESS_CARD = "business_card"; // 名片
         String LONG_COLLAGE_GROUP = "long_collage_group"; // 长图拼接
         String LONG_COLLAGE_SUB = "long_collage_sub"; // 长图子模板
+        String LAYOUT = "layout"; // 长图子模板
     }
 }

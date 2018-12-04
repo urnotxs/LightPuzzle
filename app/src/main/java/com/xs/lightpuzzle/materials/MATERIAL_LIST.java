@@ -9,4 +9,5 @@ public interface MATERIAL_LIST {
     int LIKE = 1;
     int HISTORY = 2;
     int DOWNLOADED = 3;
+    int LAYOUT = 4;
 }

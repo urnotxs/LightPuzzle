@@ -41,11 +41,12 @@ public class PhotoPicker {
      * -- 使用单选场景, 在Activity的onActivityResult捕获结果进行下一步操作即可
      */
     public static void puzzle(Activity activity, String templateId, int templateCategory,
-                              Class<? extends Activity> puzzleActivityClazz, int maxCount) {
+                              float ratio, Class<? extends Activity> puzzleActivityClazz, int maxCount) {
         Intent intent = new Intent(activity, PhotoPickerActivity.class);
         intent.putExtra(PhotoPickerActivity.EXTRA_SCENE, PhotoPickerActivity.SCENE_2_PUZZLE);
         intent.putExtra(PhotoPickerActivity.EXTRA_TEMPLATE_ID, templateId);
         intent.putExtra(PhotoPickerActivity.EXTRA_TEMPLATE_CATEGORY, templateCategory);
+        intent.putExtra(PhotoPickerActivity.EXTRA_TEMPLATE_RATIO, ratio);
         intent.putExtra(PhotoPickerActivity.EXTRA_PUZZLE_ACTIVITY_CLAZZ, puzzleActivityClazz);
         intent.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, maxCount);
         activity.startActivity(intent);

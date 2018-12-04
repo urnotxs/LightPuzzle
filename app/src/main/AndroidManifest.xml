@@ -43,12 +43,6 @@
             android:windowSoftInputMode="stateHidden|adjustNothing" />
 
         <activity
-            android:name=".minnie.PuzzleActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
-
-        <activity
             android:name=".materials.DownloadedListActivity"
             android:label="@string/downloaded_list_aty_name">
             <meta-data

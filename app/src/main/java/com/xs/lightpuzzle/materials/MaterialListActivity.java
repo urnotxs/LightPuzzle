@@ -113,10 +113,13 @@ public class MaterialListActivity extends BaseMaterialListActivity
     }
 
     private void puzzle(int position, TemplateSet templateSet) {
-        postTemplateUsed(position, templateSet);
+        if (templateSet.getCategory() != DataConstant.TEMPLATE_CATEGORY.LAYOUT){
+            postTemplateUsed(position, templateSet);
+        }
 
         final int category = templateSet.getCategory();
         final String id = templateSet.getId();
+        final float ratio = templateSet.getUiRatio();
 
         switch (mState) {
             case STATE.RESULT:
@@ -132,7 +135,7 @@ public class MaterialListActivity extends BaseMaterialListActivity
                 // 跳至拼图
 //                PhotoPicker.radio(this);
 //                PhotoPicker.multi(this, 8, null);
-                PhotoPicker.puzzle(this, id, category, PuzzleActivity.class, maxPhotoNum);
+                PhotoPicker.puzzle(this, id, category, ratio, PuzzleActivity.class, maxPhotoNum);
                 break;
         }
     }
@@ -176,6 +179,8 @@ public class MaterialListActivity extends BaseMaterialListActivity
             } else if (category == DataConstant.TEMPLATE_ADDITIONAL_CATEGORY.LIKE) {
                 builder.setFlag(TemplateSet.FLAG.LIKE);
                 materialList = MATERIAL_LIST.LIKE;
+            } else if (category == DataConstant.TEMPLATE_CATEGORY.LAYOUT) {
+                materialList = MATERIAL_LIST.LAYOUT;
             } else {
                 builder.setCategory(category);
                 materialList = MATERIAL_LIST.NOT_FLAG;
@@ -189,7 +194,7 @@ public class MaterialListActivity extends BaseMaterialListActivity
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(
                 TemplateCategoryUiMapper.getPosition(
-                        DataConstant.TEMPLATE_CATEGORY.SIMPLE));
+                        DataConstant.TEMPLATE_CATEGORY.LAYOUT));
     }
 
 

@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
+import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class PuzzlesInfo implements DrawView {
 
     private PuzzlesSignInfo signInfo;
 
-//    private List<PuzzlesAddTextInfo> puzzlesAddTextInfos;
+    private List<PuzzlesAddTextInfo> puzzlesAddTextInfos;
 
     private List<PuzzlesLabelInfo> labelInfos;
 
@@ -49,12 +50,12 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.init();
         }
-//
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.init();
-//            }
-//        }
+
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.init();
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.init();
@@ -87,13 +88,13 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.initBitmap(context);
         }
-//
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.initBitmap(context);
-//            }
-//        }
-//
+
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.initBitmap(context);
+            }
+        }
+
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.initBitmap(context);
@@ -114,11 +115,11 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.draw(canvas);
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.draw(canvas);
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.draw(canvas);
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.draw(canvas);
@@ -147,19 +148,19 @@ public class PuzzlesInfo implements DrawView {
                 return true;
             }
         }
-//        if (puzzlesAddTextInfos != null && !isTouchTemplate) {
-//            boolean isTouchAddText = false;
-//
-//            for (int i = 0; i < puzzlesAddTextInfos.size(); i++) {
-//                if (!isTouchAddText && puzzlesAddTextInfos.get(i).onTouchEvent(event)) {
-//                    isTouchAddText = true;
-//                } else {
-//                    puzzlesAddTextInfos.get(i).setShowFrame(false);
-//                }
-//            }
-//            if (isTouchAddText)
-//                return true;
-//        }
+        if (puzzlesAddTextInfos != null && !isTouchTemplate) {
+            boolean isTouchAddText = false;
+
+            for (int i = 0; i < puzzlesAddTextInfos.size(); i++) {
+                if (!isTouchAddText && puzzlesAddTextInfos.get(i).onTouchEvent(event)) {
+                    isTouchAddText = true;
+                } else {
+                    puzzlesAddTextInfos.get(i).setShowFrame(false);
+                }
+            }
+            if (isTouchAddText)
+                return true;
+        }
         if (templateInfos != null) {
             for (TemplateInfo templateInfo : templateInfos) {
                 flag = templateInfo.onTouchEvent(event);
@@ -181,14 +182,14 @@ public class PuzzlesInfo implements DrawView {
                 return true;
             }
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                flag = addTextInfo.dispatchTouchEvent(event);
-//                if (flag) {
-//                    return true;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                flag = addTextInfo.dispatchTouchEvent(event);
+                if (flag) {
+                    return true;
+                }
+            }
+        }
         if (templateInfos != null) {
             for (TemplateInfo templateInfo : templateInfos) {
                 flag = templateInfo.dispatchTouchEvent(event);
@@ -409,12 +410,12 @@ public class PuzzlesInfo implements DrawView {
             signInfo.setRect(puzzlesRect);
             signInfo.setOutPutRect(outPutRect);
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.setRect(puzzlesRect);
-//                addTextInfo.setOutPutRect(outPutRect);
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.setRect(puzzlesRect);
+                addTextInfo.setOutPutRect(outPutRect);
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.setRect(puzzlesRect);
@@ -434,11 +435,11 @@ public class PuzzlesInfo implements DrawView {
      * 布局上移时，隐藏标签，签名，文字
      */
     public void setAddInfoVisible(boolean visible) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.setCanDraw(visible);
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.setCanDraw(visible);
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.setCanDraw(visible);
@@ -725,68 +726,68 @@ public class PuzzlesInfo implements DrawView {
     }
 
     public void changeAddTextAutoStr(String autoStr, Point[] points) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                if (ShapeUtils.pointEqual(addTextInfo.getDrawPoint(), points)) {
-//                    addTextInfo.setAutoStr(autoStr);
-//                    return;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                if (ShapeUtils.pointEqual(addTextInfo.getDrawPoint(), points)) {
+                    addTextInfo.setAutoStr(autoStr);
+                    return;
+                }
+            }
+        }
     }
 
     public void changeAddTextFont(Context context, String font, Point[] points) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                if (addTextInfo.getDrawPoint() == points) {
-//                    addTextInfo.setFont(context, font);
-//                    return;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                if (addTextInfo.getDrawPoint() == points) {
+                    addTextInfo.setFont(context, font);
+                    return;
+                }
+            }
+        }
     }
 
     public void changeAddTextSize(int textSize, Point[] points) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                if (addTextInfo.getDrawPoint() == points) {
-//                    addTextInfo.setFontSize(textSize);
-//                    return;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                if (addTextInfo.getDrawPoint() == points) {
+                    addTextInfo.setFontSize(textSize);
+                    return;
+                }
+            }
+        }
     }
 
     public void changeAddTextColor(int color, Point[] points) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                if (addTextInfo.getDrawPoint() == points) {
-//                    addTextInfo.setFontColor(color);
-//                    return;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                if (addTextInfo.getDrawPoint() == points) {
+                    addTextInfo.setFontColor(color);
+                    return;
+                }
+            }
+        }
     }
-//
-//    public void addPuzzleAddTextInfos(PuzzlesAddTextInfo puzzlesAddTextInfo) {
-//        if (puzzlesAddTextInfo == null) {
-//            return;
-//        }
-//        if (puzzlesAddTextInfos == null) {
-//            puzzlesAddTextInfos = new ArrayList<>();
-//        }
-//        puzzlesAddTextInfos.add(puzzlesAddTextInfo);
-//    }
+
+    public void addPuzzleAddTextInfos(PuzzlesAddTextInfo puzzlesAddTextInfo) {
+        if (puzzlesAddTextInfo == null) {
+            return;
+        }
+        if (puzzlesAddTextInfos == null) {
+            puzzlesAddTextInfos = new ArrayList<>();
+        }
+        puzzlesAddTextInfos.add(puzzlesAddTextInfo);
+    }
 
     public void deleteAddTextItem(Point[] points) {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                if (addTextInfo.getDrawPoint() == points) {
-//                    puzzlesAddTextInfos.remove(addTextInfo);
-//                    return;
-//                }
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                if (addTextInfo.getDrawPoint() == points) {
+                    puzzlesAddTextInfos.remove(addTextInfo);
+                    return;
+                }
+            }
+        }
     }
 
     // ---head
@@ -899,11 +900,11 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.init();
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.init();
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.init();
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.init();
@@ -935,11 +936,11 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.setSave(true);
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.setSave(true);
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.setSave(true);
+            }
+        }
         if (labelInfos != null) {
             for (PuzzlesLabelInfo labelInfo : labelInfos) {
                 labelInfo.setSave(true);
@@ -956,11 +957,11 @@ public class PuzzlesInfo implements DrawView {
         if (signInfo != null) {
             signInfo.setShowFrame(false);
         }
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.setShowFrame(false);
-//            }
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.setShowFrame(false);
+            }
+        }
     }
 
     // ---set 、 get
@@ -992,9 +993,9 @@ public class PuzzlesInfo implements DrawView {
         return bgTextureInfo;
     }
 
-//    public List<PuzzlesAddTextInfo> getPuzzlesAddTextInfos() {
-//        return puzzlesAddTextInfos;
-//    }
+    public List<PuzzlesAddTextInfo> getPuzzlesAddTextInfos() {
+        return puzzlesAddTextInfos;
+    }
 
     public List<PuzzlesLabelInfo> getPuzzlesLabelInfos() {
         return labelInfos;
@@ -1030,12 +1031,12 @@ public class PuzzlesInfo implements DrawView {
     }
 
     public void recycleAddTextInfos() {
-//        if (puzzlesAddTextInfos != null) {
-//            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
-//                addTextInfo.recycle();
-//            }
-//            puzzlesAddTextInfos = null;
-//        }
+        if (puzzlesAddTextInfos != null) {
+            for (PuzzlesAddTextInfo addTextInfo : puzzlesAddTextInfos) {
+                addTextInfo.recycle();
+            }
+            puzzlesAddTextInfos = null;
+        }
     }
 
     public void recycleLabels() {

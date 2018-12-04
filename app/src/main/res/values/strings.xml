@@ -21,6 +21,7 @@
     <string name="template_category_postcard">Postcard</string>
     <string name="template_category_business_card">Card</string>
     <string name="template_category_long_collage">Long Collage</string>
+    <string name="template_category_layout">Layout</string>
     <!-- Additional -->
     <string name="template_category_favorite">Favorite</string>
     <string name="template_category_history">History</string>

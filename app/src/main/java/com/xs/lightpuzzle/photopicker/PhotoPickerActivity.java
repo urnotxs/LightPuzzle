@@ -54,6 +54,7 @@ public class PhotoPickerActivity extends AppCompatActivity
     protected static final String EXTRA_ORIGINAL_PHOTOS = "extra_selected_photos";
 
     protected static final String EXTRA_TEMPLATE_ID = "extra_template_id";
+    protected static final String EXTRA_TEMPLATE_RATIO = "extra_template_ratio";
     protected static final String EXTRA_TEMPLATE_CATEGORY = "extra_template_category";
     protected static final String EXTRA_PUZZLE_ACTIVITY_CLAZZ = "extra_puzzle_activity_clazz";
 
@@ -128,6 +129,7 @@ public class PhotoPickerActivity extends AppCompatActivity
      */
     private Class<? extends Activity> mPuzzleActivityClazz;
     private String mTemplateId;
+    private float mTemplateRatio;
     private int mTemplateCategory;
 
     /**
@@ -199,6 +201,7 @@ public class PhotoPickerActivity extends AppCompatActivity
             case SCENE_2_PUZZLE:
                 mMaxCount = intent.getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
                 mTemplateId = intent.getStringExtra(EXTRA_TEMPLATE_ID);
+                mTemplateRatio = intent.getFloatExtra(EXTRA_TEMPLATE_RATIO, 0);
                 mTemplateCategory = intent.getIntExtra(EXTRA_TEMPLATE_CATEGORY, 0);
                 mPuzzleActivityClazz = (Class<? extends Activity>) intent
                         .getSerializableExtra(EXTRA_PUZZLE_ACTIVITY_CLAZZ);
@@ -347,6 +350,7 @@ public class PhotoPickerActivity extends AppCompatActivity
                     case SCENE_2_PUZZLE:
                         Intent puzzleIntent = new Intent(this, mPuzzleActivityClazz);
                         puzzleIntent.putExtra("template_id", mTemplateId);
+                        puzzleIntent.putExtra("template_ratio", mTemplateRatio);
                         puzzleIntent.putExtra("template_category", mTemplateCategory);
                         puzzleIntent.putParcelableArrayListExtra("photos", mSelectedPhotos);
                         startActivity(puzzleIntent);

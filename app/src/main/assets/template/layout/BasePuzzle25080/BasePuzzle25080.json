@@ -1,0 +1,35 @@
+﻿{
+    "coverThumb": "BasePuzzle25080thumb.png",
+    "defaultThumb": "BasePuzzle25080thumb.png",
+    "minPicNum": "6",
+    "maxPicNum": "6",
+    "thumbs": {
+        "6": "BasePuzzle25080thumb.png"
+    },
+
+	"pic_h":"2048",
+	"pic_w":"2048",
+
+    "bgcolor": "ffffff",
+    "fgpic": {},
+    "bgpic": "none",    
+    "bgEffect": "叠加",
+    "textDic": {},
+    "watermark": {},
+    "sizeRatio": {
+        "6": "1.0"
+    },
+    "variableFg": {},
+    "point": {
+        "6": [
+            "0,0,512,683",
+            "512,0,512,683",
+            "0,683,512,683",
+            "512,683,512,683",
+            "0,1366,1024,682",
+            "1024,0,1024,2048"
+            
+        ]
+    },
+    "imageEffect": "none"
+}

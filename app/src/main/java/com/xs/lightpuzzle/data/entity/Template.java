@@ -171,6 +171,13 @@ public class Template {
         @SerializedName("texture_id")
         private int textureId = DEFAULT_TEXTURE_ID;
 
+        public Background() {
+        }
+
+        public Background(int color) {
+            this.color = color;
+        }
+
         public int getColor() {
             return color;
         }

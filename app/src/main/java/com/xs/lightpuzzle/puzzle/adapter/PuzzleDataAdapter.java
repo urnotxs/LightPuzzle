@@ -94,6 +94,9 @@ public class PuzzleDataAdapter {
 
     private static List<TextData> getTextData(Set<String> attachedFontIdSet, List<Template.Text> texts) {
 
+        if (attachedFontIdSet == null || texts == null){
+            return null;
+        }
         List<TextData> textDatas = new ArrayList<>();
         ArrayList<String> fontIdArr = new ArrayList<>();
         for (String fontId : attachedFontIdSet) {
@@ -170,6 +173,9 @@ public class PuzzleDataAdapter {
 
     private static WaterMarkData getWaterMarkData(Template.Watermark watermark) {
 
+        if (watermark == null){
+            return null;
+        }
         WaterMarkData waterMarkData = new WaterMarkData();
 
         RectF rect = watermark.getRegion();

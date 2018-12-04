@@ -20,6 +20,7 @@ public class PuzzleActivity extends Activity {
 
     public static final String EXTRA_TEMPLATE_CATEGORY = "template_category";
     public static final String EXTRA_TEMPLATE_ID = "template_id";
+    public static final String EXTRA_TEMPLATE_RATIO = "template_ratio";
     public static final String EXTRA_PHOTOS = "photos";
 
     private PuzzlePage mPage;

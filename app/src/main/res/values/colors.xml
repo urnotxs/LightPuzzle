@@ -55,4 +55,7 @@
     <color name="puzzle_label_title_color">#99ffffff</color>
     <color name="puzzle_label_line_color">#19ffffff</color>
     <color name="puzzle_label_text_color">#99ffffff</color>
+
+    <color name="black_transparent_12">#0C000000</color>
+
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +25,7 @@ import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
+import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
@@ -78,6 +80,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
     private int mPuzzleMode = -1;
     private String mTemplateId;
+    private float mTemplateRatio;
     private int mTemplateCategory;
     private ArrayList<Photo> mPhotos;
 
@@ -92,14 +95,14 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        initData(mTemplateId, mPhotos, mTemplateCategory);
+        initData(mTemplateId, mPhotos, mTemplateCategory, mTemplateRatio);
     }
 
-    private void initData(String templateId, ArrayList<Photo> photos, int templateCategory) {
+    private void initData(String templateId, ArrayList<Photo> photos, int templateCategory, float templateRatio) {
         if (mBottomView != null) {
             mBottomView.setVisibility(INVISIBLE);
         }
-        getPresenter().initData(mContext, templateId, photos, templateCategory);
+        getPresenter().initData(mContext, templateId, photos, templateCategory, templateRatio);
     }
 
     @Override
@@ -141,6 +144,18 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                     showBgTextureLayout();
                     break;
                 case PuzzlesBottomMsgCode.ADD_TEXT:
+                    getPresenter().createAddTextInfo(mContext, mPuzzleFrame.getScrollYOffset());
+
+                    // 弹出底部输入框页面
+                    TemporaryTextData textData = getPresenter().getTemporaryTextData();
+                    // TODO: 2018/11/30 文字弹框
+//                    if (textData != null) {
+//                        popBottomEditTextView(ADD_TEXT, textData);
+//                        mPuzzleFrame.scrollFromEditText(textData.getPoints());
+//                    }
+/*
+                    mPuzzleFrame.onClearSelected();
+                    getPresenter().resetSignShowFram();*/
                     break;
                 case PuzzlesBottomMsgCode.ADD_SIGNATURE:
                     getPresenter().onSignBtnClick();
@@ -234,6 +249,19 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                         break;
                 }
                 break;
+            case PuzzlesRequestMsgName.PUZZLES_ADD_TEXT:
+                if (object instanceof TemporaryTextData) {
+                    TemporaryTextData textData = (TemporaryTextData) object;
+                    /*popBottomEditTextView(ADD_TEXT, textData);
+                    mPuzzleFrame.onClearSelected();
+                    mPuzzleFrame.scrollFromEditText(textData.getPoints());*/
+                } else if (object instanceof Point[]) {
+                    //删除
+                    Point[] points = (Point[]) object;
+//                    getPresenter().deleteAddTextItem(points);
+                }
+                invalidateView();
+                break;
         }
 
 
@@ -271,6 +299,23 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
             }
         }
     }
+
+//    private BottomEditTextView mEditTextView; // 通用
+//    private void popBottomEditTextView(int model, TemporaryTextData temporaryTextData) {
+//        if (mEditTextView == null) {
+//            mEditTextView = new BottomEditTextView(getContext());
+//            FrameLayout.LayoutParams mParams = new FrameLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.MATCH_PARENT);
+//            this.addView(mEditTextView, mParams);
+//            mEditTextView.setEditInteractionListener(mEditInteractionListener);
+//        } else {
+//            mEditTextView.showView();
+//        }
+//        mEditTextView.open(model, temporaryTextData);
+//        AnimUtils.setTransAnim(mEditTextView, 0,
+//                0, 1, 0, 500, null);
+//    }
 
     private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
 
@@ -440,6 +485,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
             mPhotos = intent.getParcelableArrayListExtra(EXTRA_PHOTOS);
         }
         mTemplateId = intent.getStringExtra(PuzzleActivity.EXTRA_TEMPLATE_ID);
+        mTemplateRatio = intent.getFloatExtra(PuzzleActivity.EXTRA_TEMPLATE_RATIO, 0);
         mTemplateCategory = intent.getIntExtra(
                 PuzzleActivity.EXTRA_TEMPLATE_CATEGORY,
                 DataConstant.TEMPLATE_CATEGORY.SIMPLE);
@@ -452,7 +498,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public void handleTransformTemplateResult(int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
             getIntentData(intent, true);
-            initData(mTemplateId, mPhotos, mTemplateCategory);
+            initData(mTemplateId, mPhotos, mTemplateCategory, mTemplateRatio);
         }
     }
 

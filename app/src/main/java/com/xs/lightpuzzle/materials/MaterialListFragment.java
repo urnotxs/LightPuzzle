@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,15 @@ import android.widget.Space;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xs.lightpuzzle.R;
+import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
+import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +56,7 @@ public class MaterialListFragment extends
 
     private List<TemplateSet> mData;
     private MaterialAdapter mAdapter;
+    private LayoutAdapter mLayoutAdapter;
     private TemplateSetQuery mQuery;
     private int mMaterialList;
 
@@ -160,39 +165,62 @@ public class MaterialListFragment extends
         mRecyclerView.setLayoutManager(
                 new StaggeredGridLayoutManager(
                         2, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setAdapter(mAdapter);
+        if (mMaterialList == MATERIAL_LIST.LAYOUT) {
+            mRecyclerView.setAdapter(mLayoutAdapter);
+        } else {
+            mRecyclerView.setAdapter(mAdapter);
+        }
         ((SimpleItemAnimator) mRecyclerView.getItemAnimator())
                 .setSupportsChangeAnimations(false);
     }
 
     private void initAdapter() {
-        mAdapter = new MaterialAdapter(mQuery.getPhotoNum(), mMaterialList);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new MaterialListEventBus
-                        .SelectTemplate(position, mData.get(position)));
-            }
-        });
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                int id = view.getId();
-                switch (id) {
-                    case R.id.material_item_apib_delete:
-                        EventBus.getDefault().post(new MaterialListEventBus
-                                .DeleteTemplate(position, mData.get(position)));
-                        break;
-                    default:
-                        break;
+        if (mMaterialList == MATERIAL_LIST.LAYOUT) {
+            mLayoutAdapter = new LayoutAdapter(mQuery.getPhotoNum());
+            mLayoutAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    TemplateSet layout = new TemplateSet();
+                    layout.setId("000");
+                    layout.setUiRatio(PuzzlesUtils.getPic_size(MAP.get(position).second));
+                    layout.setCategory(DataConstant.TEMPLATE_CATEGORY.LAYOUT);
+                    layout.setMinPhotoNum(1);
+                    layout.setMaxPhotoNum(9);
+                    layout.setDownloaded(true);
+                    EventBus.getDefault().post(new MaterialListEventBus
+                            .SelectTemplate(position, layout));
                 }
-            }
-        });
-        FrameLayout footerView = new FrameLayout(getContext());
-        footerView.addView(new Space(getContext()), new FrameLayout.LayoutParams(-1, SizeUtils.dp2px(16)));
+            });
+        } else {
+            mAdapter = new MaterialAdapter(mQuery.getPhotoNum(), mMaterialList);
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    EventBus.getDefault().post(new MaterialListEventBus
+                            .SelectTemplate(position, mData.get(position)));
+                }
+            });
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-        mAdapter.setFooterView(footerView);
+                    int id = view.getId();
+                    switch (id) {
+                        case R.id.material_item_apib_delete:
+                            EventBus.getDefault().post(new MaterialListEventBus
+                                    .DeleteTemplate(position, mData.get(position)));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            FrameLayout footerView = new FrameLayout(getContext());
+            footerView.addView(new Space(getContext()), new FrameLayout.LayoutParams(-1, SizeUtils.dp2px(16)));
+
+            mAdapter.setFooterView(footerView);
+        }
+
     }
 
     @Override
@@ -208,7 +236,11 @@ public class MaterialListFragment extends
     @Override
     public void setData(List<TemplateSet> data) {
         mData = data;
-        mAdapter.replaceData(data);
+        if (mMaterialList == MATERIAL_LIST.LAYOUT) {
+            mLayoutAdapter.replaceData(MAP);
+        } else {
+            mAdapter.replaceData(data);
+        }
     }
 
     @Override
@@ -236,4 +268,44 @@ public class MaterialListFragment extends
     public MaterialAdapter getAdapter() {
         return mAdapter;
     }
+
+
+    private static final ArrayList<Pair<String, Integer>> MAP = new ArrayList<>();
+
+    static {
+        MAP.add(0, new Pair<>("ic_layout_entrance_1_1", LayoutFragment.ASPECT._1_1));
+        MAP.add(1, new Pair<>("ic_layout_entrance_9_16", LayoutFragment.ASPECT._9_16));
+        MAP.add(2, new Pair<>("ic_layout_entrance_3_4", LayoutFragment.ASPECT._3_4));
+        MAP.add(3, new Pair<>("ic_layout_entrance_16_9", LayoutFragment.ASPECT._16_9));
+        MAP.add(4, new Pair<>("ic_layout_entrance_4_3", LayoutFragment.ASPECT._4_3));
+        MAP.add(5, new Pair<>("ic_layout_entrance_3_2", LayoutFragment.ASPECT._3_2));
+        MAP.add(6, new Pair<>("ic_layout_entrance_2_1", LayoutFragment.ASPECT._2_1));
+        MAP.add(7, new Pair<>("ic_layout_entrance_2_3", LayoutFragment.ASPECT._2_3));
+        MAP.add(8, new Pair<>("ic_layout_entrance_1_2", LayoutFragment.ASPECT._1_2));
+    }
+
+    public interface ASPECT {
+        int _1_1 = 1;
+        int _9_16 = 2;
+        int _3_4 = 3;
+        int _16_9 = 4;
+        int _4_3 = 5;
+        int _3_2 = 6;
+        int _2_1 = 7;
+        int _2_3 = 8;
+        int _1_2 = 9;
+    }
+
+    public interface LAYOUT_ID{
+        int _1_1 = 1;
+        int _9_16 = 2;
+        int _3_4 = 3;
+        int _16_9 = 4;
+        int _4_3 = 5;
+        int _3_2 = 6;
+        int _2_1 = 7;
+        int _2_3 = 8;
+        int _1_2 = 9;
+    }
+
 }
