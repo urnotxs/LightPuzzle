@@ -1,13 +1,28 @@
 package com.xs.lightpuzzle.puzzle.info;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
+import com.xs.lightpuzzle.puzzle.exchanged.observer.IObserver;
+import com.xs.lightpuzzle.puzzle.exchanged.subject.PieceSubject;
+import com.xs.lightpuzzle.puzzle.info.low.PuzzleImagePieceInfo;
+import com.xs.lightpuzzle.puzzle.msgevent.PuzzleImageMsgEvent;
+import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesImageMsgName;
+import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
+import com.xs.lightpuzzle.puzzle.piece.LayoutJointPiece;
+import com.xs.lightpuzzle.puzzle.piece.util.MatrixUtils;
 import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +31,7 @@ import java.util.List;
  * Created by xs on 2018/11/19.
  */
 
-public class PuzzlesInfo implements DrawView {
+public class PuzzlesInfo implements DrawView, IObserver {
 
     private Rect puzzlesRect;
     //保存时用到的rect
@@ -37,14 +52,174 @@ public class PuzzlesInfo implements DrawView {
     //点击模板（移动图片,名片，二维码，水印等）信息，移动过程中放弃标签、文字等拦截事件
     private boolean isTouchTemplate = false;
 
+    private void resetShowFrame(){
+        for (TemplateInfo templateInfo : templateInfos){
+            templateInfo.resetShowFrame();
+        }
+    }
+
+    private PuzzleImagePieceInfo findReplacingImageInfo(Point eventPoint) {
+        for (TemplateInfo templateInfo : templateInfos){
+            return templateInfo.findReplacingImageInfo(eventPoint);
+        }
+        return null;
+    }
+
+    /**
+     *  置换piece
+     *
+     * @param handlingPieceInfo
+     * @param replacingPieceInfo
+     * */
+    private void swapPiece(PuzzleImagePieceInfo handlingPieceInfo, PuzzleImagePieceInfo replacingPieceInfo) {
+        if (templateInfos == null){
+            return;
+        }
+        LayoutJointPiece handlingPiece = handlingPieceInfo.getImagePiece();
+        LayoutJointPiece replacePiece = replacingPieceInfo.getImagePiece();
+
+        int handleIndex = -1;
+        int replacedIndex = -1;
+        TemplateInfo sourceTemplateInfo = null;
+        TemplateInfo changeTemplateInfo = null;
+        for (int i = 0; i < templateInfos.size(); i++) {
+            int index = templateInfos.get(i).getIndexOfPieceInfo(handlingPieceInfo);
+            if (index >= 0) {
+                handleIndex = index;
+                sourceTemplateInfo = templateInfos.get(i);
+                break;
+            }
+        }
+        for (int i = 0; i < templateInfos.size(); i++) {
+            int index = templateInfos.get(i).getIndexOfPieceInfo(replacingPieceInfo);
+            if (index >= 0) {
+                replacedIndex = index;
+                changeTemplateInfo = templateInfos.get(i);
+                break;
+            }
+        }
+        if (replacedIndex < 0 || handleIndex < 0) {
+            return;
+        }
+
+        RotationImg sourceImg = handlingPieceInfo.getRotationImg();
+        RotationImg changeImg = replacingPieceInfo.getRotationImg();
+        if (sourceTemplateInfo == changeTemplateInfo) {
+            RotationImg[] imgArr = sourceTemplateInfo.getRotationImgs();
+            int sourceIndex = -1;
+            int changeIndex = -1;
+            for (int i = 0; i < imgArr.length; i++) {
+                if (imgArr[i] == sourceImg) {
+                    sourceIndex = i;
+                }
+                if (imgArr[i] == changeImg) {
+                    changeIndex = i;
+                }
+            }
+            RotationImg tempImg = null;
+            if (sourceIndex != -1 && changeIndex != -1) {
+                tempImg = imgArr[sourceIndex];
+                imgArr[sourceIndex] = imgArr[changeIndex];
+                imgArr[changeIndex] = tempImg;
+            }
+        } else {
+            RotationImg[] sourceImgArr = sourceTemplateInfo.getRotationImgs();
+            for (int i = 0; i < sourceImgArr.length; i++) {
+                if (sourceImgArr[i] == sourceImg) {
+                    sourceImgArr[i] = changeImg;
+                }
+            }
+            RotationImg[] changeImgArr = changeTemplateInfo.getRotationImgs();
+            for (int i = 0; i < changeImgArr.length; i++) {
+                if (changeImgArr[i] == changeImg) {
+                    changeImgArr[i] = sourceImg;
+                }
+            }
+        }
+
+        //置换图片资源
+        RotationImg rotationImg = replacingPieceInfo.getRotationImg();
+        replacingPieceInfo.setRotationImg(handlingPieceInfo.getRotationImg());
+        handlingPieceInfo.setRotationImg(rotationImg);
+
+        //置换滤镜和图片
+        Bitmap bitmap = replacingPieceInfo.getSourceBitmap();
+        replacingPieceInfo.setSourceBitmap(handlingPieceInfo.getSourceBitmap());
+        handlingPieceInfo.setSourceBitmap(bitmap);
+
+        Drawable temp = handlingPiece.getDrawable();
+        handlingPiece.setDrawable(replacePiece.getDrawable());
+        replacePiece.setDrawable(temp);
+
+        replacePiece.setZoom(false);
+        handlingPiece.setZoom(false);
+
+        //置换角度
+        float degree = handlingPiece.getMatrixAngle();
+        float replaceDegree = replacePiece.getMatrixAngle();
+        handlingPiece.set(MatrixUtils.generateMatrix(handlingPiece, handlingPiece.getRectF(), 0f));
+        handlingPiece.postRotate(replaceDegree);
+        replacePiece.set(MatrixUtils.generateMatrix(replacePiece, replacePiece.getRectF(), 0f));
+        replacePiece.postRotate(degree);
+
+        handlingPieceInfo.swapFillArea();
+        replacingPieceInfo.swapFillArea();
+    }
+
+    private transient PuzzleImagePieceInfo mHandlingPiece;
+    private transient PuzzleImagePieceInfo mReplacingPiece;
+    private transient List<PieceSubject> subjectList = new ArrayList<>();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void imageTouchRequest(PuzzleImageMsgEvent msgEvent) {
+        if (msgEvent == null) {
+            return;
+        }
+        switch (msgEvent.getMsgName()) {
+            case PuzzlesImageMsgName.PUZZLES_IMAGE_TOUCH:
+                Object object = msgEvent.getObject();
+                if (object != null && object instanceof Point) {
+                    Point eventPoint = (Point) object;
+                    resetShowFrame();
+                    switch (msgEvent.getAction()) {
+                        case MotionEvent.ACTION_MOVE:
+                            // 找到replacingPiece, 并做缩放显示
+                            mReplacingPiece = findReplacingImageInfo(eventPoint);
+                            if (mReplacingPiece != null && mReplacingPiece != mHandlingPiece) {
+                                mReplacingPiece.setShowFrame(true);
+                                EventBus.getDefault().post(new PuzzlesRequestMsg(
+                                        PuzzlesRequestMsgName.PUZZLES_INVALIDATE_VIEW, 0));
+                            }
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            // 是否有与之置换的imageInfo,若有，进行置换
+                            if (mHandlingPiece != null && mReplacingPiece != null
+                                    && mHandlingPiece != mReplacingPiece) {
+                                swapPiece(mHandlingPiece, mReplacingPiece);
+
+                                mHandlingPiece = null;
+                                mReplacingPiece = null;
+                            }
+                            break;
+                    }
+                    break;
+                }
+        }
+    }
+
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         if (bgTextureInfo != null) {
             bgTextureInfo.init();
         }
         if (templateInfos != null) {
             for (TemplateInfo templateInfo : templateInfos) {
                 templateInfo.init();
+                PieceSubject subject = new PieceSubject();
+                subject.addObserver(this);
+                subjectList.add(subject);
+                templateInfo.setSubject(subject);
             }
         }
         if (signInfo != null) {
@@ -1021,6 +1196,7 @@ public class PuzzlesInfo implements DrawView {
         recycleSign();
         recycleAddTextInfos();
         recycleLabels();
+        EventBus.getDefault().unregister(this);
     }
 
     public void recycleSign() {
@@ -1048,5 +1224,10 @@ public class PuzzlesInfo implements DrawView {
             }
             labelInfos = null;
         }
+    }
+
+    @Override
+    public void updateHandlingPiece(PuzzleImagePieceInfo info) {
+        mHandlingPiece = info;
     }
 }

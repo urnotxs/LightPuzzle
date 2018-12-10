@@ -23,7 +23,7 @@ import com.xs.lightpuzzle.puzzle.PuzzleMode;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.param.SignatureSaveVO;
-import com.xs.lightpuzzle.puzzle.piece.MatrixUtils;
+import com.xs.lightpuzzle.puzzle.piece.util.MatrixUtils;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 import com.xs.lightpuzzle.puzzle.util.SingleTouchUtils;

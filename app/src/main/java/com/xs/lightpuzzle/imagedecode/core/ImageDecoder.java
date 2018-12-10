@@ -58,13 +58,8 @@ public class ImageDecoder {
                 res.getValue(drawableId, value, true);
                 decodeBitmap = BitmapFactory.decodeResourceStream(res, value, imageStream, null, options);
             } else {
-                if (imageFileInfo.isJpg()
-                        && imageDecodingInfo.getDecodeImageOptions().isNativeDecode()) {
-//                    byte[] data = CommonUtils.ReadData(imageStream);
-//                    decodeBitmap = Utils.DecodeByteArr(data, options);
-                } else {
-                    decodeBitmap = BitmapFactory.decodeStream(imageStream, null, options);
-                }
+
+                decodeBitmap = BitmapFactory.decodeStream(imageStream, null, options);
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -75,13 +70,9 @@ public class ImageDecoder {
 
         // 考虑旋转角度和外部decode参数
         if (BitmapHelper.isValid(decodeBitmap)) {
-            if (imageDecodingInfo.getDecodeImageOptions().isNativeRetreatment()) {
-//                decodeBitmap = considerExactScaleAndOrientationForNative(decodeBitmap, imageDecodingInfo,
-//                        imageFileInfo.getExif().getRotation(), imageFileInfo.getExif().isFlipHorizontal());
-            } else {
-                decodeBitmap = considerExactScaleAndOrientation(decodeBitmap, imageDecodingInfo,
-                        imageFileInfo.getExif().getRotation(), imageFileInfo.getExif().isFlipHorizontal());
-            }
+
+            decodeBitmap = considerExactScaleAndOrientation(decodeBitmap, imageDecodingInfo,
+                    imageFileInfo.getExif().getRotation(), imageFileInfo.getExif().isFlipHorizontal());
         }
 
         return decodeBitmap;

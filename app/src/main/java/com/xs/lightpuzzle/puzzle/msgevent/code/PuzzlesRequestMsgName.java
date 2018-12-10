@@ -22,6 +22,8 @@ public interface PuzzlesRequestMsgName {
 
     String PUZZLES_IMAGE_SHOW_BAR = "puzzles_image_show_bar";
 
+    String PUZZLES_IMAGE_PIECE_SHOW_BAR = "puzzles_image_piece_show_bar";
+
     String PUZZLES_LABEL_SHOW_BAR = "puzzles_label_show_bar";
 
     String PUZZLES_LAYOUT = "puzzles_layout";

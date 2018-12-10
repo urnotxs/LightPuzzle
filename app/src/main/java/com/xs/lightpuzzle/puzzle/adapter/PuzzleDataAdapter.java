@@ -8,6 +8,7 @@ import com.xs.lightpuzzle.data.FontManager;
 import com.xs.lightpuzzle.data.entity.Font;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
+import com.xs.lightpuzzle.puzzle.PuzzleMode;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.TemplateData;
@@ -29,7 +30,7 @@ import java.util.Set;
 public class PuzzleDataAdapter {
 
 
-    public static TemplateData getTemplateData(TemplateSet templateSet, int photoNum) {
+    public static TemplateData getTemplateData(TemplateSet templateSet, int photoNum, int puzzleMode) {
 
         Template template = templateSet.getTemplateMap().get(photoNum);
         String dirPath = template.getDirPath();
@@ -46,7 +47,7 @@ public class PuzzleDataAdapter {
         templateData.setOutPutHeight(rectSize[1]);
 
         //设置图片坐标
-        templateData.setImgPointDatas(getImagePointData(template.getPhotos()));
+        templateData.setImgPointDatas(getImagePointData(template.getPhotos(), rectSize, puzzleMode));
 
         //设置前景图
         if (!TextUtils.isEmpty(template.getForegroundFileName())) {
@@ -81,7 +82,7 @@ public class PuzzleDataAdapter {
         //设置二维码
 
         //设置文字信息
-        List<TextData> textDataList = getTextData(templateSet.getAttachedFontIdSet(), template.getTexts());
+        List<TextData> textDataList = getTextData(templateSet.getAttachedFontIdSet(), template.getTexts(), rectSize);
         if (textDataList != null) {
             templateData.setTextData(textDataList);
         }
@@ -92,9 +93,10 @@ public class PuzzleDataAdapter {
         return templateData;
     }
 
-    private static List<TextData> getTextData(Set<String> attachedFontIdSet, List<Template.Text> texts) {
+    private static List<TextData> getTextData(Set<String> attachedFontIdSet,
+                                              List<Template.Text> texts, int[] rectSize) {
 
-        if (attachedFontIdSet == null || texts == null){
+        if (attachedFontIdSet == null || texts == null) {
             return null;
         }
         List<TextData> textDatas = new ArrayList<>();
@@ -129,10 +131,10 @@ public class PuzzleDataAdapter {
             textData.setTypeface(typefaceId, typefaceUri);
             PointF[] textPoint = new PointF[4];
             if (text.getRegion() != null) {
-                textPoint[0] = new PointF(text.getRegion().left, text.getRegion().top);
-                textPoint[1] = new PointF(text.getRegion().right, text.getRegion().top);
-                textPoint[2] = new PointF(text.getRegion().right, text.getRegion().bottom);
-                textPoint[3] = new PointF(text.getRegion().left, text.getRegion().bottom);
+                textPoint[0] = new PointF(text.getRegion().left * 1.0f / rectSize[0], text.getRegion().top * 1.0f / rectSize[1]);
+                textPoint[1] = new PointF(text.getRegion().right * 1.0f / rectSize[0], text.getRegion().top * 1.0f / rectSize[1]);
+                textPoint[2] = new PointF(text.getRegion().right * 1.0f / rectSize[0], text.getRegion().bottom * 1.0f / rectSize[1]);
+                textPoint[3] = new PointF(text.getRegion().left * 1.0f / rectSize[0], text.getRegion().bottom * 1.0f / rectSize[1]);
             }
             textData.setPolygons(textPoint);
             textDatas.add(textData);
@@ -173,7 +175,7 @@ public class PuzzleDataAdapter {
 
     private static WaterMarkData getWaterMarkData(Template.Watermark watermark) {
 
-        if (watermark == null){
+        if (watermark == null) {
             return null;
         }
         WaterMarkData waterMarkData = new WaterMarkData();
@@ -196,30 +198,33 @@ public class PuzzleDataAdapter {
     }
 
     private static List<ImgPointData> getImagePointData(
-            List<Template.Photo> photos) {
+            List<Template.Photo> photos, int[] rectSize, int puzzleMode) {
         List<ImgPointData> imgPointDataList = new ArrayList<>();
 
+        if (puzzleMode == PuzzleMode.MODE_LAYOUT) {
+            rectSize = new int[]{1, 1};
+        }
         PointF[] imgPoint;
         for (Template.Photo photo : photos) {
             ImgPointData imgPointData = new ImgPointData();
             if (photo.getRegionPathPointArr() != null) {
 
-//                PointF[] pathPointArr = photo.getRegionPathPointArr();
-//                imgPoint = new PointF[pathPointArr.length];
-//                for (int j = 0; j < pathPointArr.length; j++) {
-//                    imgPoint[j] = new PointF(pathPointArr[j].x / (float) rectSize[0],
-//                            pathPointArr[j].y / (float) rectSize[1]);
-//                }
+                PointF[] pathPointArr = photo.getRegionPathPointArr();
+                imgPoint = new PointF[pathPointArr.length];
+                for (int j = 0; j < pathPointArr.length; j++) {
+                    imgPoint[j] = new PointF(pathPointArr[j].x / (float) rectSize[0],
+                            pathPointArr[j].y / (float) rectSize[1]);
+                }
 
-                imgPointData.setPicPointF(photo.getRegionPathPointArr());
+                imgPointData.setPicPointF(imgPoint);
             } else {
                 imgPoint = new PointF[4];
                 RectF rect = photo.getRegion();
 
-                imgPoint[0] = new PointF(rect.left, rect.top);
-                imgPoint[1] = new PointF(rect.right, rect.top);
-                imgPoint[2] = new PointF(rect.right, rect.bottom);
-                imgPoint[3] = new PointF(rect.left, rect.bottom);
+                imgPoint[0] = new PointF(rect.left * 1.0f / rectSize[0], rect.top * 1.0f / rectSize[1]);
+                imgPoint[1] = new PointF(rect.right * 1.0f / rectSize[0], rect.top * 1.0f / rectSize[1]);
+                imgPoint[2] = new PointF(rect.right * 1.0f / rectSize[0], rect.bottom * 1.0f / rectSize[1]);
+                imgPoint[3] = new PointF(rect.left * 1.0f / rectSize[0], rect.bottom * 1.0f / rectSize[1]);
 
                 imgPointData.setPicPointF(imgPoint);
             }

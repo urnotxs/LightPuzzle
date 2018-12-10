@@ -26,6 +26,8 @@ public class PuzzleMode {
                 return MODE_LONG;
             case DataConstant.TEMPLATE_CATEGORY.COLLAGE:
                 return MODE_JOIN;
+            case DataConstant.TEMPLATE_CATEGORY.LAYOUT:
+                return MODE_LAYOUT;
             default:
                 return MODE_WAG;
         }

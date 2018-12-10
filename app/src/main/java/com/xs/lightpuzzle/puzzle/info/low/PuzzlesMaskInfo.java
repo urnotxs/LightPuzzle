@@ -2,11 +2,16 @@ package com.xs.lightpuzzle.puzzle.info.low;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.DrawFilter;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
@@ -36,6 +41,11 @@ public class PuzzlesMaskInfo implements DrawView {
 
     private transient Bitmap maskBitmap, colorMaskBitmap;
 
+    private Rect finalRect;
+    private Paint mPaint;
+    private Drawable mDrawable;
+    private Bitmap mTextureBitmap;
+
     public void setMaskPic(String maskPic) {
         this.maskPic = maskPic;
     }
@@ -58,15 +68,6 @@ public class PuzzlesMaskInfo implements DrawView {
 
     @Override
     public void init() {
-
-    }
-
-    @Override
-    public void initBitmap(Context context) {
-        if (context == null) {
-            return;
-        }
-        Rect finalRect = null;
         if (save) {
             if (outPutRect == null) {
                 return;
@@ -81,11 +82,29 @@ public class PuzzlesMaskInfo implements DrawView {
         if (finalRect == null) {
             return;
         }
+
+        mPaint = new Paint();
+    }
+
+    @Override
+    public void initBitmap(Context context) {
+        if (context == null) {
+            return;
+        }
+        if (finalRect == null) {
+            return;
+        }
         if (TextUtils.isEmpty(maskPic)) {
             return;
         }
+
         synchronized (this) {
             maskBitmap = JaneBitmapFactory.decode(context, maskPic, new ImageSize(finalRect.width(), finalRect.height()));
+        }
+
+        if (mDrawable == null) {
+            mDrawable = new BitmapDrawable(maskBitmap);
+            mDrawable.setBounds(new Rect(0, 0, finalRect.width(), finalRect.height()));
         }
         changeBgTexture(null, bgColor);
     }
@@ -94,18 +113,11 @@ public class PuzzlesMaskInfo implements DrawView {
         if (BitmapHelper.isInvalid(maskBitmap)) {
             return;
         }
-
-        if (BitmapHelper.isInvalid(colorTextureBitmap)) {  //背景
-            colorMaskBitmap = Bitmap.createBitmap(maskBitmap.getWidth(), maskBitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            DrawFilter drawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-            Canvas canvas = new Canvas(colorMaskBitmap);
-            canvas.setDrawFilter(drawFilter);
-            if (bgColor != LightPuzzleConstant.INVALID_COLOR) {
-                this.bgColor = bgColor;
-                canvas.drawColor(bgColor);
-            }
-        } else if (colorTextureBitmap != null) {
-            colorMaskBitmap = colorTextureBitmap;
+        if (BitmapHelper.isValid(colorTextureBitmap)) {
+            mTextureBitmap = colorTextureBitmap;
+        }
+        if (bgColor != LightPuzzleConstant.INVALID_COLOR) {
+            this.bgColor = bgColor;
         }
     }
 
@@ -114,22 +126,36 @@ public class PuzzlesMaskInfo implements DrawView {
         if (canvas == null) {
             return;
         }
-        Rect finalRect = null;
-        if (save) {
-            if (outPutRect == null) {
-                return;
-            }
-            finalRect = outPutRect;
-        } else {
-            if (rect == null) {
-                return;
-            }
-            finalRect = rect;
-        }
         if (finalRect == null) {
             return;
         }
-        canvas.drawBitmap(colorMaskBitmap, finalRect.left, finalRect.top, null);
+
+        if (BitmapHelper.isValid(mTextureBitmap)) {
+            drawTexture(canvas);
+        } else {
+            if (bgColor != LightPuzzleConstant.INVALID_COLOR) {
+                DrawableCompat.setTint(mDrawable, bgColor);
+            }
+            canvas.save();
+            if (finalRect.left != 0 && finalRect.top != 0) {
+                canvas.translate(finalRect.left, finalRect.top);
+            }
+            mDrawable.draw(canvas);
+            canvas.restore();
+        }
+    }
+
+    private void drawTexture(Canvas canvas) {
+        int saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG);
+        {
+            canvas.drawBitmap(maskBitmap, null, finalRect, mPaint);
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            Shader shader = new BitmapShader(mTextureBitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+            mPaint.setShader(shader);
+            canvas.drawRect(finalRect, mPaint);
+            mPaint.setXfermode(null);
+        }
+        canvas.restoreToCount(saved);
     }
 
     @Override

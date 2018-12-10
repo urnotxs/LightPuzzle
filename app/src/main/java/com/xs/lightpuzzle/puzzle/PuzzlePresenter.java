@@ -29,8 +29,8 @@ import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesSignInfo;
-import com.xs.lightpuzzle.puzzle.layout.BasePuzzleInfo;
-import com.xs.lightpuzzle.puzzle.layout.LayoutOrderBean;
+import com.xs.lightpuzzle.puzzle.layout.data.BasePuzzleInfo;
+import com.xs.lightpuzzle.puzzle.layout.data.LayoutOrderBean;
 import com.xs.lightpuzzle.puzzle.model.PuzzlesAddTextModel;
 import com.xs.lightpuzzle.puzzle.model.PuzzlesLabelModel;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
@@ -219,7 +219,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
     private void initPuzzleInfo(Context context) {
         int puzzleMode = PuzzleMode.getMode(mTemplateSet.getCategory());
 
-        TemplateData templateData = PuzzleDataAdapter.getTemplateData(mTemplateSet, mPhotoFilePaths.size());
+        TemplateData templateData = PuzzleDataAdapter.getTemplateData(mTemplateSet, mPhotoFilePaths.size(), puzzleMode);
 
         BgTextureData bgTextureData = PuzzleDataAdapter.getBgTextureData(mTemplate.getBackground());
 
