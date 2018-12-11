@@ -28,6 +28,8 @@ import com.xs.lightpuzzle.puzzle.info.low.PuzzlesMaskInfo;
 import com.xs.lightpuzzle.puzzle.info.low.PuzzlesTextInfo;
 import com.xs.lightpuzzle.puzzle.info.low.PuzzlesVarFgInfo;
 import com.xs.lightpuzzle.puzzle.layout.info.model.LayoutData;
+import com.xs.lightpuzzle.puzzle.layout.layoutframepage.BottomEditLineFrameView;
+import com.xs.lightpuzzle.puzzle.util.PuzzleOutputBitmapContant;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 
@@ -1182,22 +1184,22 @@ public class TemplateInfo {
     }
 
     public void changeLayoutView(Context context, boolean save) {
-//        if (puzzlesLayoutInfo != null) {
-//            if (save) {
-//                //保存原有布局数据
-//                puzzlesLayoutInfo.generateSavePolygonLayoutInfo();
-//                this.rect = PuzzlesUtils.getRect(mPuzzleMode, templateData);
-//            } else {
-//                if (puzzlesLayoutInfo.getSavePolygonLayoutInfo() != null) {
-//                    LayoutData layoutData = puzzlesLayoutInfo.getSavePolygonLayoutInfo().getLayoutData();
-//                    puzzlesLayoutInfo.setRect(rect);
-//                    puzzlesLayoutInfo.init(layoutData);
-//                    puzzlesLayoutInfo.clearPieces();
-//                    puzzlesLayoutInfo.addPieces(context, puzzlesLayoutInfo.getFinalBmpArray(), layoutData.getDrawableVOS(),
-//                            puzzlesLayoutInfo.getSavePolygonLayoutInfo().getZoomArray());
-//                }
-//            }
-//        }
+        if (puzzlesLayoutInfo != null) {
+            if (save) {
+                //保存原有布局数据
+                puzzlesLayoutInfo.generateSavePolygonLayoutInfo();
+                this.rect = PuzzlesUtils.getRect(mPuzzleMode, templateData);
+            } else {
+                if (puzzlesLayoutInfo.getSavePolygonLayoutInfo() != null) {
+                    LayoutData layoutData = puzzlesLayoutInfo.getSavePolygonLayoutInfo().getLayoutData();
+                    puzzlesLayoutInfo.setRect(rect);
+                    puzzlesLayoutInfo.init(layoutData);
+                    puzzlesLayoutInfo.clearPieces();
+                    puzzlesLayoutInfo.addPieces(context, puzzlesLayoutInfo.getFinalBmpArray(), layoutData.getDrawableVOS(),
+                            puzzlesLayoutInfo.getSavePolygonLayoutInfo().getZoomArray());
+                }
+            }
+        }
     }
 
     public void changeLayoutJointView(Rect[] rect) {
@@ -1205,57 +1207,56 @@ public class TemplateInfo {
         this.outPutRect = rect[1];
     }
 
-//    public void onLayoutChanged(Context context, boolean changedCanvas,
-//                                float ratio, int layout, LayoutData layoutData) {
-//        if (changedCanvas) {
-//            templateData.setSizeRatio(ratio);
-//            int[] size = new int[2];
-//            if (ratio < 1) {
-//                size[0] = (int) (PuzzleOutputBitmapContant.PRIVATE_SIZE * ratio);
-//                size[1] = PuzzleOutputBitmapContant.PRIVATE_SIZE;
-//            } else {
-//                size[0] = PuzzleOutputBitmapContant.PRIVATE_SIZE;
-//                size[1] = (int) (PuzzleOutputBitmapContant.PRIVATE_SIZE / ratio);
-//            }
-//            templateData.setOutPutWidth(size[0]);
-//            templateData.setOutPutHeight(size[1]);
-//
-//            this.rect = PuzzlesUtils.getRect(mPuzzleMode, templateData);
-//            this.outPutRect = new Rect(0, 0, templateData.getOutPutWidth(), templateData.getOutPutHeight());
-//        }
-//        if (puzzlesLayoutInfo != null) {
-//            puzzlesLayoutInfo.setSelectedRatio(ratio);
-//            puzzlesLayoutInfo.setSelectedLayout(layout);
-//            puzzlesLayoutInfo.setRect(rect);
-//            layoutData.setInsidePaddingRatio(puzzlesLayoutInfo.getPiecePaddingRatio());
-//            layoutData.setOutsidePaddingRatio(puzzlesLayoutInfo.getOuterPaddingRatio());
-//            layoutData.setRadianRatio(puzzlesLayoutInfo.getPieceRadianRatio());
-//            if (changedCanvas) {
-//                puzzlesLayoutInfo.init(layoutData);
-//                puzzlesLayoutInfo.clearPieces();
-//                puzzlesLayoutInfo.addPiecesWithFilter();
-//            } else {
-//                puzzlesLayoutInfo.setLayoutData(layoutData);
-//            }
-//        }
-//    }
-//
-//    public void onLayoutPaddingChanged(Context context, BottomEditLineFrameView.CHANGEDMode mode, int value) {
-//        if (puzzlesLayoutInfo != null) {
-//            switch (mode) {
-//                case OUT_PADDING:
-//                    puzzlesLayoutInfo.setOuterPadding(value / 100.0f);
-//                    break;
-//                case IN_PADDING:
-//                    puzzlesLayoutInfo.setPiecePadding(value / 100.0f);
-//                    break;
-//                case RADIAN:
-//                    puzzlesLayoutInfo.setPieceRadianRatio(value / 100.0f);
-//                    break;
-//            }
-//
-//        }
-//    }
+    public void onLayoutChanged(Context context, boolean changedCanvas,
+                                float ratio, int layout, LayoutData layoutData) {
+        if (changedCanvas) {
+            templateData.setSizeRatio(ratio);
+            int[] size = new int[2];
+            if (ratio < 1) {
+                size[0] = (int) (PuzzleOutputBitmapContant.PRIVATE_SIZE * ratio);
+                size[1] = PuzzleOutputBitmapContant.PRIVATE_SIZE;
+            } else {
+                size[0] = PuzzleOutputBitmapContant.PRIVATE_SIZE;
+                size[1] = (int) (PuzzleOutputBitmapContant.PRIVATE_SIZE / ratio);
+            }
+            templateData.setOutPutWidth(size[0]);
+            templateData.setOutPutHeight(size[1]);
+
+            this.rect = PuzzlesUtils.getRect(mPuzzleMode, templateData);
+            this.outPutRect = new Rect(0, 0, templateData.getOutPutWidth(), templateData.getOutPutHeight());
+        }
+        if (puzzlesLayoutInfo != null) {
+            puzzlesLayoutInfo.setSelectedRatio(ratio);
+            puzzlesLayoutInfo.setSelectedLayout(layout);
+            puzzlesLayoutInfo.setRect(rect);
+            layoutData.setInsidePaddingRatio(puzzlesLayoutInfo.getPiecePaddingRatio());
+            layoutData.setOutsidePaddingRatio(puzzlesLayoutInfo.getOuterPaddingRatio());
+            layoutData.setRadianRatio(puzzlesLayoutInfo.getPieceRadianRatio());
+            if (changedCanvas) {
+                puzzlesLayoutInfo.init(layoutData);
+                puzzlesLayoutInfo.clearPieces();
+                puzzlesLayoutInfo.addPiecesWithFilter();
+            } else {
+                puzzlesLayoutInfo.setLayoutData(layoutData);
+            }
+        }
+    }
+
+    public void onLayoutPaddingChanged(Context context, BottomEditLineFrameView.CHANGEDMode mode, int value) {
+        if (puzzlesLayoutInfo != null) {
+            switch (mode) {
+                case OUT_PADDING:
+                    puzzlesLayoutInfo.setOuterPadding(value / 100.0f);
+                    break;
+                case IN_PADDING:
+                    puzzlesLayoutInfo.setPiecePadding(value / 100.0f);
+                    break;
+                case RADIAN:
+                    puzzlesLayoutInfo.setPieceRadianRatio(value / 100.0f);
+                    break;
+            }
+        }
+    }
 
     // --- rotationImg
     public RotationImg getRotationImg(Point[] points) {

@@ -3,8 +3,6 @@ package com.xs.lightpuzzle.puzzle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -17,6 +15,7 @@ import com.xs.lightpuzzle.data.TemplateManager;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
+import com.xs.lightpuzzle.puzzle.adapter.LayoutDataAdapter;
 import com.xs.lightpuzzle.puzzle.adapter.PuzzleDataAdapter;
 import com.xs.lightpuzzle.puzzle.data.BgTextureData;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
@@ -29,8 +28,10 @@ import com.xs.lightpuzzle.puzzle.info.PuzzlesBgTextureInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesSignInfo;
-import com.xs.lightpuzzle.puzzle.layout.data.BasePuzzleInfo;
+import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
 import com.xs.lightpuzzle.puzzle.layout.data.LayoutOrderBean;
+import com.xs.lightpuzzle.puzzle.layout.info.model.LayoutData;
+import com.xs.lightpuzzle.puzzle.layout.layoutframepage.BottomEditLineFrameView;
 import com.xs.lightpuzzle.puzzle.model.PuzzlesAddTextModel;
 import com.xs.lightpuzzle.puzzle.model.PuzzlesLabelModel;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
@@ -38,7 +39,6 @@ import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.view.label.view.EditLabelView;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
-import com.xs.lightpuzzle.yszx.AssetManagerHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -62,7 +62,6 @@ import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATU
  */
 
 public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
-    private Context mContext;
 
     private boolean firstInit = true;
     private volatile boolean isPageClose = false;
@@ -227,7 +226,7 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
 
         RotationImg[] rotationImgArr = PuzzleDataAdapter.toRotationImgs(mPhotoFilePaths);
 
-        mPuzzlesInfo = PuzzleHelper.createSimplePuzzlesInfo(mContext, puzzleMode,
+        mPuzzlesInfo = PuzzleHelper.createSimplePuzzlesInfo(context, puzzleMode,
                 rotationImgArr, templateData, bgTextureData, null);
 
         if (mPuzzlesInfo != null) {
@@ -238,50 +237,15 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         }
     }
 
-
     private void loadTemplate(Context context, String templateId, int templateCategory, int photoNum, float templateRatio) {
         if (templateCategory == DataConstant.TEMPLATE_CATEGORY.LAYOUT) {
 
             // 所选图片张数和所选比例 对应的模板ID排序列表 (针对图片张数和比例进行筛选)
             List<String> idArr = new LayoutOrderBean().getLayoutOrder(
                     context, photoNum, templateRatio);
-            String name = "/BasePuzzle" + idArr.get(0) + ".json";
-            String data = AssetManagerHelper.convertInputString(
-                    context, DataConstant.ASSETS_DATA_LAYOUT.LAYOUT + idArr.get(0) + name);
 
-            BasePuzzleInfo info = BasePuzzleInfo.JsonStringToInfo(data);
-
-            if (info != null) {
-
-                mTemplate = new Template();
-                mTemplate.setWidth(Integer.parseInt(info.getPic_w()));
-                mTemplate.setHeight(Integer.parseInt(info.getPic_h()));
-                mTemplate.setBackground(new Template.Background(Color.parseColor("#" + info.getBgcolor())));
-                mTemplate.setPhotoNum(Integer.parseInt(info.getMinPicNum()));
-                ArrayList<Template.Photo> photos = new ArrayList<>();
-                List<String> points = info.getPoint().get(String.valueOf(photoNum));
-                for (int i = 0; i < points.size(); i++) {
-
-                    Template.Photo photo = new Template.Photo();
-                    String[] stringArr = points.get(i).split(",");
-                    photo.setRegionPathPointArr(new PointF[]{
-                            new PointF(Float.parseFloat(stringArr[0]), Float.parseFloat(stringArr[1])),
-                            new PointF(Float.parseFloat(stringArr[2]), Float.parseFloat(stringArr[3]))
-                    });
-                    photos.add(photo);
-                }
-                mTemplate.setPhotos(photos);
-            }
-
-            mTemplateSet = new TemplateSet();
-            mTemplateSet.setId(idArr.get(0));
-            mTemplateSet.setMinPhotoNum(Integer.parseInt(info.getMinPicNum()));
-            mTemplateSet.setMaxPhotoNum(Integer.parseInt(info.getMaxPicNum()));
-            mTemplateSet.setUiRatio(templateRatio);
-            mTemplateSet.setCategory(templateCategory);
-            Map<Integer, Template> map = new HashMap<>();
-            map.put(photoNum, mTemplate);
-            mTemplateSet.setTemplateMap(map);
+            mTemplateSet = LayoutDataAdapter.get(idArr.get(0), templateRatio);
+            mTemplate = mTemplateSet.getTemplateMap().get(photoNum);
             mPhotoNum = photoNum;
         } else {
             TemplateSet templateSet = TemplateManager.get(templateCategory, templateId);
@@ -515,4 +479,72 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         }
         return null;
     }
+
+
+    // --- 布局
+    public void changeLayoutView(Context context) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.changeLayoutView(context, true);// 保存原有布局参数
+        mPuzzlesInfo.changeLayoutView(context, false);// 在新的矩形画布中绘制原有布局
+
+        invalidateView(mPuzzlesInfo.getPuzzlesRect().width(),
+                mPuzzlesInfo.getPuzzlesRect().height(),
+                mPuzzlesInfo.getTemplateInfos().size());
+    }
+
+    public void onLayoutChanged(Context context, boolean changedCanvas, float ratio, int layout, LayoutData layoutData) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.onLayoutChanged(context, changedCanvas, ratio, layout, layoutData);
+        invalidateView(mPuzzlesInfo.getPuzzlesRect().width(),
+                mPuzzlesInfo.getPuzzlesRect().height(),
+                mPuzzlesInfo.getTemplateInfos().size());
+    }
+
+    public void onLayoutPaddingChanged(Context context, BottomEditLineFrameView.CHANGEDMode mode, int value) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.onLayoutPaddingChanged(context, mode, value);
+        invalidateView();
+    }
+
+    // --- 添加信息的显示与否，只供布局
+    public void setAddInfoVisible(boolean visible) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        mPuzzlesInfo.setAddInfoVisible(visible);
+        invalidateView();
+    }
+
+    /**
+     * 获取模板的图片，如果是长图，也只是拿第一个模板是图片
+     */
+    public RotationImg[] getFirstTemplateImage() {
+        TemplateInfo templateInfo = getIndexOfTemplateInfo(0);
+        if (templateInfo != null) {
+            return templateInfo.getRotationImgs();
+        }
+        return null;
+    }
+
+    public TemplateInfo getIndexOfTemplateInfo(int index) {
+        List<TemplateInfo> infoList = getTemplateInfos();
+        if (infoList != null && infoList.size() > index) {
+            return infoList.get(index);
+        }
+        return null;
+    }
+
+    public List<TemplateInfo> getTemplateInfos() {
+        if (mPuzzlesInfo != null) {
+            return mPuzzlesInfo.getTemplateInfos();
+        }
+        return null;
+    }
+
 }

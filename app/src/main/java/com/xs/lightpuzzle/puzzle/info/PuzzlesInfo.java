@@ -12,6 +12,8 @@ import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.exchanged.observer.IObserver;
 import com.xs.lightpuzzle.puzzle.exchanged.subject.PieceSubject;
 import com.xs.lightpuzzle.puzzle.info.low.PuzzleImagePieceInfo;
+import com.xs.lightpuzzle.puzzle.layout.info.model.LayoutData;
+import com.xs.lightpuzzle.puzzle.layout.layoutframepage.BottomEditLineFrameView;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzleImageMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesImageMsgName;
@@ -840,28 +842,26 @@ public class PuzzlesInfo implements DrawView, IObserver {
         }
     }
 
-//    public void onLayoutChanged(Context context, boolean changedCanvas, float ratio, int layout, LayoutData layoutData) {
-//        if (templateInfos != null) {
-//            for (TemplateInfo templateInfo : templateInfos) {
-//
-//                templateInfo.onLayoutChanged(context, changedCanvas, ratio, layout, layoutData);
-//                if (changedCanvas) {
-//                    upDataPuzzlesRect();
-//                }
-//            }
-//        }
-//
-//    }
+    public void onLayoutChanged(Context context, boolean changedCanvas, float ratio, int layout, LayoutData layoutData) {
+        if (templateInfos != null) {
+            for (TemplateInfo templateInfo : templateInfos) {
 
-//    public void onLayoutPaddingChanged(Context context, BottomEditLineFrameView.CHANGEDMode mode, int value) {
-//        if (templateInfos != null) {
-//            for (TemplateInfo templateInfo : templateInfos) {
-//
-//                templateInfo.onLayoutPaddingChanged(context, mode, value);
-//
-//            }
-//        }
-//    }
+                templateInfo.onLayoutChanged(context, changedCanvas, ratio, layout, layoutData);
+                if (changedCanvas) {
+                    upDataPuzzlesRect();
+                }
+            }
+        }
+
+    }
+
+    public void onLayoutPaddingChanged(Context context, BottomEditLineFrameView.CHANGEDMode mode, int value) {
+        if (templateInfos != null) {
+            for (TemplateInfo templateInfo : templateInfos) {
+                templateInfo.onLayoutPaddingChanged(context, mode, value);
+            }
+        }
+    }
 
     // ---text
     public void changeTextSize(int textSize, Point[] points) {

@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,7 @@ import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
+import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
 import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
 import com.xs.lightpuzzle.puzzle.frame.PuzzleBottomView;
@@ -31,12 +33,18 @@ import com.xs.lightpuzzle.puzzle.frame.PuzzleFrame;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesInfo;
 import com.xs.lightpuzzle.puzzle.info.PuzzlesLabelInfo;
 import com.xs.lightpuzzle.puzzle.info.TemplateInfo;
+import com.xs.lightpuzzle.puzzle.info.low.PuzzlesLayoutInfo;
+import com.xs.lightpuzzle.puzzle.layout.info.model.LayoutData;
+import com.xs.lightpuzzle.puzzle.layout.layoutframepage.BottomEditLineFrameView;
+import com.xs.lightpuzzle.puzzle.layout.layoutpage.BottomEditLayoutView;
 import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.LabelBarMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
+import com.xs.lightpuzzle.puzzle.util.AnimUtils;
+import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.signature.SignatureUtils;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.EditBgTextureLayout;
@@ -77,6 +85,9 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     private PuzzleFrame mPuzzleFrame;// view的容器(里面承载绘图所有布局)
 
     private PuzzleBottomView mBottomView;
+    private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
+    private BottomEditLayoutView mEditLayoutView; // 布局
+    private BottomEditLineFrameView mEditLineFrameView; // 布局
 
     private int mPuzzleMode = -1;
     private String mTemplateId;
@@ -172,8 +183,14 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 
                     break;
                 case PuzzlesBottomMsgCode.CHANGE_LAYOUT:
+                    if (mEditLayoutView == null || mEditLayoutView.isDismiss()) {
+                        popBottomEditLayoutView();
+                    }
                     break;
                 case PuzzlesBottomMsgCode.CHANGE_LINE_FRAME:
+                    if (mEditLineFrameView == null || mEditLineFrameView.isDismiss()) {
+                        popBottomLineFrameView();
+                    }
                     break;
                 case PuzzlesBottomMsgCode.ADJUST_PIC_FOR_VIDEO:
                     break;
@@ -317,8 +334,6 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
 //                0, 1, 0, 500, null);
 //    }
 
-    private EditBgTextureLayout mEditBgTextureLayout; // 拼图通用
-
     private void showBgTextureLayout() {
 //        mPuzzleFrame.onClearSelected();
 
@@ -361,6 +376,143 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
             }
         }
     };
+
+
+    private void popBottomEditLayoutView() {
+//        mPuzzleFrame.onClearSelected();
+//        getPresenter().setAddInfoVisible(false);
+
+        if (mEditLayoutView == null) {
+            mEditLayoutView = new BottomEditLayoutView(getContext());
+            ViewGroup.LayoutParams mParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            this.addView(mEditLayoutView, mParams);
+        } else {
+            mEditLayoutView.setVisibility(VISIBLE);
+        }
+
+        // 获取数据
+        RotationImg[] rotationImgs = getPresenter().getFirstTemplateImage();
+
+        PuzzlesLayoutInfo layoutInfo = getPresenter()
+                .getIndexOfTemplateInfo(0).getPuzzlesLayoutInfo();
+
+        // 改变底部View的高度，从而改变画布大小
+        PuzzlesUtils.setBottomViewHeight(Utils.getRealPixel3(346));
+        getPresenter().changeLayoutView(getContext());
+
+        // open布局View
+        mEditLayoutView.open(rotationImgs, layoutInfo.getSelectedRatio(),
+                layoutInfo.getSelectedLayout());
+
+        // 设置接口回调
+        mEditLayoutView.setOnLayoutChangedListener(mOnLayoutChangeListener);
+
+        AnimUtils.setTransAnim(mEditLayoutView, 0,
+                0, 1, 0, 500, new AnimUtils.AnimEndCallBack() {
+                    @Override
+                    public void endCallBack(Animation animation) {
+                        mEditLayoutView.setDismiss(false);
+                    }
+                });
+    }
+
+    private void popBottomLineFrameView() {
+//        mPuzzleFrame.onClearSelected();
+        if (mPuzzleMode == PuzzleMode.MODE_LAYOUT) {
+            getPresenter().setAddInfoVisible(false);
+        }
+
+        if (mEditLineFrameView == null) {
+            mEditLineFrameView = new BottomEditLineFrameView(getContext());
+            ViewGroup.LayoutParams mParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            this.addView(mEditLineFrameView, mParams);
+        } else {
+            mEditLineFrameView.setVisibility(VISIBLE);
+        }
+
+        // 获取数据
+        RotationImg[] rotationImgArr = getPresenter().getFirstTemplateImage();
+        if (rotationImgArr == null || rotationImgArr.length == 0) {
+            return;
+        }
+
+        if (mPuzzleMode == PuzzleMode.MODE_LAYOUT) {
+            // 改变底部View的高度，从而改变画布大小
+            PuzzlesUtils.setBottomViewHeight(Utils.getRealPixel3(346));
+
+            PuzzlesLayoutInfo layoutInfo = getPresenter().getIndexOfTemplateInfo(0).getPuzzlesLayoutInfo();
+
+            getPresenter().changeLayoutView(getContext());
+            mEditLineFrameView.open(rotationImgArr.length,
+                    layoutInfo.getPiecePaddingRatio(),
+                    layoutInfo.getOuterPaddingRatio(),
+                    layoutInfo.getPieceRadianRatio());
+
+        } else {
+//            PuzzlesLayoutJointInfo puzzlesLayoutJointInfo = getPresenter()
+//                    .getIndexOfTemplateInfo(0).getPuzzlesLayoutJointInfo();
+//            mEditLineFrameView.open(rotationImgArr.length,
+//                    puzzlesLayoutJointInfo.getPiecePaddingRatio(),
+//                    puzzlesLayoutJointInfo.getOuterPaddingRatio(),
+//                    puzzlesLayoutJointInfo.getPieceRadianRatio());
+
+        }
+
+        mEditLineFrameView.setOnParameChangedListener(mParameChangedListener);
+
+        AnimUtils.setTransAnim(mEditLineFrameView, 0,
+                0, 1, 0, 500, new AnimUtils.AnimEndCallBack() {
+                    @Override
+                    public void endCallBack(Animation animation) {
+                        mEditLineFrameView.setDismiss(false);
+                    }
+                });
+    }
+
+    private BottomEditLayoutView.OnLayoutChangedListener mOnLayoutChangeListener = new BottomEditLayoutView.OnLayoutChangedListener() {
+        @Override
+        public void onLayoutChanged(float ratio, int layout, LayoutData layoutData) {
+            getPresenter().onLayoutChanged(getContext(), false, ratio, layout, layoutData);
+        }
+
+        @Override
+        public void onViewChanged(float ratio, int layout, LayoutData layoutData) {
+            getPresenter().onLayoutChanged(getContext(), true, ratio, layout, layoutData);
+        }
+
+        @Override
+        public void onDismiss() {
+            PuzzlesUtils.setBottomViewHeight(0);
+            getPresenter().changeLayoutView(getContext());
+            getPresenter().setAddInfoVisible(true);
+        }
+    };
+
+    private BottomEditLineFrameView.OnParameChangedListener mParameChangedListener = new BottomEditLineFrameView.OnParameChangedListener() {
+        @Override
+        public void onChanged(BottomEditLineFrameView.CHANGEDMode mode, int value) {
+            if (mPuzzleMode == PuzzleMode.MODE_LAYOUT) {
+                getPresenter().onLayoutPaddingChanged(getContext(), mode, value);
+            } else {
+//                getPresenter().changeLayoutJointParame(mode, value);
+            }
+        }
+
+        @Override
+        public void onDismiss() {
+
+            if (mPuzzleMode == PuzzleMode.MODE_LAYOUT) {
+                PuzzlesUtils.setBottomViewHeight(0);
+                getPresenter().changeLayoutView(getContext());
+            }
+            getPresenter().setAddInfoVisible(true);
+        }
+    };
+
 
     private void initView() {
         initContainer();
