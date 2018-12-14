@@ -3,6 +3,7 @@ package com.xs.lightpuzzle.puzzle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -56,6 +57,7 @@ import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_LABEL_TYP
 import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_TEXT;
 import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_HAS_HISTORY;
 import static com.xs.lightpuzzle.puzzle.view.signature.SignatureActivity.SIGNATURE_PATH;
+import static com.xs.lightpuzzle.puzzle.view.textedit.BottomEditTextView.EDIT_TEMPLATE_TEXT;
 
 /**
  * Created by xs on 2018/11/20.
@@ -439,6 +441,55 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
             EventBus.getDefault().post(new PuzzlesRequestMsg(
                     PuzzlesRequestMsgName.PUZZLES_SIGN_EDIT, MotionEvent.ACTION_UP, ""));
         }
+    }
+
+    // --- 文字
+    public void changeTextAutoStr(int textMode, String autoStr, Point[] points) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        if (textMode == EDIT_TEMPLATE_TEXT) {
+            mPuzzlesInfo.changeTextAutoStr(autoStr, points);
+        } else {
+            mPuzzlesInfo.changeAddTextAutoStr(autoStr, points);
+        }
+        invalidateView();
+    }
+
+    public void changeTextSize(int textMode, int textSize, Point[] points) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        if (textMode == EDIT_TEMPLATE_TEXT) {
+            mPuzzlesInfo.changeTextSize(textSize, points);
+        } else {
+            mPuzzlesInfo.changeAddTextSize(textSize, points);
+        }
+        invalidateView();
+    }
+
+    public void changeTextFont(Context context, int textMode, String font, Point[] points) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        if (textMode == EDIT_TEMPLATE_TEXT) {
+            mPuzzlesInfo.changeTextFont(context, font, points);
+        } else {
+            mPuzzlesInfo.changeAddTextFont(context, font, points);
+        }
+        invalidateView();
+    }
+
+    public void changeTextColor(int textMode, int color, Point[] points) {
+        if (mPuzzlesInfo == null) {
+            return;
+        }
+        if (textMode == EDIT_TEMPLATE_TEXT) {
+            mPuzzlesInfo.changeTextColor(color, points);
+        } else {
+            mPuzzlesInfo.changeAddTextColor(color, points);
+        }
+        invalidateView();
     }
 
     /**

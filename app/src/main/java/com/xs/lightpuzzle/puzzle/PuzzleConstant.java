@@ -11,6 +11,11 @@ import com.xs.lightpuzzle.yszx.Scheme;
 
 public interface PuzzleConstant {
 
+    interface ASSETS_FONT_PATH {
+
+        String FONT = "font";
+    }
+
     interface ASSETS_PLACEHOLDER_PATH {
 
         String PHOTO = "placeholder/placeholder_photo.png";

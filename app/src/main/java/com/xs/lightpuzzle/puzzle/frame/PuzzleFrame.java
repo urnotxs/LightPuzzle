@@ -1,8 +1,11 @@
 package com.xs.lightpuzzle.puzzle.frame;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.xs.lightpuzzle.puzzle.msgevent.LabelBarMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.util.NoDoubleClickListener;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
+import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 import com.xs.lightpuzzle.puzzle.util.ShareData;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.CustomScrollView;
@@ -217,7 +221,58 @@ public class PuzzleFrame extends FrameLayout {
             }
         }
     }
-
+    private int mEditTextScrollY;
+    /**
+     * 编辑文字，滚动到文字位置
+     *
+     * @param textPoint 文字的位置
+     */
+    public void scrollFromEditText(Point[] textPoint) {
+        //先把切换按钮去掉
+        if (mOperateTemplateBar != null) {
+            mOperateTemplateBar.setVisibility(INVISIBLE);
+        }
+        Rect rect = ShapeUtils.makeRect(textPoint);
+        int result = 0;
+        if (ShareData.m_screenRealHeight > mPuzzlesViewHeight) {
+            result = ShareData.m_screenRealHeight + mScrollView.getScrollY() - rect.bottom - (ShareData.m_screenRealHeight - mPuzzlesViewHeight) / 2;
+        } else {
+            result = ShareData.m_screenRealHeight + mScrollView.getScrollY() - rect.bottom - PuzzlesUtils.getViewTop() - PuzzlesUtils.getTopBarHeight();
+        }
+        if (result < Utils.getRealPixel3(700)) {
+            int VirtualKeyHeight = ShareData.getCurrentVirtualKeyHeight((Activity) getContext());
+            mEditTextScrollY = Utils.getRealPixel3(700) - result + VirtualKeyHeight;
+            if (mPuzzleFrame != null) {
+                mPuzzleFrame.setPadding(mPuzzleFrame.getPaddingLeft(), mPuzzleFrame.getPaddingTop(), mPuzzleFrame
+                        .getPaddingRight(), mPuzzleFrame.getPaddingBottom() + mEditTextScrollY);
+            }
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScrollView.smoothScrollTo(0, mScrollView.getScrollY() + mEditTextScrollY);
+                }
+            }, 50);
+        } else {
+            mEditTextScrollY = 0;
+        }
+    }
+    public void scrollEditBack() {
+        if (mPuzzleFrame != null) {
+            int bottomPadding = mPuzzleFrame.getPaddingBottom() - mEditTextScrollY;
+            if (bottomPadding < 0) {
+                bottomPadding = PuzzlesUtils.getViewTop() + PuzzlesUtils.getBottomViewHeight();
+            }
+            mPuzzleFrame.setPadding(mPuzzleFrame.getPaddingLeft(), mPuzzleFrame.getPaddingTop(), mPuzzleFrame
+                    .getPaddingRight(), bottomPadding);
+        }
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScrollView.smoothScrollTo(0, mScrollView.getScrollY());
+                mOnScrollStopListener.onStop(mScrollView.getScrollY());
+            }
+        }, 50);
+    }
 
     public void setPuzzlePresenter(PuzzlePresenter puzzlePresenter) {
         mPuzzlePresenter = puzzlePresenter;

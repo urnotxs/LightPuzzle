@@ -58,4 +58,18 @@
 
     <color name="black_transparent_12">#0C000000</color>
 
+
+
+    <!-- Dialog -->
+    <!--普通按钮文字颜色-->
+    <color name="textColor_alert_button_others">#007aff</color>
+    <!--点击颜色-->
+    <color name="bgColor_alert_button_press">#EAEAEA</color>
+    <!--actionsheet模式的取消按钮背景颜色-->
+    <color name="bgColor_actionsheet_cancel_nor">#ffffff</color>
+    <color name="alertdialog_line">#c6c6c6</color>
+
+
+
+    <color name="recyclerView_decoration">#FF85B2CE</color>
 </resources>

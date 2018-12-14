@@ -81,4 +81,17 @@
     <string name="editlabelpage_custom_setting">自定义</string>
     <string name="editlabelpage_hint">请输入文字内容</string>
 
+
+    <!-- editText -->
+    <string name="watermatkedittext_cleartext_tips">是否清除所有文字？</string>
+    <string name="watermatkedittext_free_download">免费下载此字体？</string>
+    <string name="watermatkedittext_download">下载</string>
+    <string name="watermatkedittext_edit">请输入...</string>
+    <string name="watermatkedittext_clear_no">否</string>
+    <string name="watermatkedittext_clear_yes">是</string>
+    <string name="watermatkedittext_cancel">取消</string>
+
+    <string name="translatepage_title">翻译</string>
+    <string name="translatepage_translating">翻译中...</string>
+
 </resources>

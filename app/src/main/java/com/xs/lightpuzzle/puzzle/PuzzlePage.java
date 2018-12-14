@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,6 +48,7 @@ import com.xs.lightpuzzle.puzzle.util.AnimUtils;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.signature.SignatureUtils;
+import com.xs.lightpuzzle.puzzle.view.textedit.BottomEditTextView;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.EditBgTextureLayout;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.ViewCloseCallback;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
@@ -60,6 +62,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
+import static com.xs.lightpuzzle.puzzle.view.textedit.BottomEditTextView.ADD_TEXT;
 
 /**
  * Created by xs on 2018/11/20.
@@ -160,10 +163,10 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                     // 弹出底部输入框页面
                     TemporaryTextData textData = getPresenter().getTemporaryTextData();
                     // TODO: 2018/11/30 文字弹框
-//                    if (textData != null) {
-//                        popBottomEditTextView(ADD_TEXT, textData);
-//                        mPuzzleFrame.scrollFromEditText(textData.getPoints());
-//                    }
+                    if (textData != null) {
+                        popBottomEditTextView(ADD_TEXT, textData);
+                        mPuzzleFrame.scrollFromEditText(textData.getPoints());
+                    }
 /*
                     mPuzzleFrame.onClearSelected();
                     getPresenter().resetSignShowFram();*/
@@ -269,9 +272,9 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
             case PuzzlesRequestMsgName.PUZZLES_ADD_TEXT:
                 if (object instanceof TemporaryTextData) {
                     TemporaryTextData textData = (TemporaryTextData) object;
-                    /*popBottomEditTextView(ADD_TEXT, textData);
-                    mPuzzleFrame.onClearSelected();
-                    mPuzzleFrame.scrollFromEditText(textData.getPoints());*/
+                    popBottomEditTextView(ADD_TEXT, textData);
+//                    mPuzzleFrame.onClearSelected();
+//                    mPuzzleFrame.scrollFromEditText(textData.getPoints());
                 } else if (object instanceof Point[]) {
                     //删除
                     Point[] points = (Point[]) object;
@@ -317,22 +320,77 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         }
     }
 
-//    private BottomEditTextView mEditTextView; // 通用
-//    private void popBottomEditTextView(int model, TemporaryTextData temporaryTextData) {
-//        if (mEditTextView == null) {
-//            mEditTextView = new BottomEditTextView(getContext());
-//            FrameLayout.LayoutParams mParams = new FrameLayout.LayoutParams(
-//                    ViewGroup.LayoutParams.MATCH_PARENT,
-//                    ViewGroup.LayoutParams.MATCH_PARENT);
-//            this.addView(mEditTextView, mParams);
-//            mEditTextView.setEditInteractionListener(mEditInteractionListener);
-//        } else {
-//            mEditTextView.showView();
-//        }
-//        mEditTextView.open(model, temporaryTextData);
-//        AnimUtils.setTransAnim(mEditTextView, 0,
-//                0, 1, 0, 500, null);
-//    }
+    private BottomEditTextView mEditTextView; // 通用
+    private void popBottomEditTextView(int model, TemporaryTextData temporaryTextData) {
+        if (mEditTextView == null) {
+            mEditTextView = new BottomEditTextView(getContext());
+            FrameLayout.LayoutParams mParams = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            this.addView(mEditTextView, mParams);
+            mEditTextView.setEditInteractionListener(mEditInteractionListener);
+        } else {
+            mEditTextView.showView();
+        }
+        mEditTextView.open(model, temporaryTextData);
+        AnimUtils.setTransAnim(mEditTextView, 0,
+                0, 1, 0, 500, null);
+    }
+
+    private BottomEditTextView.OnEditInteractionListener mEditInteractionListener = new BottomEditTextView.OnEditInteractionListener() {
+
+        @Override
+        public void onTranslate(String originalText) {
+            //文字编辑页跳转至翻译页面
+
+        }
+
+        @Override
+        public void changeText(int textMode, TemporaryTextData temporaryTextData, String text) {
+            if (temporaryTextData != null && getPresenter() != null) {
+                getPresenter().changeTextAutoStr(textMode, text, temporaryTextData.getPoints());
+            }
+        }
+
+        @Override
+        public void changeSize(int textMode, TemporaryTextData temporaryTextData, float size) {
+            if (temporaryTextData != null && getPresenter() != null) {
+                getPresenter().changeTextSize(textMode, (int) size, temporaryTextData.getPoints());
+            }
+        }
+
+        @Override
+        public void changeFont(int textMode, TemporaryTextData temporaryTextData, String font, boolean down) {
+            if (temporaryTextData != null && getPresenter() != null) {
+                getPresenter().changeTextFont(getContext(), textMode, font, temporaryTextData.getPoints());
+            }
+        }
+
+        @Override
+        public void changeColor(int textMode, TemporaryTextData temporaryTextData, String color) {
+            if (temporaryTextData != null && getPresenter() != null) {
+                getPresenter().changeTextColor(textMode, PuzzlesUtils.strColor2Int(color), temporaryTextData.getPoints());
+            }
+        }
+
+        @Override
+        public void save(int textMode, TemporaryTextData temporaryTextData, String text) {
+            //保存昵称
+            if (temporaryTextData != null && temporaryTextData.getTextData() != null &&
+                    temporaryTextData.getTextData().isNickname() && !TextUtils.isEmpty(text)) {
+                if (!temporaryTextData.getTextData().getAutoStr().equals(text)) {
+//                    AppConfiguration.getDefault().setPuzzleNickname(text);
+                }
+            }
+        }
+
+        @Override
+        public void onClose() {
+            if (mPuzzleFrame != null) {
+                mPuzzleFrame.scrollEditBack();
+            }
+        }
+    };
 
     private void showBgTextureLayout() {
 //        mPuzzleFrame.onClearSelected();

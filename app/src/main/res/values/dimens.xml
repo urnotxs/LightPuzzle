@@ -20,4 +20,10 @@
     <dimen name="minnie_aty_background_color_indicator_height">12dp</dimen>
     <dimen name="minnie_aty_background_texture_height">56dp</dimen>
     <dimen name="minnie_aty_text_color_height">224dp</dimen>
+
+
+    <dimen name="alert_dialog_titile_padding">15dp</dimen>
+    <dimen name="alert_dialog_button_height">43dp</dimen>
+    <dimen name="alert_dialog_devide_height">0.5dp</dimen>
+
 </resources>
