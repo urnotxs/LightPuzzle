@@ -45,18 +45,6 @@ public class PuzzleTextUtils {
                 } else {
                     typeface = Typeface.DEFAULT;
                 }
-            } else {
-                // TODO: 2018/11/21 内置
-//                try {
-//                    typeface = Typeface.createFromAsset(context.getAssets(), DirConstant.FONT_ASSEST_PATH + fileName);
-//                } catch (Exception e) {
-//                    File file = new File(path);
-//                    if (file.exists() && file.isFile() && file.length() > 0) {
-//                        typeface = Typeface.createFromFile(path);
-//                    } else {
-//                        return Typeface.DEFAULT;
-//                    }
-//                }
             }
             if (typeface == null) {
                 typeface = Typeface.DEFAULT;

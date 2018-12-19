@@ -29,7 +29,7 @@ public class Font {
     private long order; // 顺序
 
     private String dirPath;
-    private boolean isDownloaded;
+    private boolean isDownloaded; // 是否已经下载改字体
 
     public Font() {
         // no-op by default
@@ -144,6 +144,10 @@ public class Font {
 
     public void setThumbFileName(String thumbFileName) {
         this.thumbFileName = thumbFileName;
+    }
+
+    public String getThumbFilePath() {
+        return getDirPath() + File.separator + getThumbFileName();
     }
 
     public long getOrder() {

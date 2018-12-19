@@ -48,7 +48,7 @@ public class PuzzlesAddTextInfo implements DrawView {
     private int fontSize; // 当前字体大小
     private int fontColor; // 当前字体颜色
     private int scrollY;
-    private boolean downloadFont; // 是否是下载的字体
+    private boolean downloadFont = true; // 是否是下载的字体 // 全部都是下载的文字，没有内置
     private int puzzleModel;
 
 
@@ -883,7 +883,7 @@ public class PuzzlesAddTextInfo implements DrawView {
         }
         this.font = font;
         if (!TextUtils.isEmpty(font)) {
-            Typeface typeface = PuzzleTextUtils.readFont(context, font, downloadFont);
+            Typeface typeface = PuzzleTextUtils.readFont(context, font, true);
             if (paint != null) {
                 paint.setTypeface(typeface);
             }

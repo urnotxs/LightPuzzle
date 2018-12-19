@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.FileUtils;
+import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.FontManager;
 import com.xs.lightpuzzle.data.entity.Font;
+import com.xs.lightpuzzle.materials.MaterialDownloadHelper;
 import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.TextData;
 import com.xs.lightpuzzle.puzzle.dialog.UIAlertViewDialog;
@@ -372,16 +374,11 @@ public class TextEditBottomView extends LinearLayout implements View.OnClickList
             for (FontItemInfo tempFont : mFontItemInfos) {
 
                 String path = tempFont.getFontInfo().getFilePath();
-                String temp = tempFont.getFont();
-                String filename = temp.substring(temp.lastIndexOf('/') + 1, temp.length());
                 if (FileUtils.isFileExists(path)) {
-//                    tempFont.getFontInfo().setDownedSuccess(true);
                     tempFont.setNeedDownFont(false);
                     tempFont.setDownTextShow(false);
                     tempFont.setFont(path);
-//                    tempFont.getFontInfo().fontResDownload = null;
                 } else {
-//                    tempFont.getFontInfo().setDownedSuccess(false);
                     tempFont.setNeedDownFont(true);
                     tempFont.setDownTextShow(true);
                 }
@@ -473,7 +470,6 @@ public class TextEditBottomView extends LinearLayout implements View.OnClickList
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             //通知编辑页重绘字体大小
-            //
             if (mOnInputListener != null) {
                 mOnInputListener.changeSize(mSizeItemInfos.get(position).getTextSize());
             }
@@ -490,25 +486,11 @@ public class TextEditBottomView extends LinearLayout implements View.OnClickList
 
     private AdapterView.OnItemClickListener mFontListOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
 
-            // TODO: 2018/12/11  
-            // 字体是否正在下载中
-            boolean tempDowning = false;
-            if (mFontItemInfos.get(position).getFontInfo() != null) {
-                tempDowning = !mFontItemInfos.get(position).getFontInfo().isDownloaded();
-            }
-            // 下载一半再次进入页面时更新数据
-            if (mFontItemInfos.get(position).getFontInfo() != null) {
-                mFontItemInfos.get(position).setNeedDownFont(mFontItemInfos.get(position).getFontInfo().isDownloaded());
-            }
-            // 不需下载或下载完情况下改变字体跟选中位置
-            if (!mFontItemInfos.get(position).isNeedDownFont() && !tempDowning) {
-                //区分2种字体获取方式
-                //从SD卡 是需要下载的字体
-                //从assert 是不需要下载的字体
-                //通知编辑页重绘字体大小
-                //
+            // TODO: 2018/12/11
+            final FontItemInfo itemInfo = mFontItemInfos.get(position);
+            if (itemInfo.getFontInfo().isDownloaded()) {
                 if (mOnInputListener != null) {
                     mOnInputListener.changeFont(mFontItemInfos.get(position).getFont(),
                             mFontItemInfos.get(position).isDownLoadBmp());
@@ -516,38 +498,52 @@ public class TextEditBottomView extends LinearLayout implements View.OnClickList
                 //勾选位置
                 mFontIndex = position ;
                 mFontAdapter.setFontIndex(position);
+            } else {
+                UIAlertViewDialog uiAlertViewDialog = new UIAlertViewDialog(getContext());
+                uiAlertViewDialog/*.setTitle("提示")*/
+                        .setMessage(getResources().getString(R.string.watermatkedittext_free_download))
+                        .setNegativeButton(getResources().getString(R.string.watermatkedittext_cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton(getResources().getString(R.string.watermatkedittext_download), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                downloadFont(position, itemInfo.getFontInfo());
+                            }
+                        })
+                        .build()
+                        .show();
+
             }
 
-            if (mFontItemInfos.get(position).isDownLoadBmp()) { // 需要下载Bmp
-                if (mFontItemInfos.get(position).getFontInfo().isDownloaded() && !tempDowning) {
-                    //需要下载字体
-
-                    final int pos = position;
-                    UIAlertViewDialog uiAlertViewDialog = new UIAlertViewDialog(getContext());
-                    uiAlertViewDialog/*.setTitle("提示")*/
-                            .setMessage(getResources().getString(R.string.watermatkedittext_free_download))
-                            .setNegativeButton(getResources().getString(R.string.watermatkedittext_cancel), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setPositiveButton(getResources().getString(R.string.watermatkedittext_download), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    if (mFontAdapter != null)
-                                        mFontAdapter.setReadyDown(true , pos);
-                                    mFontAdapter.notifyDataSetChanged();
-                                }
-                            })
-                            .build()
-                            .show();
-                }
-            }
             mFontAdapter.notifyDataSetChanged();
         }
     };
+
+    private void downloadFont(final int position, final Font font) {
+        MaterialDownloadHelper.download(font, new MaterialDownloadHelper.Listener() {
+
+            @Override
+            public void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                mFontAdapter.addDownloading(font.getId(), 0, position);
+            }
+
+            @Override
+            public void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                int progress = (int) (soFarBytes * 1.0F / totalBytes * 100);
+                mFontAdapter.addDownloading(font.getId(), progress, position);
+            }
+
+            @Override
+            public void completed(BaseDownloadTask task) {
+                mFontAdapter.removeDownloading(font.getId(), position);
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {

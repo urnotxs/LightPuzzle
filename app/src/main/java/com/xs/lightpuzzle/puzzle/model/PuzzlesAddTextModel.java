@@ -32,7 +32,7 @@ public class PuzzlesAddTextModel {
         addTextInfo.setFontSize(60);
         addTextInfo.setFontColor(PuzzlesUtils.strColor2Int("000000"));
         addTextInfo.setShowFrame(true);
-        addTextInfo.setDownloadFont(false);
+        addTextInfo.setDownloadFont(true);
         addTextInfo.setRect(puzzlesInfo.getPuzzlesRect());
         addTextInfo.setOutPutRect(puzzlesInfo.getOutPutRect());
 

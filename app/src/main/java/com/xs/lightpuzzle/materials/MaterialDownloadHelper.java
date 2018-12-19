@@ -34,6 +34,31 @@ public final class MaterialDownloadHelper {
         int NEXT_TEMPLATE = 3;
     }
 
+    public static void download(Font font, Listener listener) {
+        FileDownloader.getImpl()
+                .create(font.getUrl())
+                .setPath(font.getDirPath(), true)
+                .setCallbackProgressTimes(10)
+                .setListener(new FontListener(font, listener))
+                .start();
+    }
+
+    public static class FontListener extends ListenerProxy<Font> {
+
+        public FontListener(Font material, Listener listener) {
+            super(material, listener);
+        }
+
+        @Override
+        protected void materialCompleted(BaseDownloadTask task, Font material) {
+            if (fontCompleted(task, material)) {
+                proxyCompleted(task);
+            } else {
+                error(task, null);
+            }
+        }
+    }
+
     public static void download(TemplateSet templateSet, Listener listener) {
         if (templateSet == null) {
             return;
