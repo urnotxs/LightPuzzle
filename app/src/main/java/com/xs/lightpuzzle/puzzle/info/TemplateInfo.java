@@ -340,9 +340,9 @@ public class TemplateInfo {
         }
         if (puzzlesMaskInfo != null) {
             puzzlesMaskInfo.initBitmap(context);
-//            if (bgTextureInfo != null) {
-//                puzzlesMaskInfo.changeBgTexture(bgTextureInfo.getColorTextureBitmap(), bgTextureInfo.getBgColor());
-//            }
+            if (bgTextureInfo != null) {
+                puzzlesMaskInfo.changeBgTexture(bgTextureInfo.getColorTextureBitmap(), bgTextureInfo.getBgColor());
+            }
         }
 //        if (puzzlesQrCodeInfo != null) {
 //            puzzlesQrCodeInfo.initBitmap(context);

@@ -35,9 +35,8 @@ public class PuzzleActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPage.onClose();
+    public void onBackPressed() {
+        mPage.onBack();
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.xs.lightpuzzle.LightPuzzleConstant;
+import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.TextData;
 import com.xs.lightpuzzle.puzzle.info.DrawView;
@@ -25,6 +26,7 @@ import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class PuzzlesTextInfo implements DrawView {
 
     private transient Paint paint;
 
-    private String alignment = "Left";
+    private String alignment = "LEFT";
     //当前的行间距
     private int lineSpace;
     //最大行距
@@ -71,7 +73,7 @@ public class PuzzlesTextInfo implements DrawView {
     //当前字体
     private String font;
     //是否是下载的字体
-    private boolean downloadFont;
+    private boolean downloadFont = true;
     //输入文本
     private String autoStr = "";
 
@@ -186,7 +188,7 @@ public class PuzzlesTextInfo implements DrawView {
         }
         this.font = font;
         if (!TextUtils.isEmpty(font)) {
-            Typeface typeface = PuzzleTextUtils.readFont(context, font, downloadFont);
+            Typeface typeface = PuzzleTextUtils.readFont(context, font, true);
             paint.setTypeface(typeface);
         }
         lineStrs = getLineStrs();
@@ -236,7 +238,7 @@ public class PuzzlesTextInfo implements DrawView {
             finalRect = rect;
             fontColor = textData.getFontColor();
             if (!TextUtils.isEmpty(textData.getFont())) {
-                font = textData.getFont();
+                font = DataConstant.DIR_PATH.FONT + File.separator + textData.getTypefaceId() + File.separator + textData.getFont();
             }
             if (!TextUtils.isEmpty(textData.getAutoStr())) {
                 autoStr = textData.getAutoStr();
@@ -291,7 +293,7 @@ public class PuzzlesTextInfo implements DrawView {
             paint.setTextSize(fontSize);
         }
         if (!TextUtils.isEmpty(font)) {
-            Typeface typeface = PuzzleTextUtils.readFont(context, font, downloadFont);
+            Typeface typeface = PuzzleTextUtils.readFont(context, font, true);
             paint.setTypeface(typeface);
         }
         //由于部分字体会出现显示不全，因此加大显示区域
@@ -333,9 +335,9 @@ public class PuzzlesTextInfo implements DrawView {
                     int textHeight = (int) (paint.descent() - paint.ascent());
                     float start_y = calculationRect.top + (space + textHeight + paint.getFontMetrics().leading) * i + (-paint.ascent());
                     float lineWidth = paint.measureText(line);
-                    if (alignment.equals("Right")) {
+                    if (alignment.equals("RIGHT")) {
                         start_x += calculationRect.width() - lineWidth;
-                    } else if (alignment.equals("Center")) {
+                    } else if (alignment.equals("CENTER")) {
                         start_x += (calculationRect.width() - lineWidth) / 2;
                     }
                     canvas.drawText(line, start_x, start_y, paint);

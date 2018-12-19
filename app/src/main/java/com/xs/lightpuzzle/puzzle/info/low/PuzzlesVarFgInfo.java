@@ -149,7 +149,7 @@ public class PuzzlesVarFgInfo implements DrawView {
                     new ImageSize(drawRect.width(), drawRect.height()), decodeImageOptions);
 
         }
-        changeFgColor(0xC8BFE7);
+        changeFgColor(color);
     }
 
     public void changeFgColor(int color) {

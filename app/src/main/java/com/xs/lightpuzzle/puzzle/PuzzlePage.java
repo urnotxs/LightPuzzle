@@ -63,6 +63,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 import static com.xs.lightpuzzle.puzzle.PuzzleActivity.EXTRA_PHOTOS;
 import static com.xs.lightpuzzle.puzzle.view.textedit.BottomEditTextView.ADD_TEXT;
+import static com.xs.lightpuzzle.puzzle.view.textedit.BottomEditTextView.EDIT_TEMPLATE_TEXT;
 
 /**
  * Created by xs on 2018/11/20.
@@ -274,13 +275,24 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
                     TemporaryTextData textData = (TemporaryTextData) object;
                     popBottomEditTextView(ADD_TEXT, textData);
 //                    mPuzzleFrame.onClearSelected();
-//                    mPuzzleFrame.scrollFromEditText(textData.getPoints());
+                    mPuzzleFrame.scrollFromEditText(textData.getPoints());
                 } else if (object instanceof Point[]) {
                     //删除
                     Point[] points = (Point[]) object;
 //                    getPresenter().deleteAddTextItem(points);
                 }
                 invalidateView();
+                break;
+            case PuzzlesRequestMsgName.PUZZLES_TEXT_EDIT:
+                if (object != null && object instanceof TemporaryTextData) {
+                    TemporaryTextData textData = (TemporaryTextData) object;
+                    popBottomEditTextView(EDIT_TEMPLATE_TEXT, textData);
+                    if (mPuzzleFrame != null) {
+//                        mPuzzleFrame.onClearSelected();
+                        mPuzzleFrame.scrollFromEditText(textData.getPoints());
+//                        mPuzzleFrame.resetSignShowFram();
+                    }
+                }
                 break;
         }
 
@@ -685,10 +697,49 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View view) {
+        if (view == mCancelBtn) {
+            onBack();
+        }
     }
 
+    public void onBack() {
+        if (isOnBackShowView()) {
+            return;
+        }
+        EventBus.getDefault().unregister(this);
+        ((Activity)mContext).finish();
+    }
+
+    /**
+     * pop出来的辅助view先退出
+     *
+     * @return boolean
+     */
+    private boolean isOnBackShowView() {
+        boolean isOnBackView = false;
+        if (mEditBgTextureLayout != null) {
+            mEditBgTextureLayout.onBack();
+            isOnBackView = true;
+        }
+
+        if (mEditTextView != null && mEditTextView.getVisibility() == VISIBLE) {
+            mEditTextView.onBack();
+            isOnBackView = true;
+        }
+
+        if (mEditLineFrameView != null && mEditLineFrameView.getVisibility() == VISIBLE) {
+            mEditLineFrameView.onBack();
+            isOnBackView = true;
+        }
+
+        if (mEditLayoutView != null && mEditLayoutView.getVisibility() == VISIBLE) {
+            mEditLayoutView.onBack();
+            isOnBackView = true;
+        }
+
+        return isOnBackView;
+    }
 
     private void getIntentData(Intent intent, boolean isBack) {
         if (!isBack) {
@@ -699,10 +750,6 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
         mTemplateCategory = intent.getIntExtra(
                 PuzzleActivity.EXTRA_TEMPLATE_CATEGORY,
                 DataConstant.TEMPLATE_CATEGORY.SIMPLE);
-    }
-
-    public void onClose() {
-        EventBus.getDefault().unregister(this);
     }
 
     public void handleTransformTemplateResult(int resultCode, Intent intent) {
