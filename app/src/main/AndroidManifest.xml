@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".puzzle.a_mvp_demo.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +54,14 @@
             android:name=".data.service.SyncService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".puzzle.a_service_demo.TestService"
+            android:process=":TestService"/>
+
+        <service
+            android:name=".puzzle.a_service_demo.TestMessengerService"
+            android:process=":TestMessengerService"/>
     </application>
 
 </manifest>
