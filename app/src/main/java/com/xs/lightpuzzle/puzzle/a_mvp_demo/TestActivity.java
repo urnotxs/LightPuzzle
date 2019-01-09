@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.xs.lightpuzzle.puzzle.a_observer_demo.ObserverTestLayout;
 import com.xs.lightpuzzle.puzzle.a_recyclerview_demo.RecyclerViewTestLayout;
+import com.xs.lightpuzzle.puzzle.a_service_demo.ServiceTestLayout;
 
 /**
  * Created by xs on 2018/11/13.
@@ -18,7 +19,12 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
 //        testMvpDemo();
 //        testObserverDemo();
-        testRecyclerViewDemo();
+        testServiceDemo();
+//        testRecyclerViewDemo();
+    }
+
+    private void testServiceDemo(){
+        setContentView(new ServiceTestLayout(this));
     }
 
     private void testMvpDemo(){
