@@ -1,9 +1,11 @@
 package com.xs.lightpuzzle.puzzle.view.signature;
 
 import com.blankj.utilcode.util.FileUtils;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 
 import java.io.File;
+
+import static com.xs.lightpuzzle.constant.DirConstant.SD_SIGNATURE_EDITING_PATH;
+import static com.xs.lightpuzzle.constant.DirConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
 
 /**
  * Created by xs on 2018/5/28.
@@ -13,7 +15,7 @@ public class SignatureUtils {
 
     public static String getEditingSignature() {
 
-        String editDir = PuzzleConstant.SD_SIGNATURE_EDITING_PATH;
+        String editDir = SD_SIGNATURE_EDITING_PATH;
         // 取出正在编辑的的签名
         File[] files = new File(editDir).listFiles();
         if (files != null && files.length > 0) {
@@ -21,7 +23,7 @@ public class SignatureUtils {
         }
 
         String filePath = "";
-        String fileDir = PuzzleConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
+        String fileDir = SD_SIGNATURE_HISTORY_LIST_PATH;
 
         File baseDir = new File(fileDir);
         if (!baseDir.exists()) {
@@ -62,7 +64,7 @@ public class SignatureUtils {
             return "";
         }
         String dstPath = "";
-        String editDir = PuzzleConstant.SD_SIGNATURE_EDITING_PATH;
+        String editDir = SD_SIGNATURE_EDITING_PATH;
         // 正在编辑的不用删除
         if (filePath.contains(editDir)) {
             return filePath;
@@ -79,7 +81,7 @@ public class SignatureUtils {
     }
 
     public static void clearEditingDir() {
-        String editDir = PuzzleConstant.SD_SIGNATURE_EDITING_PATH;
+        String editDir = SD_SIGNATURE_EDITING_PATH;
         FileUtils.deleteDir(editDir);
     }
 

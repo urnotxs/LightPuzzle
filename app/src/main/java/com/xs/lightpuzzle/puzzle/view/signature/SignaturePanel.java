@@ -16,7 +16,6 @@ import android.view.View;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.google.gson.Gson;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.param.SignatureSaveVO;
 import com.xs.lightpuzzle.puzzle.param.TimedPoint;
 import com.xs.lightpuzzle.puzzle.util.ShareData;
@@ -24,6 +23,8 @@ import com.xs.lightpuzzle.puzzle.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.xs.lightpuzzle.constant.DirConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
 
 /**
  * Created by xs on 2018/8/23.
@@ -430,7 +431,7 @@ public class SignaturePanel extends View {
 
         String savePath = "";
         if (mSignatureBitmap != null && mSignatureRect != null) {
-            String filePath = PuzzleConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
+            String filePath = SD_SIGNATURE_HISTORY_LIST_PATH;
             String fileName = String.valueOf(System.currentTimeMillis()) + ".json";
             // eg: storage/emulated/0/PocoJane/appdata/signature/history/1538213267233.json
             savePath = filePath + fileName; // 历史草稿文件夹

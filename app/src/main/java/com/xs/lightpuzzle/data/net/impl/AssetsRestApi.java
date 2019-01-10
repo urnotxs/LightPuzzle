@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
-import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.data.entity.Font;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.data.entity.adapter.FontAdapter;
@@ -33,7 +33,7 @@ public class AssetsRestApi implements RestApi {
     @Override
     public List<Font> getFonts() {
         String gsonString = AssetManagerHelper.convertInputString(
-                mContext, DataConstant.ASSETS_DATA.FONT);
+                mContext, DirConstant.ASSETS_DATA.FONT);
         if (!TextUtils.isEmpty(gsonString)) {
             try {
                 List<FontAdapter> adapters = mSerializer
@@ -55,7 +55,7 @@ public class AssetsRestApi implements RestApi {
     @Override
     public List<TemplateSet> getTemplates() {
         String gsonString = AssetManagerHelper.convertInputString(
-                mContext, DataConstant.ASSETS_DATA.TEMPLATE);
+                mContext, DirConstant.ASSETS_DATA.TEMPLATE);
 
         if (!TextUtils.isEmpty(gsonString)) {
             try {

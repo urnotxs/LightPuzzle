@@ -1,6 +1,6 @@
 package com.xs.lightpuzzle.data.util;
 
-import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.constant.DirConstant;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ import java.io.File;
 public class MaterialDirPathHelper {
 
     public static String font(String id) {
-        return DataConstant.DIR_PATH.FONT + File.separator + id;
+        return DirConstant.DIR_PATH.FONT + File.separator + id;
     }
 
     public static String template(int category, String id, int photoNum) {
@@ -23,7 +23,7 @@ public class MaterialDirPathHelper {
     }
 
     public static String template(int category) {
-        return DataConstant.DIR_PATH.TEMPLATE + File.separator
+        return DirConstant.DIR_PATH.TEMPLATE + File.separator
                 + TemplateCategoryHelper.getName(category);
     }
 }

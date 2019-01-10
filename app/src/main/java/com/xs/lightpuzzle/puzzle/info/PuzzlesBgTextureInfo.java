@@ -11,7 +11,6 @@ import android.graphics.Shader;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
 import com.xs.lightpuzzle.imagedecode.BitmapHelper;
 import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
 import com.xs.lightpuzzle.imagedecode.core.ImageSize;
@@ -22,6 +21,8 @@ import com.xs.lightpuzzle.yszx.Scheme;
 import java.io.IOException;
 
 import cn.poco.filter.POCOCompositor;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_COLOR;
 
 /**
  * Created by xs on 2018/4/12.
@@ -43,7 +44,7 @@ public class PuzzlesBgTextureInfo implements DrawView {
     //background effect
     private String effect;
 
-    private int waterColor = LightPuzzleConstant.INVALID_COLOR;
+    private int waterColor = INVALID_COLOR;
 
     private transient boolean save;
 

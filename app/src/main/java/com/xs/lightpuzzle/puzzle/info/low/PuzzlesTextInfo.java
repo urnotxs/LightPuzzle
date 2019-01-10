@@ -13,8 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
-import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.puzzle.data.editdata.TemporaryTextData;
 import com.xs.lightpuzzle.puzzle.data.lowdata.TextData;
 import com.xs.lightpuzzle.puzzle.info.DrawView;
@@ -30,6 +29,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_COLOR;
 
 /**
  * Created by xs on 2018/4/12.
@@ -158,7 +159,7 @@ public class PuzzlesTextInfo implements DrawView {
     }
 
     public void changeFontColor(int fontColor) {
-        if (fontColor == LightPuzzleConstant.INVALID_COLOR) {
+        if (fontColor == INVALID_COLOR) {
             return;
         }
         this.fontColor = fontColor;
@@ -238,7 +239,7 @@ public class PuzzlesTextInfo implements DrawView {
             finalRect = rect;
             fontColor = textData.getFontColor();
             if (!TextUtils.isEmpty(textData.getFont())) {
-                font = DataConstant.DIR_PATH.FONT + File.separator + textData.getTypefaceId() + File.separator + textData.getFont();
+                font = DirConstant.DIR_PATH.FONT + File.separator + textData.getTypefaceId() + File.separator + textData.getFont();
             }
             if (!TextUtils.isEmpty(textData.getAutoStr())) {
                 autoStr = textData.getAutoStr();

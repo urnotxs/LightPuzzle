@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -21,10 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvp.layout.MvpFrameLayout;
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
+import com.xs.lightpuzzle.puzzle.callback.JaneCallback;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.data.RotationImg;
 import com.xs.lightpuzzle.puzzle.data.SignatureData;
@@ -44,7 +46,9 @@ import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
+import com.xs.lightpuzzle.puzzle.save.utils.SaveUtils;
 import com.xs.lightpuzzle.puzzle.util.AnimUtils;
+import com.xs.lightpuzzle.puzzle.util.PuzzleThreadPoolUtils;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.signature.SignatureUtils;
@@ -700,7 +704,30 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public void onClick(View view) {
         if (view == mCancelBtn) {
             onBack();
+        }else if (view == mSaveBtn){
+            saveBtnEvent();
         }
+    }
+
+    //保存按钮
+    private void saveBtnEvent() {
+        RotationImg[] rotationImgArr = getPresenter().getIndexOfRotationImgArr(0);
+        PuzzleThreadPoolUtils.getDefault().execute(new Runnable() {
+            @Override
+            public void run() {
+                SaveUtils.savePic(mContext, getPresenter().getPuzzlesInfo(), new JaneCallback<String>() {
+                    @Override
+                    public void onSuccess(String picPath, Bundle data) {
+//                        EventBus.getDefault().post(new SaveEvent(true, isUpload, picPath, 1));
+                    }
+
+                    @Override
+                    public void onFailure(String s, int errorCode, Bundle data) {
+
+                    }
+                });
+            }
+        });
     }
 
     public void onBack() {

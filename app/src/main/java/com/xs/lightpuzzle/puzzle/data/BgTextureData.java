@@ -1,8 +1,8 @@
 package com.xs.lightpuzzle.puzzle.data;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
-
 import java.io.Serializable;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_COLOR;
 
 /**
  * Created by xs on 2018/4/12.
@@ -19,7 +19,7 @@ public class BgTextureData implements Serializable, Cloneable {
     //background effect
     private String effect;
 
-    private int waterColor = LightPuzzleConstant.INVALID_COLOR;
+    private int waterColor = INVALID_COLOR;
 
     public int getBgColor() {
         return bgColor;

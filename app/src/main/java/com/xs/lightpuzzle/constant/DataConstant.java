@@ -1,41 +1,15 @@
-package com.xs.lightpuzzle.data;
-
-import com.blankj.utilcode.util.SDCardUtils;
-
-import java.io.File;
+package com.xs.lightpuzzle.constant;
 
 /**
- * Created by xs on 2018/11/2.
+ * Created by xs on 2019/1/9.
  */
 
 public interface DataConstant {
 
-    String DB_NAME = "puzzle_material";
+    int INVALID_PHOTO_NUM = 0;
+    int INVALID_COLOR = 1;
 
-    interface ASSETS_DATA {
-        String TEMPLATE = "data/template.json";
-        String FONT = "data/font.json";
-        String LAYOUT = "data/layout.json";
-    }
-
-    interface ASSETS_DATA_LAYOUT {
-        String LAYOUT = "template/layout/BasePuzzle";
-    }
-
-    interface DIR_PATH {
-
-        String APP = SDCardUtils.getSDCardPaths().get(0) + File.separator + FOLDER.APP;
-        String TEMPLATE = APP + File.separator + FOLDER.TEMPLATE;
-        String FONT = APP + File.separator + FOLDER.FONT;
-    }
-
-    interface FOLDER {
-
-        String APP = "LightPuzzle";
-        String TEMPLATE = "template";
-        String FONT = "font";
-    }
-
+    // 模板分类
     interface TEMPLATE_CATEGORY {
 
         int SIMPLE = 0x00000100;
@@ -51,6 +25,7 @@ public interface DataConstant {
         int LAYOUT = 0x00000b00;
     }
 
+    // 模板分类名
     interface TEMPLATE_ADDITIONAL_CATEGORY {
 
         int LIKE = 0x01000100;

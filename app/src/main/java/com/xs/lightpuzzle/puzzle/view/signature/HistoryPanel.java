@@ -12,13 +12,14 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.EffectiveImageButton;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.xs.lightpuzzle.constant.DirConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
 
 /**
  * Created by xs on 2018/8/23.
@@ -52,7 +53,7 @@ public class HistoryPanel extends LinearLayout {
         mPicPaths.clear();
         mBitmapLists.clear();
 
-        String filePath = PuzzleConstant.SD_SIGNATURE_HISTORY_LIST_PATH;
+        String filePath = SD_SIGNATURE_HISTORY_LIST_PATH;
         File baseDir = new File(filePath); // 创建一个File对象
         if (!baseDir.exists() || !baseDir.isDirectory()) { // 判断目录是否存在
             return;

@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
-import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.data.TemplateManager;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
@@ -598,4 +598,11 @@ public class PuzzlePresenter extends MvpBasePresenter<PuzzleView> {
         return null;
     }
 
+    public RotationImg[] getIndexOfRotationImgArr(int index) {
+        TemplateInfo templateInfo = getIndexOfTemplateInfo(index);
+        if (templateInfo != null) {
+            return templateInfo.getRotationImgs();
+        }
+        return null;
+    }
 }

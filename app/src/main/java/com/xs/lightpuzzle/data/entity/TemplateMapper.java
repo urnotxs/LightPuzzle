@@ -1,7 +1,7 @@
 package com.xs.lightpuzzle.data.entity;
 
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.data.TemplateManager;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class TemplateMapper {
             photoFilePaths = new ArrayList<>();
             int minPhotoNum = templateSet.getMinPhotoNum();
             for (int i = 0; minPhotoNum > 0 && i < minPhotoNum; i++) {
-                photoFilePaths.add(PuzzleConstant.ASSETS_PLACEHOLDER_URI.PHOTO);
+                photoFilePaths.add(DirConstant.ASSETS_PLACEHOLDER_URI.PHOTO);
             }
         }
         this.photoFilePaths = photoFilePaths;

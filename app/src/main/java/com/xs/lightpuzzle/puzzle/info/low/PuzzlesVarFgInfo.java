@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
 import com.xs.lightpuzzle.imagedecode.BitmapHelper;
 import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
 import com.xs.lightpuzzle.imagedecode.core.DecodeImageOptions;
@@ -18,6 +17,8 @@ import com.xs.lightpuzzle.imagedecode.core.ImageSize;
 import com.xs.lightpuzzle.puzzle.effect.MakeMixAndEffect;
 import com.xs.lightpuzzle.puzzle.info.DrawView;
 import com.xs.lightpuzzle.puzzle.util.ShapeUtils;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_COLOR;
 
 /**
  * Created by xs on 2018/4/12.
@@ -34,7 +35,7 @@ public class PuzzlesVarFgInfo implements DrawView {
 
     private PointF[] varFgPoint;
 
-    private int color = LightPuzzleConstant.INVALID_COLOR;
+    private int color = INVALID_COLOR;
 
     private transient Bitmap varFgBitmap;
 
@@ -153,7 +154,7 @@ public class PuzzlesVarFgInfo implements DrawView {
     }
 
     public void changeFgColor(int color) {
-        if (color == LightPuzzleConstant.INVALID_COLOR) {
+        if (color == INVALID_COLOR) {
             return;
         }
         this.color = color;

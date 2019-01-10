@@ -22,10 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.photopicker.PhotoPicker;
@@ -40,6 +39,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_PHOTO_NUM;
 
 /**
  * Created by xs on 2018/11/2.
@@ -143,8 +144,8 @@ public class MaterialListActivity extends BaseMaterialListActivity
     private void init() {
         Intent intent = getIntent();
         mState = intent.getIntExtra(EXTRA_STATE, STATE.NORMAL);
-        int photoNum = intent.getIntExtra(EXTRA_PHOTO_NUM, LightPuzzleConstant.INVALID_PHOTO_NUM);
-        if (photoNum != LightPuzzleConstant.INVALID_PHOTO_NUM) {
+        int photoNum = intent.getIntExtra(EXTRA_PHOTO_NUM, INVALID_PHOTO_NUM);
+        if (photoNum != INVALID_PHOTO_NUM) {
             mPhotoNum = photoNum;
         }
     }

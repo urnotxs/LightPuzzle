@@ -16,8 +16,8 @@ import android.widget.Space;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;

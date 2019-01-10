@@ -19,6 +19,8 @@ import java.util.Set;
 
 /**
  * Created by xs on 2018/11/6.
+ *
+ * 模板集，包括长图模板含多个子模板
  */
 @Entity
 public class TemplateSet {
@@ -60,58 +62,58 @@ public class TemplateSet {
 
     @NotNull
     @Index
-    private int category;
+    private int category; // 分类
 
     @NotNull
-    private String id;
+    private String id; // 模板id
 
-    private String name;
+    private String name; // 名字
     private int proportion;
     /**
      * 下载URL
      */
-    private String url;
+    private String url; // 模板下载路径，zip包
 
     /**
      * 缩略图URL
      */
-    private String thumbUrl;
-    private String thumbFileName;
+    private String thumbUrl; // 默认封面图下载路径
+    private String thumbFileName; // 默认封面图本地文件名
 
     /**
      * 最少图片数
      */
-    private int minPhotoNum;
+    private int minPhotoNum; // 模板的最小图片数
     /**
      * 最多图片数
      */
-    private int maxPhotoNum;
+    private int maxPhotoNum; // 模板的最大图片数
 
     @Transient
-    private Map<Integer, Template> templateMap;
+    private Map<Integer, Template> templateMap; // 图片张数对应的模板Map列表
 
     /**
      * 对应图片张数的模板缩略图，Key:图片张数，value：缩略图文件名
      */
     @Convert(converter = IntegerStringMapConverter.class, columnType = String.class)
-    private Map<Integer, String> thumbFileNameMap;
+    private Map<Integer, String> thumbFileNameMap; // 图片张数对应的封面图本地文件名
 
     @Convert(converter = SetConverter._String.class, columnType = String.class)
-    private Set<String> attachedFontIdSet;
+    private Set<String> attachedFontIdSet; // 模板自带文字字体id
 
     @Convert(converter = IntegerNodeMapConverter.class, columnType = String.class)
-    private Map<Integer, Node> attachedNodeMap;
+    private Map<Integer, Node> attachedNodeMap; // 长图子模板
 
-    private long order;
-    private float uiRatio;
+    private long order; // 顺序
+    private float uiRatio;  // 宽高比
 
     // --- Local
 
-    private String dirPath;
+    private String dirPath; // 本地存放路径
 
-    private long downloadedOrder;
-    private long historyOrder;
-    private long likeOrder;
+    private long downloadedOrder; // 下载列表顺序
+    private long historyOrder; // 历史列表的顺序
+    private long likeOrder; // 喜欢列表的顺序
 
     @Convert(converter = IntegerBitConverter.class, columnType = String.class)
     private int flag;

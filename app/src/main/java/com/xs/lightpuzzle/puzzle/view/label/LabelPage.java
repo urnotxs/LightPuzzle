@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.label.view.EditLabelView;
@@ -31,6 +30,7 @@ import com.xs.lightpuzzle.puzzle.view.label.widget.IconInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.xs.lightpuzzle.constant.DirConstant.PUZZLE_SAVE_LABEL_IMG;
 import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_BITMAP;
 import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_ICON_TYPE;
 import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_IS_INVERT;
@@ -44,7 +44,7 @@ import static com.xs.lightpuzzle.puzzle.view.label.LabelActivity.LABEL_TEXT;
 
 public class LabelPage extends FrameLayout implements View.OnClickListener {
 
-    private String saveUrl = PuzzleConstant.PUZZLE_SAVE_LABEL_IMG;
+    private String saveUrl = PUZZLE_SAVE_LABEL_IMG;
     private LinearLayout mPageLayout;
     private RelativeLayout mTopBarLayout;
     private ImageView mCancelBtn;

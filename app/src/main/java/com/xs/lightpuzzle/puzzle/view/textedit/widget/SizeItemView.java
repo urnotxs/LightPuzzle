@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.util.Utils;
 import com.xs.lightpuzzle.puzzle.view.textedit.model.SizeItemInfo;
 
@@ -124,7 +124,7 @@ public class SizeItemView extends FrameLayout {
         }
         Typeface typeface = Typeface.createFromAsset(
                 getContext().getAssets(),
-                PuzzleConstant.ASSETS_FONT_PATH.FONT + filName);
+                DirConstant.ASSETS_FONT_PATH.FONT + filName);
         return typeface;
     }
 }

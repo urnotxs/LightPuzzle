@@ -5,8 +5,8 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.LightPuzzleApplication;
-import com.xs.lightpuzzle.puzzle.PuzzleConstant;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.EditFontColorBean;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBackgroundBean;
 import com.xs.lightpuzzle.puzzle.view.texturecolor.bean.PuzzleBlendAlphaBean;
@@ -160,7 +160,7 @@ public class TextureColorHelper {
      */
     private List<PuzzleTextureBean> getPuzzleTextureBean(Context context) {
         String json = AssetManagerHelper.convertInputString(context,
-                PuzzleConstant.ASSET_DATA_PATH.TEXTURE_INFO_PATH);
+                DirConstant.ASSET_TEXTURE_COLOR.TEXTURE_INFO_PATH);
         Gson gson = new Gson();
         List<PuzzleTextureBean> textureBeans =
                 gson.fromJson(json, new TypeToken<List<PuzzleTextureBean>>() {
@@ -176,7 +176,7 @@ public class TextureColorHelper {
      */
     private PuzzleColorBean getBackgroundColorBean(Context context) {
         String json = AssetManagerHelper.convertInputString(context,
-                PuzzleConstant.ASSET_DATA_PATH.BACKGROUND_COLOR_PATH);
+                DirConstant.ASSET_TEXTURE_COLOR.BACKGROUND_COLOR_PATH);
         Gson gson = new Gson();
         PuzzleColorBean colorBean = gson.fromJson(json, PuzzleColorBean.class);
         return colorBean;
@@ -190,7 +190,7 @@ public class TextureColorHelper {
      */
     private List<PuzzleBlendAlphaBean> getPuzzleBlendAlphaBean(Context context) {
         String json = AssetManagerHelper.convertInputString(context,
-                PuzzleConstant.ASSET_DATA_PATH.TEXTURE_COLOR_ALPHA_PATH);
+                DirConstant.ASSET_TEXTURE_COLOR.TEXTURE_COLOR_ALPHA_PATH);
         Gson gson = new Gson();
         List<PuzzleBlendAlphaBean> blendAlphaBeans =
                 gson.fromJson(json, new TypeToken<List<PuzzleBlendAlphaBean>>() {
@@ -206,7 +206,7 @@ public class TextureColorHelper {
      */
     public List<EditFontColorBean> getFontColor(Context context) {
         String json = AssetManagerHelper.convertInputString(context,
-                PuzzleConstant.ASSET_DATA_PATH.FONT_COLOR_PATH);
+                DirConstant.ASSET_TEXTURE_COLOR.FONT_COLOR_PATH);
         Gson gson = new Gson();
         List<EditFontColorBean> colorBeans = gson.fromJson(json,
                 new TypeToken<List<EditFontColorBean>>() {

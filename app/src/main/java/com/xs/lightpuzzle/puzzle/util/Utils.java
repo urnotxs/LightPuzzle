@@ -26,11 +26,14 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
+import com.blankj.utilcode.util.FileUtils;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -686,5 +689,15 @@ public class Utils extends UtilsInitializer {
 
         }
         return null;
+    }
+
+    //系统相册和简拼自带相册刷新
+    public static void fileScan(Context context, String path) {
+        if (TextUtils.isEmpty(path) || !FileUtils.isFileExists(path)) {
+            return;
+        }
+        newImage(context, path); //修改时间:2013年8月27日,先插入数据库;
+        sendScanBroadcast(context, path);//上面的系统相册不刷新，20170116
+//        MultiMediaLoader.getInstance().setScanAll(true).loadMultiMedia(context);
     }
 }

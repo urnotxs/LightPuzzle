@@ -3,9 +3,9 @@ package com.xs.lightpuzzle.materials;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.LightPuzzleApplication;
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.data.DataConstant;
 
 /**
  * Created by xs on 2018/11/8.

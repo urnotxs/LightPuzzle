@@ -27,6 +27,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static com.xs.lightpuzzle.constant.DirConstant.DB_NAME;
+
 /**
  * Created by xs on 2018/11/2.
  */
@@ -81,7 +83,7 @@ public class DataManager {
         mSerializer = new Serializer();
 
         // 初始数据库GreenDao
-        mOpenHelper = new DaoMaster.DevOpenHelper(context, DataConstant.DB_NAME);
+        mOpenHelper = new DaoMaster.DevOpenHelper(context, DB_NAME);
 
         mDatabase = mOpenHelper.getWritableDb();
         mDaoSession = new DaoMaster(mDatabase).newSession();

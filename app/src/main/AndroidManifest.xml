@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash">
-        <activity android:name=".puzzle.a_mvp_demo.TestActivity">
+        <!--<activity android:name=".puzzle.a_mvp_demo.TestActivity">-->
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +55,10 @@
             android:name=".data.service.SyncService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".puzzle.save.SaveBitmapService"
+            android:process=":SaveBitmapService"/>
 
         <service
             android:name=".puzzle.a_service_demo.TestService"

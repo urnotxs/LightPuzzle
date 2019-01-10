@@ -15,11 +15,12 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
-import com.xs.lightpuzzle.LightPuzzleConstant;
 import com.xs.lightpuzzle.imagedecode.BitmapHelper;
 import com.xs.lightpuzzle.imagedecode.JaneBitmapFactory;
 import com.xs.lightpuzzle.imagedecode.core.ImageSize;
 import com.xs.lightpuzzle.puzzle.info.DrawView;
+
+import static com.xs.lightpuzzle.constant.DataConstant.INVALID_COLOR;
 
 
 /**
@@ -35,16 +36,16 @@ public class PuzzlesMaskInfo implements DrawView {
     //保存时用到的rect
     private Rect outPutRect;
 
-    private int bgColor = LightPuzzleConstant.INVALID_COLOR;
+    private int bgColor = INVALID_COLOR;
 
     private transient boolean save;
 
     private transient Bitmap maskBitmap, colorMaskBitmap;
 
     private Rect finalRect;
-    private Paint mPaint;
-    private Drawable mDrawable;
-    private Bitmap mTextureBitmap;
+    private transient Paint mPaint;
+    private transient Drawable mDrawable;
+    private transient Bitmap mTextureBitmap;
 
     public void setMaskPic(String maskPic) {
         this.maskPic = maskPic;
@@ -116,7 +117,7 @@ public class PuzzlesMaskInfo implements DrawView {
         if (BitmapHelper.isValid(colorTextureBitmap)) {
             mTextureBitmap = colorTextureBitmap;
         }
-        if (bgColor != LightPuzzleConstant.INVALID_COLOR) {
+        if (bgColor != INVALID_COLOR) {
             this.bgColor = bgColor;
         }
     }
@@ -133,7 +134,7 @@ public class PuzzlesMaskInfo implements DrawView {
         if (BitmapHelper.isValid(mTextureBitmap)) {
             drawTexture(canvas);
         } else {
-            if (bgColor != LightPuzzleConstant.INVALID_COLOR) {
+            if (bgColor != INVALID_COLOR) {
                 DrawableCompat.setTint(mDrawable, bgColor);
             }
             canvas.save();

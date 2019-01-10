@@ -10,31 +10,33 @@ import java.util.List;
 
 /**
  * Created by xs on 2018/11/6.
+ *
+ * 模板
  */
 
 public class Template {
 
-    private int width;
-    private int height;
+    private int width; // 设计给的位置信息的基准宽
+    private int height; // 设计给的位置信息的基准高
 
-    private Background background;
+    private Background background; // 背景，包括纹理和颜色
 
-    private int photoNum;
-    private String thumbFileName;
-    private List<Photo> photos;
-    private List<Text> texts;
-    private String foregroundFileName;
-    private String foregroundMaskFileName;
+    private int photoNum; // 图片张数
+    private String thumbFileName; // 当前图片张数的封面图文件名
+    private List<Photo> photos; // 每个图片的位置信息列表
+    private List<Text> texts; // 每个文字的位置信息列表
+    private String foregroundFileName; // 前景图片的文件名
+    private String foregroundMaskFileName; // 前景遮罩的文件名
     private List<Ornament> ornaments; // 可变前景，装饰前景
 
-    private Watermark watermark;
-    private Avatar avatar;
-    private QrCode qrCode;
-    private BusinessCard businessCard;
+    private Watermark watermark; // 水印信息
+    private Avatar avatar; // 头像
+    private QrCode qrCode; // 二维码
+    private BusinessCard businessCard; // 名片信息
 
     // --- Local
 
-    private String dirPath;
+    private String dirPath; // 当前模板的本地存放路径
 
     public int getWidth() {
         return width;

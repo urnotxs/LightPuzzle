@@ -1,6 +1,6 @@
 package com.xs.lightpuzzle.puzzle;
 
-import com.xs.lightpuzzle.data.DataConstant;
+import com.xs.lightpuzzle.constant.DataConstant;
 
 /**
  * Created by xs on 2018/04/27

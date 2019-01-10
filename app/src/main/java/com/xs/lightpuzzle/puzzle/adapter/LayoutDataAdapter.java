@@ -3,8 +3,9 @@ package com.xs.lightpuzzle.puzzle.adapter;
 import android.graphics.Color;
 import android.graphics.PointF;
 
+import com.xs.lightpuzzle.constant.DataConstant;
+import com.xs.lightpuzzle.constant.DirConstant;
 import com.xs.lightpuzzle.LightPuzzleApplication;
-import com.xs.lightpuzzle.data.DataConstant;
 import com.xs.lightpuzzle.data.entity.Template;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
 import com.xs.lightpuzzle.puzzle.layout.data.BasePuzzleInfo;
@@ -25,7 +26,7 @@ public class LayoutDataAdapter {
 
         String name = "/BasePuzzle" + templateId + ".json";
         String data = AssetManagerHelper.convertInputString(LightPuzzleApplication.getContext(),
-                DataConstant.ASSETS_DATA_LAYOUT.LAYOUT + templateId + name);
+                DirConstant.ASSETS_DATA.LAYOUT + templateId + name);
 
         BasePuzzleInfo info = BasePuzzleInfo.JsonStringToInfo(data);
 
