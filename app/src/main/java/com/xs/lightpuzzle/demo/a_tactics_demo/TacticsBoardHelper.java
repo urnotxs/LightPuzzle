@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * @author xs
- * @description
+ * @description 足球赛制数据常量
  * @since 2019/2/22
  */
 

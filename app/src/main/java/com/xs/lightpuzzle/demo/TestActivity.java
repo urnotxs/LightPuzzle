@@ -3,6 +3,7 @@ package com.xs.lightpuzzle.demo;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.TestCircleProgressBar;
 import com.xs.lightpuzzle.demo.a_egl_demo.TestEGLLayout;
 import com.xs.lightpuzzle.demo.a_mediaplayer_demo.TestMediaPlayerLayout;
 import com.xs.lightpuzzle.demo.a_mvp_demo.TestFrameLayout;
@@ -10,6 +11,7 @@ import com.xs.lightpuzzle.demo.a_observer_demo.ObserverTestLayout;
 import com.xs.lightpuzzle.demo.a_recyclerview_demo.RecyclerViewTestLayout;
 import com.xs.lightpuzzle.demo.a_service_demo.ServiceTestLayout;
 import com.xs.lightpuzzle.demo.a_tactics_demo.TestTacticsBoard;
+import com.xs.lightpuzzle.puzzle.util.Utils;
 
 /**
  * Created by xs on 2018/11/13.
@@ -29,8 +31,13 @@ public class TestActivity extends Activity {
 //        testMediaPlayerDemo();
 //        testEGLDemo();
         testTacticsBoard();
+//        testCircleProgressBar();
     }
 
+    private void testCircleProgressBar(){
+        Utils.init(this);
+        setContentView(new TestCircleProgressBar(this));
+    }
     private void testTacticsBoard(){
         setContentView(new TestTacticsBoard(this));
     }

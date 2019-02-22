@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 /**
  * @author xs
- * @description
+ * @description 足球战术板自定义控件，排兵布阵
  * @since 2019/2/21
  */
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:progress_bars="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+    <com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.ProgressBarsView
+        android:id="@+id/team_diary_data_progress_rate_bar"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="5"
+        progress_bars:rate="20"
+        progress_bars:roundcolor="#77241C2F"
+        progress_bars:textcolor="#99ffffff" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/refresh_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/red_text"
+        android:text="刷新"/>
+
+</android.support.constraint.ConstraintLayout>
