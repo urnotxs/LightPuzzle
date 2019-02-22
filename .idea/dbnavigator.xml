@@ -34,6 +34,11 @@
     <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.FONT" active-filter-id="">
+      <filter id="4561943e-ae68-4c8f-a4ea-291f98bf9a4c" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="_id" operator="=" value="" active="true" />
+      </filter>
+    </filter-list>
     <filter-list connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.TEMPLATE_SET" active-filter-id="d671b37c-dfa3-4c25-b97e-2bfb0386930b">
       <filter id="d671b37c-dfa3-4c25-b97e-2bfb0386930b" name="256" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="CATEGORY" operator="=" value="256" active="true" />

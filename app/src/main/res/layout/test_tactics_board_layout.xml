@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xs="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/tactics_formations_bg"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/purple_background">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/tactics_five_checkbox"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/selector_background_tactics_checkbox"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="五人制"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/tactics_seven_checkbox"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/selector_background_tactics_checkbox"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="七人制"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/tactics_eight_checkbox"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/selector_background_tactics_checkbox"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="八人制"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/tactics_select_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tactics_formations_bg"
+            android:background="@color/purple_bottom_background"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/tactics_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:listSelector="@color/transparent"
+                android:numColumns="3"
+                android:paddingBottom="20dp"
+                android:verticalSpacing="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tactics_select_bg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/tactics_mid"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/tactics_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3-2-1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp">
+
+            <TextView
+                android:id="@+id/formation_tactics_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <com.xs.lightpuzzle.demo.a_tactics_demo.view.TacticsBoard
+                android:id="@+id/formation_tactics_board"
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/formation_tactics_txt"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/tactics_bg"
+                xs:tactics="3,3,4" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

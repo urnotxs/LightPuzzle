@@ -22,9 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvp.layout.MvpFrameLayout;
-import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
+import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.photopicker.entity.Photo;
 import com.xs.lightpuzzle.puzzle.callback.JaneCallback;
 import com.xs.lightpuzzle.puzzle.data.LabelData;
@@ -43,11 +43,13 @@ import com.xs.lightpuzzle.puzzle.layout.layoutpage.BottomEditLayoutView;
 import com.xs.lightpuzzle.puzzle.msgevent.BottomMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.LabelBarMsgEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.PuzzlesRequestMsg;
+import com.xs.lightpuzzle.puzzle.msgevent.SaveEvent;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzelsLabelBarMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesBottomMsgCode;
 import com.xs.lightpuzzle.puzzle.msgevent.code.PuzzlesRequestMsgName;
 import com.xs.lightpuzzle.puzzle.save.utils.SaveUtils;
 import com.xs.lightpuzzle.puzzle.util.AnimUtils;
+import com.xs.lightpuzzle.puzzle.util.DrawableUtils;
 import com.xs.lightpuzzle.puzzle.util.PuzzleThreadPoolUtils;
 import com.xs.lightpuzzle.puzzle.util.PuzzlesUtils;
 import com.xs.lightpuzzle.puzzle.util.Utils;
@@ -89,6 +91,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     private RelativeLayout mTopBar;
     private ImageView mCancelBtn;
     private ImageView mSaveBtn;
+    private RelativeLayout mSaveStatusView;
 
     private PuzzleFrame mPuzzleFrame;// view的容器(里面承载绘图所有布局)
 
@@ -337,6 +340,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     }
 
     private BottomEditTextView mEditTextView; // 通用
+
     private void popBottomEditTextView(int model, TemporaryTextData temporaryTextData) {
         if (mEditTextView == null) {
             mEditTextView = new BottomEditTextView(getContext());
@@ -591,11 +595,37 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     private void initView() {
         initContainer();
         initTopBar();
+        initSaveStatusView();
         initPuzzleFrame();
         initPuzzleBottomView();
 
         EventBus.getDefault().register(this);
     }
+
+    private void initSaveStatusView() {
+        mSaveStatusView = new RelativeLayout(mContext);
+        RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(
+                Utils.getRealPixel3(208), Utils.getRealPixel3(74));
+        rlParams.topMargin = Utils.getRealPixel3(38);
+        rlParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        rlParams.addRule(RelativeLayout.BELOW, R.id.puzzle_page_top_bar);
+        mSaveStatusView.setBackgroundDrawable(DrawableUtils.shapeDrawable(
+                0x9e000000, Utils.getRealPixel3(45)));
+        mSaveStatusView.setVisibility(GONE);
+        mMainContainer.addView(mSaveStatusView, rlParams);
+        {
+            rlParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            rlParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            TextView mTvMusicState = new TextView(getContext());
+            mSaveStatusView.addView(mTvMusicState, rlParams);
+            mTvMusicState.setText("保存成功");
+            mTvMusicState.setTextColor(0xffffffff);
+            mTvMusicState.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        }
+    }
+
+
 
     private void initContainer() {
         mMainContainer = new RelativeLayout(mContext);
@@ -704,30 +734,43 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
     public void onClick(View view) {
         if (view == mCancelBtn) {
             onBack();
-        }else if (view == mSaveBtn){
+        } else if (view == mSaveBtn) {
             saveBtnEvent();
         }
     }
 
     //保存按钮
     private void saveBtnEvent() {
-        RotationImg[] rotationImgArr = getPresenter().getIndexOfRotationImgArr(0);
         PuzzleThreadPoolUtils.getDefault().execute(new Runnable() {
             @Override
             public void run() {
                 SaveUtils.savePic(mContext, getPresenter().getPuzzlesInfo(), new JaneCallback<String>() {
                     @Override
                     public void onSuccess(String picPath, Bundle data) {
-//                        EventBus.getDefault().post(new SaveEvent(true, isUpload, picPath, 1));
+                        EventBus.getDefault().post(new SaveEvent(true, picPath));
                     }
 
                     @Override
                     public void onFailure(String s, int errorCode, Bundle data) {
-
+                        EventBus.getDefault().post(new SaveEvent(false, ""));
                     }
                 });
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSaveEvent(SaveEvent event) {
+        if (event.isSuccess()){
+            mSaveStatusView.setVisibility(VISIBLE);
+
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSaveStatusView.setVisibility(GONE);
+                }
+            }, 1000);
+        }
     }
 
     public void onBack() {
@@ -735,7 +778,7 @@ public class PuzzlePage extends MvpFrameLayout<PuzzleView, PuzzlePresenter>
             return;
         }
         EventBus.getDefault().unregister(this);
-        ((Activity)mContext).finish();
+        ((Activity) mContext).finish();
     }
 
     /**

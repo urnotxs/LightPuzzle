@@ -91,7 +91,7 @@ public class SaveBitmapHelper {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    mSimpleJaneCallback.onSuccess(savePath, null);
+                    mSimpleJaneCallback.onSuccess(savePath, null);
                     Log.e(TAG, "保存成功 : " + savePath);
 
                     Utils.fileScan(mContext, savePath);
@@ -106,7 +106,7 @@ public class SaveBitmapHelper {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    mSimpleJaneCallback.onFailure(null, -1, null);
+                    mSimpleJaneCallback.onFailure(null, -1, null);
                     Log.e(TAG, "保存失败");
                 }
             }, 200);

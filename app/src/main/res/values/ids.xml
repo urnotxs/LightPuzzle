@@ -12,4 +12,13 @@
     <item name="signature_page_history" type="id" />
     <item name="signature_page_back" type="id" />
     <!--SignaturePage end-->
+
+    <!--demo-->
+    <item name="demo_media_player_play" type="id"/>
+    <item name="demo_media_player_pause" type="id"/>
+    <item name="demo_media_player_replay" type="id"/>
+    <item name="demo_media_player_stop" type="id"/>
+    <item name="demo_egl_choose_photo" type="id"/>
+
+
 </resources>

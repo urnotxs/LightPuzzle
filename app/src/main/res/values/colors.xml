@@ -69,7 +69,21 @@
     <color name="bgColor_actionsheet_cancel_nor">#ffffff</color>
     <color name="alertdialog_line">#c6c6c6</color>
 
-
-
     <color name="recyclerView_decoration">#FF85B2CE</color>
+
+    <color name="gray">#D2D2D0</color>
+    <color name="white">#ffffffff</color>
+    <color name="red_dark">#ffff0000</color>
+    <color name="orange_progress">#ffFB7B1C</color>
+    <color name="blue">#A6DDD8</color>
+    <color name="green">#C2D79C</color>
+    <color name="red_text">#ffF0494A</color>
+    <color name="txtback">#40000000</color>
+    <color name="gk">#ffe68414</color>
+    <color name="fw">#fff74a4a</color>
+    <color name="mf">#ff66c61f</color>
+    <color name="df">#ff13a4c3</color>
+    <color name="purple_background">#ff3D334C</color>
+    <color name="purple_bottom_background">#ff31273F</color>
+    <color name="transparent">#00000000</color>
 </resources>
