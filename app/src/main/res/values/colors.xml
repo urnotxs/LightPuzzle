@@ -86,4 +86,11 @@
     <color name="purple_background">#ff3D334C</color>
     <color name="purple_bottom_background">#ff31273F</color>
     <color name="transparent">#00000000</color>
+
+    <!--<color name="progress_track_color">#77241C2F</color>-->
+    <!--<color name="progress_color">#BBEA595C</color>-->
+    <!--<color name="progress_text_color">#99ffffff</color>-->
+    <color name="progress_track_color">#FF241C2F</color>
+    <color name="progress_color">#FFEA595C</color>
+    <color name="progress_text_color">#FFffffff</color>
 </resources>

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.puzzle.util.Utils;
 
 /**
  * @author xs
@@ -17,7 +16,9 @@ import com.xs.lightpuzzle.puzzle.util.Utils;
  */
 
 public class TestCircleProgressBar extends FrameLayout {
-    private ProgressBarsView progressbar;
+    private ProgressBarsView appleWatchProgressBar;
+    private ProgressBarsView ddqProgressBar;
+    private ChildProgressBar childProgressbar;
     private Button btnRefresh;
 
     public TestCircleProgressBar(@NonNull Context context) {
@@ -29,17 +30,42 @@ public class TestCircleProgressBar extends FrameLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.test_circle_progressbar_layout, null);
         addView(view);
         {
-            progressbar = view.findViewById(R.id.team_diary_data_progress_rate_bar);
+            appleWatchProgressBar = view.findViewById(R.id.apple_watch_progress_bar_array);
+            ddqProgressBar = view.findViewById(R.id.ddq_progress_bar_array);
+            childProgressbar = view.findViewById(R.id.ddq_progress_bar);
             btnRefresh = view.findViewById(R.id.refresh_btn);
+            btnRefresh.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    appleWatchProgressBar.showProgress();
+                    ddqProgressBar.showProgress();
 
-            progressbar.clearProgressBar();
-            progressbar.setTextSize(30);
+                    childProgressbar.setText("胜");
+                    childProgressbar.refreshProgress();
+                }
+            });
 
-            progressbar.addProgressBar("胜", 0XBBEA595C, Utils.getRealPixel3(15), 100, 80, true, true);
-            progressbar.addProgressBar("平", 0XBBD6A20E, Utils.getRealPixel3(15), 100, 99, false, true);
-            progressbar.addProgressBar("负", 0XBBD7D5DA, Utils.getRealPixel3(15), 100, 30, false, true);
+            appleWatchProgressBar.clearProgressBar();
+            appleWatchProgressBar.addProgressBar("胜", 0XFFFF0C38, 100, 60);
+            appleWatchProgressBar.addProgressBar("平", 0XFFA0FF00, 100, 45);
+            appleWatchProgressBar.addProgressBar("负", 0XFF19D8D1, 100, 30);
+            appleWatchProgressBar.showProgress();
 
-            progressbar.showProgress();
+            ddqProgressBar.clearProgressBar();
+            ddqProgressBar.addProgressBar("胜", 0XFFEA595C, 100, 88);
+            ddqProgressBar.addProgressBar("平", 0XFFEAFF00, 100, 65);
+            ddqProgressBar.addProgressBar("负", 0XFFD7D5DA, 100, 30);
+            ddqProgressBar.showProgress();
+
+            childProgressbar.setText("胜");
+            childProgressbar.refreshProgress();
+//            progressbar.addProgressBar("胜", 0XBBEA595C, 100, 88);
+//            progressbar.addProgressBar("平", 0XBBD6A20E, 100, 65);
+//            progressbar.addProgressBar("负", 0XBBD7D5DA, 100, 30);
+
+//            progressbar.addProgressBar("胜", 0XFFEA595C, 100, 88);
+//            progressbar.addProgressBar("平", 0XFFEAFF00, 100, 65);
+//            progressbar.addProgressBar("负", 0XFFD7D5DA, 100, 30);
         }
     }
 }

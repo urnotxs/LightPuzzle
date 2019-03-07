@@ -30,8 +30,8 @@ public class TestActivity extends Activity {
 //        testRecyclerViewDemo();
 //        testMediaPlayerDemo();
 //        testEGLDemo();
-        testTacticsBoard();
-//        testCircleProgressBar();
+//        testTacticsBoard();
+        testCircleProgressBar();
     }
 
     private void testCircleProgressBar(){

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:progress_bars="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,28 +8,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.ProgressBarsView
-        android:id="@+id/team_diary_data_progress_rate_bar"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="5"
-        progress_bars:rate="20"
-        progress_bars:roundcolor="#77241C2F"
-        progress_bars:textcolor="#99ffffff" />
+        <com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.ProgressBarsView
+            android:id="@+id/apple_watch_progress_bar_array"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            progress_bars:rate="20"
+            progress_bars:roundWidth="15dp"
+            progress_bars:progressGap="3dp"
+            progress_bars:onlyFirstShowCenter="false"
+            progress_bars:isShowTopTextAndPoint="true"
+            progress_bars:progressTrackColor="@color/progress_track_color"
+            progress_bars:textColor="@color/progress_text_color" />
+
+        <com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.ProgressBarsView
+            android:id="@+id/ddq_progress_bar_array"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            progress_bars:rate="20"
+            progress_bars:roundWidth="8dp"
+            progress_bars:progressGap="3dp"
+            progress_bars:onlyFirstShowCenter="true"
+            progress_bars:isShowTopTextAndPoint="true"
+            progress_bars:progressTrackColor="@color/progress_track_color"
+            progress_bars:textColor="@color/progress_text_color" />
+
+        <com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.ChildProgressBar
+            android:id="@+id/ddq_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            progress_bars:_textColor="@color/progress_text_color"
+            progress_bars:_roundColor="@color/progress_track_color"
+            progress_bars:_roundProgressColor="@color/progress_color"
+            progress_bars:_roundWidth="8dp"
+            progress_bars:_style="STROKE"
+            progress_bars:_rate="20"
+            progress_bars:_max="100"
+            progress_bars:_progress="75"
+            progress_bars:_textIsDisplayable="true"/>
+
+        <Button
+            android:id="@+id/refresh_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:text="刷新"
+            android:textColor="@color/red_text"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/refresh_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textColor="@color/red_text"
-        android:text="刷新"/>
 
 </android.support.constraint.ConstraintLayout>
