@@ -20,5 +20,5 @@
     <item name="demo_media_player_stop" type="id"/>
     <item name="demo_egl_choose_photo" type="id"/>
 
-
+    <item name="adjustment_video_page_video_view" type="id" />
 </resources>
