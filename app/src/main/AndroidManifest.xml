@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xs.lightpuzzle">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,15 +15,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash">
-        <activity android:name=".demo.TestActivity">
-        <!--<activity android:name=".WelcomeActivity">-->
+        android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash"
+        tools:ignore="GoogleAppIndexingWarning">
+        <!--<activity android:name=".demo.a_camera_demo.CameraActivity">-->
+        <!--<activity android:name=".demo.TestActivity">-->
+        <activity android:name=".WelcomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".demo.TestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".materials.MaterialListActivity"

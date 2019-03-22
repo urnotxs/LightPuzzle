@@ -9,7 +9,7 @@
 
     <!-- MaterialListActivity -->
     <string name="material_list_aty_nav_home">Home</string>
-    <string name="material_list_aty_nav_donate">Donate</string>
+    <string name="material_list_aty_nav_donate">More</string>
     <string name="material_list_aty_nav_settings">Settings</string>
 
     <string name="template_category_simple">Simple</string>

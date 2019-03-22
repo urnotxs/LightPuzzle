@@ -1,4 +1,4 @@
-package com.xs.lightpuzzle.opengl.gllayer.base;
+package com.xs.lightpuzzle.opengl.gllayer.filter.base;
 
 import com.xs.lightpuzzle.opengl.gllayer.buffer.PuzzleVideoBuffer;
 

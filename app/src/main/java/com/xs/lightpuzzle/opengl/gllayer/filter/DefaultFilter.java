@@ -1,8 +1,10 @@
-package com.xs.lightpuzzle.opengl.gllayer.base;
+package com.xs.lightpuzzle.opengl.gllayer.filter;
 
 import android.content.Context;
 import android.opengl.GLES20;
 import android.support.annotation.RawRes;
+
+import com.xs.lightpuzzle.opengl.gllayer.filter.base.AbstractFilter;
 
 import java.nio.FloatBuffer;
 

@@ -6,8 +6,8 @@ import android.opengl.GLES20;
 import android.util.Log;
 
 import com.xs.lightpuzzle.R;
-import com.xs.lightpuzzle.opengl.gllayer.base.AbstractFilter;
-import com.xs.lightpuzzle.opengl.gllayer.base.DefaultFilter;
+import com.xs.lightpuzzle.opengl.gllayer.filter.base.AbstractFilter;
+import com.xs.lightpuzzle.opengl.gllayer.filter.DefaultFilter;
 import com.xs.lightpuzzle.opengl.gllayer.util.ShaderHelper;
 
 import java.nio.IntBuffer;

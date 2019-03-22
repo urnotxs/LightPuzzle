@@ -1,4 +1,4 @@
-package com.xs.lightpuzzle.opengl.gllayer.base;
+package com.xs.lightpuzzle.opengl.gllayer.filter.base;
 
 import android.content.Context;
 import android.opengl.GLES20;

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/material_list_aty_nav_menu_grp1" android:checkableBehavior="single">
+    <group
+        android:id="@+id/material_list_aty_nav_menu_grp1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/material_list_aty_nav_menu_home"
             android:icon="@drawable/ic_home_black_24dp"
@@ -18,7 +20,9 @@
             android:title="@string/template_category_history" />
     </group>
 
-    <group android:id="@+id/material_list_aty_nav_menu_grp2" android:checkableBehavior="none">
+    <group
+        android:id="@+id/material_list_aty_nav_menu_grp2"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/material_list_aty_nav_menu_donate"
             android:icon="@drawable/ic_local_cafe_black_24dp"

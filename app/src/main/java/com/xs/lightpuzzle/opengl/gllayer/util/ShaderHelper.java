@@ -14,6 +14,7 @@ import com.xs.lightpuzzle.opengl.gllayer.buffer.PuzzleVideoBuffer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 import static com.xs.lightpuzzle.BuildConfig.DEBUG;
 
@@ -195,6 +196,19 @@ public class ShaderHelper {
 		return textureHandle[0];
 	}
 
+	public static int loadTexture(int textureTarget){
+		int[] texture = new int[1];
+		GLES20.glGenTextures(1, texture, 0);
+		ShaderHelper.checkGlError("glGenTextures");
+		GLES20.glBindTexture(textureTarget, texture[0]);
+		GLES20.glTexParameterf(textureTarget, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+		GLES20.glTexParameterf(textureTarget, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR); //线性插值
+		GLES20.glTexParameteri(textureTarget, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+		GLES20.glTexParameteri(textureTarget, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+		GLES20.glBindTexture(textureTarget, 0);
+		return texture[0];
+	}
+
 	public static int createTexture(int textureTarget) {
 		return createTexture(textureTarget, (Bitmap) null, GLES20.GL_LINEAR, GLES20.GL_LINEAR,
 				GLES20.GL_CLAMP_TO_EDGE, GLES20.GL_CLAMP_TO_EDGE);
@@ -223,37 +237,45 @@ public class ShaderHelper {
 		return createTexture(textureTarget, bitmap, GLES20.GL_LINEAR, GLES20.GL_LINEAR,
 				GLES20.GL_CLAMP_TO_EDGE, GLES20.GL_CLAMP_TO_EDGE);
 	}
-//
-//	public static int generateRGBTexture(PatFrameData.VideoData videoData, int textureId) {
-//		if (videoData == null) {
-//			return -1;
-//		}
-//
-//		ByteBuffer colorByteBuffer = null;
-//		int videoW = videoData.getWidth();
-//		int videoH = videoData.getHeight();
-//
-//		if (colorByteBuffer == null) {
-//			colorByteBuffer = ByteBuffer.allocate(videoW * videoH * 4);
-//		}
-//
-//		//生成纹理ID
-//		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
-//		if (colorByteBuffer != null) {
-//			colorByteBuffer.clear();
-//			colorByteBuffer.put(videoData.getDatas(), 0, videoW * videoH * 4);
-//		} else {
-//			return -1;
-//		}
-//
-//		colorByteBuffer.position(0);
-//		GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0,
-//				GLES20.GL_RGBA, videoW, videoH, 0,
-//				GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, colorByteBuffer);
-//		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
-//
-//		return textureId;
-//	}
+
+	/***
+	 * 将 RGB 数据 转化 成纹理 ID
+	 * @param videoW 纹理宽
+	 * @param videoH 纹理高
+	 * @param rgbData 视频桢的 RGB 数据
+	 * @param textureId 因为视频根据帧率刷新，频繁调用onDrawFrame,
+	 *                     所以不适合多次创建纹理资源ID，
+	 *                     所以最好在onCreate创建好，免得OOM
+	 * @return 绑定好 RGB 数据的纹理 ID
+	 */
+	public static int generateRGBTexture(int videoW, int videoH, byte[] rgbData, int textureId) {
+		if (rgbData == null) {
+			return -1;
+		}
+
+		ByteBuffer colorByteBuffer = null;
+
+		if (colorByteBuffer == null) {
+			colorByteBuffer = ByteBuffer.allocate(videoW * videoH * 4);
+		}
+
+		//生成纹理ID
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
+		if (colorByteBuffer != null) {
+			colorByteBuffer.clear();
+			colorByteBuffer.put(rgbData, 0, videoW * videoH * 4);
+		} else {
+			return -1;
+		}
+
+		colorByteBuffer.position(0);
+		GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0,
+				GLES20.GL_RGBA, videoW, videoH, 0,
+				GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, colorByteBuffer);
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+		return textureId;
+	}
 
 	public static PuzzleVideoBuffer getUnitBuffer(){
 		float vertexPots[] = {

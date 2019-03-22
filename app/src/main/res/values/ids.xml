@@ -20,5 +20,17 @@
     <item name="demo_media_player_stop" type="id"/>
     <item name="demo_egl_choose_photo" type="id"/>
 
+    <item name="demo_test_layout_mvp" type="id"/>
+    <item name="demo_test_layout_observer" type="id"/>
+    <item name="demo_test_layout_service" type="id"/>
+    <item name="demo_test_layout_recycler_view" type="id"/>
+    <item name="demo_test_layout_media_player" type="id"/>
+    <item name="demo_test_layout_egl" type="id"/>
+    <item name="demo_test_layout_tactics_board" type="id"/>
+    <item name="demo_test_layout_circle_progress" type="id"/>
+    <item name="demo_test_layout_gl_layout" type="id"/>
+    <item name="demo_test_layout_adjustment_video" type="id"/>
+    <item name="demo_test_layout_algorithm" type="id"/>
+
     <item name="adjustment_video_page_video_view" type="id" />
 </resources>

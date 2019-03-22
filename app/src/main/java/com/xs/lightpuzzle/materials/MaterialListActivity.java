@@ -22,11 +22,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.xs.lightpuzzle.LightPuzzleApplication;
 import com.xs.lightpuzzle.constant.DataConstant;
 import com.xs.lightpuzzle.Navigator;
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.data.dao.TemplateSetQuery;
 import com.xs.lightpuzzle.data.entity.TemplateSet;
+import com.xs.lightpuzzle.demo.TestActivity;
 import com.xs.lightpuzzle.photopicker.PhotoPicker;
 import com.xs.lightpuzzle.puzzle.PuzzleActivity;
 
@@ -256,7 +258,9 @@ public class MaterialListActivity extends BaseMaterialListActivity
         } else if (id == R.id.material_list_aty_nav_menu_history) {
 
         } else if (id == R.id.material_list_aty_nav_menu_donate) {
-
+            // TODO: 2019/3/22 功能拓展
+            Intent intent = new Intent(this, TestActivity.class);
+            startActivity(intent);
         } else if (id == R.id.material_list_aty_nav_menu_setting) {
 
         }
