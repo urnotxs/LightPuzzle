@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 
@@ -95,4 +98,7 @@ dependencies {
 
     implementation 'com.romandanylyk:pageindicatorview:1.0.0@aar'
 
+    // RxJava
+    implementation 'io.reactivex:rxjava:1.2.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
 }

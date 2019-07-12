@@ -76,6 +76,25 @@
         <service
             android:name=".demo.a_service_demo.TestMessengerService"
             android:process=":TestMessengerService"/>
+
+        <!-- 注册receiver -->
+        <receiver android:name=".demo.a_broadcast_receiver_demo.TestReceiverOne">
+            <intent-filter android:priority="1000">
+                <action android:name="com.example.braodcast"/>
+            </intent-filter>
+        </receiver>
+
+        <!--<receiver android:name=".demo.a_broadcast_receiver_demo.TestReceiverTwo">-->
+        <!--<intent-filter android:priority="1">-->
+        <!--<action android:name="com.example.braodcast"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--<receiver android:name=".demo.a_broadcast_receiver_demo.TestReceiverThree">-->
+        <!--<intent-filter android:priority="-1000">-->
+        <!--<action android:name="com.example.braodcast"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

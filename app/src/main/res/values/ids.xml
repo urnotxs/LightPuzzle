@@ -31,6 +31,8 @@
     <item name="demo_test_layout_gl_layout" type="id"/>
     <item name="demo_test_layout_adjustment_video" type="id"/>
     <item name="demo_test_layout_algorithm" type="id"/>
+    <item name="demo_test_layout_broadcast" type="id"/>
+    <item name="demo_test_layout_rx_java" type="id"/>
 
     <item name="adjustment_video_page_video_view" type="id" />
 </resources>

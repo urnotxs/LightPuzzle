@@ -1,17 +1,20 @@
 package com.xs.lightpuzzle.demo;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.xs.lightpuzzle.R;
+import com.xs.lightpuzzle.demo.a_broadcast_receiver_demo.TestReceiverOne;
 import com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.TestCircleProgressBar;
 import com.xs.lightpuzzle.demo.a_demo_adjustment_video_view.AdjustmentVideoLayout;
+import com.xs.lightpuzzle.demo.a_rxjava_demo.RxJavaPractice;
 import com.xs.lightpuzzle.demo.a_egl_demo.TestEGLLayout;
 import com.xs.lightpuzzle.demo.a_mediaplayer_demo.TestMediaPlayerLayout;
 import com.xs.lightpuzzle.demo.a_mvp_demo.TestFrameLayout;
@@ -51,6 +54,8 @@ public class TestLayout extends FrameLayout implements View.OnClickListener {
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             lParams.setMargins(0, 0, 0, Utils.getRealPixel(5));
 
+            addButton(context, "RxJavaPractices", R.id.demo_test_layout_rx_java);
+            addButton(context, "BroadCastReceiver", R.id.demo_test_layout_broadcast);
             addButton(context, "MVP架构", R.id.demo_test_layout_mvp);
             addButton(context, "观察者模式", R.id.demo_test_layout_observer);
             addButton(context, "进程间通信", R.id.demo_test_layout_service);
@@ -115,6 +120,12 @@ public class TestLayout extends FrameLayout implements View.OnClickListener {
             case R.id.demo_test_layout_algorithm:
                 testAlgorithm();
                 break;
+            case R.id.demo_test_layout_broadcast:
+                testBroadCastReceiver();
+                break;
+            case R.id.demo_test_layout_rx_java:
+                testRxJavaDemo();
+                break;
         }
     }
 
@@ -158,6 +169,29 @@ public class TestLayout extends FrameLayout implements View.OnClickListener {
 
     private void testAdjustmentVideoLayout() {
         this.addView(new AdjustmentVideoLayout(mContext));
+    }
+
+    private void testBroadCastReceiver() {
+        // 动态注册
+//        IntentFilter intentFilter = new IntentFilter("com.example.broadcast");
+//        TestReceiverOne receiverOne = new TestReceiverOne();
+//        intentFilter.setPriority(1000);
+//        mContext.registerReceiver(receiverOne, intentFilter);
+//        TestReceiverTwo receiverTwo = new TestReceiverTwo();
+//        intentFilter.setPriority(0);
+//        mContext.registerReceiver(receiverTwo, intentFilter);
+//        TestReceiverThree receiverThree = new TestReceiverThree();
+//        intentFilter.setPriority(-1000);
+//        mContext.registerReceiver(receiverThree, intentFilter);
+        Intent intent = new Intent();
+        intent.setAction("com.example.broadcast");
+        intent.setComponent(new ComponentName(mContext, TestReceiverOne.class)); // 静态注册需setComponent
+//        mContext.sendOrderedBroadcast(intent, null); // 有序广播
+        mContext.sendBroadcast(intent); // 无序广播
+    }
+
+    private void testRxJavaDemo() {
+        RxJavaPractice.testZip();
     }
 
     private void testAlgorithm() {
