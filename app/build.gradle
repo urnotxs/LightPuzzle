@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -10,6 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // Android App中的方法数超过65535时,一个dex已经装不下了，需要个多个dex，也就是multidex
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,6 +24,8 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+        exclude "/META-INF/*.kotlin_module"
+        exclude "**/kotlin/**"
     }
 }
 
@@ -101,4 +108,8 @@ dependencies {
     // RxJava
     implementation 'io.reactivex:rxjava:1.2.1'
     implementation 'io.reactivex:rxandroid:1.2.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
