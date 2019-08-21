@@ -33,6 +33,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".demo.a_kotlin_demo.PracticeKotlinActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".demo.a_lifecycle_demo.TestLifecycleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".materials.MaterialListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 

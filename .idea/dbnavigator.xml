@@ -16,7 +16,7 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="GBK" />
+      <charset value="UTF-8" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -27,23 +27,26 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897">
-      <console name="Connection" type="STANDARD" />
+      <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseFileManager">
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-list connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.FONT" active-filter-id="">
+    <filter-actions connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.FONT" active-filter-id="">
       <filter id="4561943e-ae68-4c8f-a4ea-291f98bf9a4c" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="_id" operator="=" value="" active="true" />
       </filter>
-    </filter-list>
-    <filter-list connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.TEMPLATE_SET" active-filter-id="d671b37c-dfa3-4c25-b97e-2bfb0386930b">
+    </filter-actions>
+    <filter-actions connection-id="ee8f76d7-7111-4ce2-b8bc-efc12755d897" dataset="main.TEMPLATE_SET" active-filter-id="d671b37c-dfa3-4c25-b97e-2bfb0386930b">
       <filter id="d671b37c-dfa3-4c25-b97e-2bfb0386930b" name="256" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="CATEGORY" operator="=" value="256" active="true" />
       </filter>
-    </filter-list>
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -79,16 +82,15 @@
           <driver-library value="" />
           <driver value="" />
           <url-type value="FILE" />
-          <host value="" />
-          <port value="" />
-          <database value="" />
+          <host value="localhost" />
+          <port value="1234" />
+          <database value="database" />
           <files>
             <file path="C:\Users\admin\Documents\AndroidStudio\DeviceExplorer\zuk-zuk_z2131-a40d7a6a\data\data\com.xs.lightpuzzle\databases\puzzle_material" schema="main" />
           </files>
-          <os-authentication value="false" />
-          <empty-password value="false" />
+          <type value="NONE" />
           <user value="" />
-          <password value="" />
+          <deprecated-pwd value="" />
         </database>
         <properties>
           <auto-commit value="false" />
@@ -98,11 +100,17 @@
           <proxy-host value="" />
           <proxy-port value="22" />
           <proxy-user value="" />
-          <proxy-password value="" />
+          <deprecated-proxy-pwd value="" />
           <auth-type value="PASSWORD" />
           <key-file value="" />
           <key-passphrase value="" />
         </ssh-settings>
+        <ssl-settings>
+          <active value="false" />
+          <certificate-authority-file value="" />
+          <client-certificate-file value="" />
+          <client-key-file value="" />
+        </ssl-settings>
         <details>
           <charset value="UTF-8" />
           <session-management value="true" />
@@ -114,11 +122,11 @@
           <environment-type value="default" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
-          <password-expiry-time value="10" />
+          <credential-expiry-time value="10" />
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="false">
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
           <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
@@ -253,11 +261,11 @@
         <data-length-threshold value="100" />
         <popup-delay value="1000" />
       </text-editor-popup>
-      <values-list-popup>
+      <values-actions-popup>
         <show-popup-button value="true" />
         <element-count-threshold value="1000" />
         <data-length-threshold value="250" />
-      </values-list-popup>
+      </values-actions-popup>
       <general>
         <fetch-block-size value="100" />
         <fetch-timeout value="30" />

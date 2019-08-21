@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.demo.a_broadcast_receiver_demo.TestReceiverOne;
 import com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.TestCircleProgressBar;
 import com.xs.lightpuzzle.demo.a_demo_adjustment_video_view.AdjustmentVideoLayout;
+import com.xs.lightpuzzle.demo.a_lifecycle_demo.TestLifecycleActivity;
 import com.xs.lightpuzzle.demo.a_rxjava_demo.RxJavaPractice;
 import com.xs.lightpuzzle.demo.a_egl_demo.TestEGLLayout;
 import com.xs.lightpuzzle.demo.a_mediaplayer_demo.TestMediaPlayerLayout;
@@ -27,7 +29,7 @@ import com.xs.lightpuzzle.puzzle.util.Utils;
 
 import java.util.ArrayList;
 
-public class TestLayout extends FrameLayout implements View.OnClickListener {
+public class TestLayout extends ScrollView implements View.OnClickListener {
 
     private Context mContext;
     private LinearLayout linearLayout;
@@ -54,6 +56,7 @@ public class TestLayout extends FrameLayout implements View.OnClickListener {
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             lParams.setMargins(0, 0, 0, Utils.getRealPixel(5));
 
+            addButton(context, "Lifecycle", R.id.demo_test_layout_lifecycle);
             addButton(context, "RxJavaPractices", R.id.demo_test_layout_rx_java);
             addButton(context, "BroadCastReceiver", R.id.demo_test_layout_broadcast);
             addButton(context, "MVP架构", R.id.demo_test_layout_mvp);
@@ -125,6 +128,10 @@ public class TestLayout extends FrameLayout implements View.OnClickListener {
                 break;
             case R.id.demo_test_layout_rx_java:
                 testRxJavaDemo();
+                break;
+            case R.id.demo_test_layout_lifecycle:
+                Intent intent = new Intent(mContext, TestLifecycleActivity.class);
+                mContext.startActivity(intent);
                 break;
         }
     }

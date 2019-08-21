@@ -17,7 +17,7 @@ import com.xs.lightpuzzle.R;
  * Created by xs on 2018/12/14.
  */
 
-public class TestItemDecoration extends RecyclerView.ItemDecoration {
+public class  TestItemDecoration extends RecyclerView.ItemDecoration {
 
     private int item_height;
     private int item_padding;

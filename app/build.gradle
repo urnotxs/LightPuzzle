@@ -27,6 +27,14 @@ android {
         exclude "/META-INF/*.kotlin_module"
         exclude "**/kotlin/**"
     }
+
+    // Configure only for each module that uses Java 8
+    // language features (either in its source code or
+    // through dependencies).
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 
@@ -112,4 +120,18 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
 
     implementation 'com.android.support:multidex:1.0.3'
+
+    // 如果你引入了 lifecycle:extensions 或者 lifecycle:common-java8，
+// 可以不引入 lifecycle:runtime
+    implementation "android.arch.lifecycle:runtime:1.1.1"
+
+// 如果你引入了 lifecycle:common-java8 并且使用 DefaultLifecycleObserver，
+// 可以不引入 lifecycle:compiler
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+// 如果需要支持 Java8 的组件，需要引入 lifecycle:common-java8
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+
+    compile 'com.tencent.bugly:crashreport:3.0.0' // bugly SDK版本号
+    compile 'com.tencent.bugly:nativecrashreport:3.7.1' // bugly NDK版本号
 }
