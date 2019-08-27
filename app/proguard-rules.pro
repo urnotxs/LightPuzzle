@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# proguard-meta.pro begin
+
+#QQBugly
+#-libraryjars libs/bugly_1.2.8_release.jar
+-keep class com.tencent.bugly.**{*;}
+-dontwarn com.tencent.bugly.**
