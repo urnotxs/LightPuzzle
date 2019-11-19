@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LightPuzzle.iml" filepath="$PROJECT_DIR$/.idea/LightPuzzle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LightPuzzle.iml" filepath="$PROJECT_DIR$/LightPuzzle.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../POCO-Filter/pocofilter/pocofilter.iml" filepath="$PROJECT_DIR$/../POCO-Filter/pocofilter/pocofilter.iml" />
       <module fileurl="file://$PROJECT_DIR$/../POCO-Filter/pocofilternative/pocofilternative.iml" filepath="$PROJECT_DIR$/../POCO-Filter/pocofilternative/pocofilternative.iml" />

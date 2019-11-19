@@ -15,6 +15,7 @@ import com.xs.lightpuzzle.R;
 import com.xs.lightpuzzle.demo.a_broadcast_receiver_demo.TestReceiverOne;
 import com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.TestCircleProgressBar;
 import com.xs.lightpuzzle.demo.a_demo_adjustment_video_view.AdjustmentVideoLayout;
+import com.xs.lightpuzzle.demo.a_kotlin_demo.PracticeKotlinActivity;
 import com.xs.lightpuzzle.demo.a_lifecycle_demo.TestLifecycleActivity;
 import com.xs.lightpuzzle.demo.a_rxjava_demo.RxJavaPractice;
 import com.xs.lightpuzzle.demo.a_egl_demo.TestEGLLayout;
@@ -56,6 +57,7 @@ public class TestLayout extends ScrollView implements View.OnClickListener {
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             lParams.setMargins(0, 0, 0, Utils.getRealPixel(5));
 
+            addButton(context, "KotlinPractice", R.id.demo_test_layout_kotlin);
             addButton(context, "Lifecycle", R.id.demo_test_layout_lifecycle);
             addButton(context, "RxJavaPractices", R.id.demo_test_layout_rx_java);
             addButton(context, "BroadCastReceiver", R.id.demo_test_layout_broadcast);
@@ -132,6 +134,10 @@ public class TestLayout extends ScrollView implements View.OnClickListener {
             case R.id.demo_test_layout_lifecycle:
                 Intent intent = new Intent(mContext, TestLifecycleActivity.class);
                 mContext.startActivity(intent);
+                break;
+            case R.id.demo_test_layout_kotlin:
+                Intent intent2 = new Intent(mContext, PracticeKotlinActivity.class);
+                mContext.startActivity(intent2);
                 break;
         }
     }

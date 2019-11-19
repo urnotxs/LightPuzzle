@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme.NoActionBar.FullScreen.Splash"
         tools:ignore="GoogleAppIndexingWarning">
         <!--<activity android:name=".demo.a_camera_demo.CameraActivity">-->
-        <!--<activity android:name=".demo.TestActivity">-->
+<!--        <activity android:name=".demo.TestActivity">-->
         <activity android:name=".WelcomeActivity">
 
             <intent-filter>
@@ -34,9 +34,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".demo.TestActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".demo.TestActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
 
         <activity
             android:name=".demo.a_kotlin_demo.PracticeKotlinActivity"

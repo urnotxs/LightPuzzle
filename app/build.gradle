@@ -35,6 +35,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 
@@ -133,4 +137,5 @@ dependencies {
     implementation "android.arch.lifecycle:common-java8:1.1.1"
 
     implementation 'com.tencent.bugly:crashreport:3.0.0' // bugly SDK版本号
+    implementation 'androidx.core:core-ktx:0.3'
 }

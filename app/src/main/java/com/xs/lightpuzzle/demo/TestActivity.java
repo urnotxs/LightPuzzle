@@ -8,6 +8,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.xs.lightpuzzle.demo.a_circle_progress_bar_demo.TestCircleProgressBar;
 import com.xs.lightpuzzle.demo.a_demo_adjustment_video_view.AdjustmentVideoLayout;
 import com.xs.lightpuzzle.demo.a_egl_demo.TestEGLLayout;
+import com.xs.lightpuzzle.demo.a_kotlin_demo.TestKotlin;
 import com.xs.lightpuzzle.demo.a_mvp_demo.TestFrameLayout;
 import com.xs.lightpuzzle.demo.a_observer_demo.ObserverTestLayout;
 import com.xs.lightpuzzle.demo.a_opengl_surfaceview_demo.TestOpenGLLayout;
